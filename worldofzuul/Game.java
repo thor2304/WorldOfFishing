@@ -6,14 +6,17 @@ public class Game
     private Tile currentRoom;
         
 
+    //constructors
     public Game() 
     {
-        createRooms();
+        createTiles();
         parser = new Parser();
     }
 
 
-    private void createRooms()
+    //world of zuul methods:
+
+    private void createTiles()
     {
         Tile[][] plade = new Tile[3][3];
         for (int i = 0; i < plade.length ; i++) {
@@ -63,7 +66,7 @@ public class Game
         System.out.println();
         System.out.println("Welcome to World of Fishing!");
         System.out.println("World of fishing is a game.");
-        System.out.println("Type '" + CommandWord.HELP + "' if you need help you are fucked.");
+        System.out.println("Type '" + CommandWord.HELP + "' if you need help, but i guess you're fucked then.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
     }
@@ -83,7 +86,7 @@ public class Game
             printHelp();
         }
         else if (commandWord == CommandWord.GO) {
-            goRoom(command);
+            goTile(command);
         }
         else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
@@ -100,7 +103,7 @@ public class Game
         parser.showCommands();
     }
 
-    private void goRoom(Command command) 
+    private void goTile(Command command)
     {
         if(!command.hasSecondWord()) {
             System.out.println("Go where?");
@@ -112,7 +115,8 @@ public class Game
         Tile nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
-            System.out.println("There is no door!");
+            System.out.println("You've hit land!");
+            System.out.println("You've done goofed");
         }
         else {
             currentRoom = nextRoom;
@@ -129,5 +133,14 @@ public class Game
         else {
             return true;
         }
+    }
+
+    // our own methods:
+
+    /** loop the tile array and update them all
+     * Be on the lookout for how migration will be implemented, perhaps migration will have to be implemented in here
+     */
+    public void updateAllTIles(){
+        //Tile.updateFishNumbers(); //of course do this in the loop and instead of Tile, use the index in the array
     }
 }
