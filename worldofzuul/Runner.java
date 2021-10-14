@@ -9,6 +9,7 @@ public class Runner {
         System.out.println();
         System.out.println("Thor er sej");
         System.out.println("Daniella test");
+        System.out.println("Suhaib");
         game.play();
 
     }
