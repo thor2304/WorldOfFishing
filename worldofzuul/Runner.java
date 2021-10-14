@@ -7,7 +7,7 @@ public class Runner {
 
         System.out.println("live test");
         System.out.println();
-        System.out.println();
+        System.out.println("Thor er sej");
         game.play();
 
     }
