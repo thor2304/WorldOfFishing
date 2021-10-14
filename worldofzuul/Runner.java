@@ -10,6 +10,7 @@ public class Runner {
         System.out.println("Thor er sej");
         System.out.println("Daniella test");
         System.out.println("Suhaib");
+        System.out.println("Suhaib2_test");
         game.play();
 
     }
