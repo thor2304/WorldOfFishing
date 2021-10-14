@@ -3,7 +3,7 @@ package worldofzuul;
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
+    private Tile currentRoom;
         
 
     public Game() 
@@ -15,10 +15,10 @@ public class Game
 
     private void createRooms()
     {
-        Room[][] plade = new Room[3][3];
+        Tile[][] plade = new Tile[3][3];
         for (int i = 0; i < plade.length ; i++) {
             for (int j = 0; j < plade[i].length; j++) {
-                plade[i][j] = new Room("Koordinat: "+ i + "," + j);
+                plade[i][j] = new Tile("Koordinat: "+ i + "," + j);
 
             }
 
@@ -109,7 +109,7 @@ public class Game
 
         String direction = command.getSecondWord();
 
-        Room nextRoom = currentRoom.getExit(direction);
+        Tile nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
