@@ -6,6 +6,7 @@ public class Runner {
         System.out.println("test");
 
         System.out.println("live test");
+        System.out.println();
         game.play();
 
     }
