@@ -2,7 +2,7 @@ package worldofzuul;
 
 import java.util.Set;
 import java.util.HashMap;
-
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Tile
 {
@@ -157,13 +157,46 @@ public class Tile
      * Please use the netDestruction variable so the above will be easier to implement
      *
      * @param hoursToFish The number of hours to fish, in the initial implementation
-     * @return the amount of fish, that have been caught
+     * @return the amount of fish, that have been caught, -1 if tile is protected
      */
     public int fishTile(int hoursToFish){
-        double netDestruction = 0.5; //arbitrary number, perhaps the range 0 to 1 would be good
-        //something
-        return 0;
+        double netDestruction = 0.1; //arbitrary number, perhaps the range 0 to 1 would be good
+        double catchRate = 0.06; //depends on the nettype, and thus should be updated when different nets are implemented
+
+        return fishTile(hoursToFish, netDestruction, catchRate);
     }
+
+    public int fishTile(int hoursToFish, double netDestruction, double catchRate){
+        if(!isProtectedFromFishing){
+            int out = 0; //the number of fish caught in this tile
+            int min = 0;
+            int max = 0;
+            double diff = 0.2; // the amount of variance in the caught fish
+
+            double fishCaughtAverage = this.habitatQuality * this.numberOfFish * catchRate; //maybe remove habitat quality from this line?
+            min = (int) Math.round(fishCaughtAverage * (1 -diff));
+            max = (int) Math.round(fishCaughtAverage * (1 + diff)); //maybe percentages dont work this way? we dont care
+
+            //It is intentional that we do not update min and max along the way
+            //by doing it this way, we provide an opportunity for the player to overfish, and an incentive to fish for long periods of time
+            for (int i = 0; i < hoursToFish; i++) {
+                int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1); //taken from: https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java
+                out += randomNum;
+            }
+
+            int possibleFishNumber = this.numberOfFish;
+            if (this.decreaseNumberOfFish(out) < 0){
+                out = possibleFishNumber;
+            }
+
+            this.updateQuality(-netDestruction);
+
+            return out;
+        }else{
+            return -1;
+        }
+    }
+
 
 
 
