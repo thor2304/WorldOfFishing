@@ -14,10 +14,21 @@ package worldofzuul;
  *Add later, nettype, and commands to change this
  */
 public class Boat {
-    public Tile currentTile;
-    private double catchAmount;
+    private double catchAmount; //possibly rework this to use a HashMap<Fish, int> instead of a double, to allow for storage of different
     private int hoursToFish;
     private double goldStorage;
+    private Game game;
+
+
+    /**init local attributes
+     * set game to be Runner.game
+     *
+     * maybe more things to do!
+     */
+    public Boat(){
+        //construct it
+    }
+
 
     /**Make this method print info to the player about how the fishing went, how much fish were caught and how long we fished for
      *
@@ -26,7 +37,7 @@ public class Boat {
      */
     public void fishTile(){
         // do some fishing
-        catchAmount += currentTile.fishTile(hoursToFish);
+        this.catchAmount += game.getCurrentTile().fishTile(this.hoursToFish);
     }
 
     public void sellFish(){

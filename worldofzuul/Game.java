@@ -3,7 +3,7 @@ package worldofzuul;
 public class Game 
 {
     private Parser parser;
-    private Tile currentRoom;
+    private Tile currentTile;
         
 
     //constructors
@@ -45,7 +45,7 @@ public class Game
 
         }
 
-        currentRoom = plade[1][1];
+        currentTile = plade[1][1];
     }
 
     public void play() 
@@ -68,7 +68,7 @@ public class Game
         System.out.println("World of fishing is a game.");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help, but i guess you're fucked then.");
         System.out.println();
-        System.out.println(currentRoom.getLongDescription());
+        System.out.println(currentTile.getLongDescription());
     }
 
     private boolean processCommand(Command command) 
@@ -112,15 +112,15 @@ public class Game
 
         String direction = command.getSecondWord();
 
-        Tile nextRoom = currentRoom.getExit(direction);
+        Tile nextRoom = currentTile.getExit(direction);
 
         if (nextRoom == null) {
             System.out.println("You've hit land!");
             System.out.println("You've done goofed");
         }
         else {
-            currentRoom = nextRoom;
-            System.out.println(currentRoom.getLongDescription());
+            currentTile = nextRoom;
+            System.out.println(currentTile.getLongDescription());
         }
     }
 
@@ -142,5 +142,14 @@ public class Game
      */
     public void updateAllTIles(){
         //Tile.updateFishNumbers(); //of course do this in the loop and instead of Tile, use the index in the array
+    }
+
+
+
+
+    public Tile getCurrentTile(){
+        // normally we would use copy() or a self implemented safe copy, to ensure, that we dont mess with the actual current room
+        // but in this case, we DO want to mess with the actual current room and data stored within
+        return this.currentTile;
     }
 }
