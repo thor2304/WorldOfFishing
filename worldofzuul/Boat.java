@@ -66,6 +66,6 @@ public class Boat {
     }
 
     public void setGoldStorage(double goldStorage) {
-        this.goldStorage = goldStorage;
+        this.goldStorage += getCatchAmount() * 1.67;
     }
 }
