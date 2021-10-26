@@ -141,6 +141,7 @@ public class Game
      * Be on the lookout for how migration will be implemented, perhaps migration will have to be implemented in here
      */
     public void updateAllTIles(){
+
         //Tile.updateFishNumbers(); //of course do this in the loop and instead of Tile, use the index in the array
     }
 

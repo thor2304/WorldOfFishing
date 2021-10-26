@@ -148,10 +148,10 @@ public class Tile
     }
 
 
-    /**This method should return the number of fish, that have been fished up
-     * Remember to use the hoursToFish, quality, and a random number to determine the amount of fish caught (and in future implements, netType)
-     * remember to decrease quality after fishing have been completed
-     * remember to  decrease the number of fish in the tile, corresponding to the amount that have been fished up
+    /** <p>This method returns the number of fish, that have been fished up</p>
+     *      * <p>Uses the hoursToFish, quality, and a random number to determine the amount of fish caught (and in future implements, netType)</p>
+     *      * <p>The method decreases the quality after fishing have been completed</p>
+     *      * <p>The methods decreases the number of fish in the tile, corresponding to the amount that have been fished up</p>
      *
      * For future implementations, remember to add param, netType, and let this have an effect on how much quality is decreased and how many fish are caught
      * Please use the netDestruction variable so the above will be easier to implement
