@@ -4,6 +4,7 @@ public class Game
 {
     private Parser parser;
     private Tile currentTile;
+    private Tile[][] tiles;
         
 
     //constructors
@@ -18,34 +19,34 @@ public class Game
 
     private void createTiles()
     {
-        Tile[][] plade = new Tile[3][3];
-        for (int i = 0; i < plade.length ; i++) {
-            for (int j = 0; j < plade[i].length; j++) {
-                plade[i][j] = new Tile("Koordinat: "+ i + "," + j);
+        tiles = new Tile[3][3];
+        for (int i = 0; i < tiles.length ; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                tiles[i][j] = new Tile("Koordinat: "+ i + "," + j);
 
             }
 
         }
-        for (int x = 0; x <plade.length ; x++) {
-            for (int y = 0; y < plade[x].length; y++) {
-                if (plade.length > x+1) {
-                    plade[x][y].setExit("east",plade[x+1][y]);
+        for (int x = 0; x <tiles.length ; x++) {
+            for (int y = 0; y < tiles[x].length; y++) {
+                if (tiles.length > x+1) {
+                    tiles[x][y].setExit("east",tiles[x+1][y]);
                 }
-                if (plade[x].length > y+1){
-                    plade[x][y].setExit("south",plade[x][y+1]);
+                if (tiles[x].length > y+1){
+                    tiles[x][y].setExit("south",tiles[x][y+1]);
                 }
                 if (x-1 >= 0){
-                    plade[x][y].setExit("west",plade[x-1][y]);
+                    tiles[x][y].setExit("west",tiles[x-1][y]);
                 }
                 if (y-1 >= 0) {
-                    plade[x][y].setExit("north",plade[x][y-1]);
+                    tiles[x][y].setExit("north",tiles[x][y-1]);
                 }
 
             }
 
         }
 
-        currentTile = plade[1][1];
+        currentTile = tiles[1][1];
     }
 
     public void play() 
@@ -133,21 +134,46 @@ public class Game
         else {
             return true;
         }
+        this.updateAllTIles();
     }
 
     // our own methods:
 
-    /** loop the tile array and update them all
-     * Be on the lookout for how migration will be implemented, perhaps migration will have to be implemented in here
+    /**<p>updateAllTiles starts by using a nested for loop to update all the tiles with the method updateFishNumbers</p>
+     * <p>After all the tiles has the correct fish number of fish, it uses a nested for loop to migrate the fish which need to migrate and saves the number of the migrated fish r</p>
+     * <p>The last nested for loop takes the migrated fish number and adds it to the current fish number </p>
      */
     public void updateAllTIles(){
+        for (int x = 0; x < tiles.length ; x++) {
+            for (int y = 0; y < tiles[x].length; y++) {
+                tiles[x][y].updateFishNumbers(); //this updates the number of fish in Tile x,y
+            }
+        }
 
-        //Tile.updateFishNumbers(); //of course do this in the loop and instead of Tile, use the index in the array
+        //migrate fish
+        for (int x = 0; x < tiles.length ; x++) {
+            for (int y = 0; y < tiles[x].length; y++) {
+                tiles[x][y].migrateFishPopulation(); //this migrates fish from Tile x,y to the neighbouring tiles
+                //the fish are stored in a variable in each tile called migrated fish, and thus the migration is not yet complete
+            }
+        }
+
+        //Complete migration
+        for (int x = 0; x < tiles.length ; x++) {
+            for (int y = 0; y < tiles[x].length; y++) {
+                tiles[x][y].completeMigration(); //this adds the migrated fish to the amount of fish in the tile
+            }
+        }
     }
 
 
-
-
+    /** Returns the reference to the currentTile
+     * <p>
+     * If the Tile is manipulated it is the actual tile that is manipulated
+     * </p>
+     *
+     * @return a reference to the currentTile
+     */
     public Tile getCurrentTile(){
         // normally we would use copy() or a self implemented safe copy, to ensure, that we dont mess with the actual current room
         // but in this case, we DO want to mess with the actual current room and data stored within
