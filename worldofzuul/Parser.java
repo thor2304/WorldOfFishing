@@ -3,6 +3,12 @@ package worldofzuul;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+/**This class could be reworked to be static and experiment with perhaps making the class abstract to ensure no instanses are created
+ *
+ * This class should at some point be overhauled in coorporation with Command, CommandWord and CommandWords
+ * These above classes should be merged in some combination
+ *
+ */
 public class Parser 
 {
     private CommandWords commands;

@@ -1,16 +1,14 @@
 package worldofzuul;
 
 public class Runner {
+    public static Game game;
     public static void main(String[] args){
-        Game game = new Game();
+        game = new Game();
         System.out.println("test");
-
         System.out.println("live test");
         System.out.println();
         System.out.println("Thor er sej");
         System.out.println("Daniella test");
-        System.out.println("Suhaib");
-        System.out.println("Suhaib2_test");
         game.play();
 
     }

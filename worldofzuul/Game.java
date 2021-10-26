@@ -3,40 +3,49 @@ package worldofzuul;
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
+    private Tile currentTile;
         
 
+    //constructors
     public Game() 
     {
-        createRooms();
+        createTiles();
         parser = new Parser();
     }
 
 
-    private void createRooms()
+    //world of zuul methods:
+
+    private void createTiles()
     {
-        Room outside, theatre, pub, lab, office;
-      
-        outside = new Room("outside the main entrance of the university");
-        theatre = new Room("in a lecture theatre");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
-        
-        outside.setExit("east", theatre);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        Tile[][] plade = new Tile[3][3];
+        for (int i = 0; i < plade.length ; i++) {
+            for (int j = 0; j < plade[i].length; j++) {
+                plade[i][j] = new Tile("Koordinat: "+ i + "," + j);
 
-        theatre.setExit("west", outside);
+            }
 
-        pub.setExit("east", outside);
+        }
+        for (int x = 0; x <plade.length ; x++) {
+            for (int y = 0; y < plade[x].length; y++) {
+                if (plade.length > x+1) {
+                    plade[x][y].setExit("east",plade[x+1][y]);
+                }
+                if (plade[x].length > y+1){
+                    plade[x][y].setExit("south",plade[x][y+1]);
+                }
+                if (x-1 >= 0){
+                    plade[x][y].setExit("west",plade[x-1][y]);
+                }
+                if (y-1 >= 0) {
+                    plade[x][y].setExit("north",plade[x][y-1]);
+                }
 
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
+            }
 
-        office.setExit("west", lab);
+        }
 
-        currentRoom = outside;
+        currentTile = plade[1][1];
     }
 
     public void play() 
@@ -55,11 +64,11 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
-        System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
+        System.out.println("Welcome to World of Fishing!");
+        System.out.println("World of fishing is a game.");
+        System.out.println("Type '" + CommandWord.HELP + "' if you need help, but i guess you're fucked then.");
         System.out.println();
-        System.out.println(currentRoom.getLongDescription());
+        System.out.println(currentTile.getLongDescription());
     }
 
     private boolean processCommand(Command command) 
@@ -77,7 +86,7 @@ public class Game
             printHelp();
         }
         else if (commandWord == CommandWord.GO) {
-            goRoom(command);
+            goTile(command);
         }
         else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
@@ -94,7 +103,7 @@ public class Game
         parser.showCommands();
     }
 
-    private void goRoom(Command command) 
+    private void goTile(Command command)
     {
         if(!command.hasSecondWord()) {
             System.out.println("Go where?");
@@ -103,14 +112,15 @@ public class Game
 
         String direction = command.getSecondWord();
 
-        Room nextRoom = currentRoom.getExit(direction);
+        Tile nextRoom = currentTile.getExit(direction);
 
         if (nextRoom == null) {
-            System.out.println("There is no door!");
+            System.out.println("You've hit land!");
+            System.out.println("You've done goofed");
         }
         else {
-            currentRoom = nextRoom;
-            System.out.println(currentRoom.getLongDescription());
+            currentTile = nextRoom;
+            System.out.println(currentTile.getLongDescription());
         }
     }
 
@@ -123,5 +133,23 @@ public class Game
         else {
             return true;
         }
+    }
+
+    // our own methods:
+
+    /** loop the tile array and update them all
+     * Be on the lookout for how migration will be implemented, perhaps migration will have to be implemented in here
+     */
+    public void updateAllTIles(){
+        //Tile.updateFishNumbers(); //of course do this in the loop and instead of Tile, use the index in the array
+    }
+
+
+
+
+    public Tile getCurrentTile(){
+        // normally we would use copy() or a self implemented safe copy, to ensure, that we dont mess with the actual current room
+        // but in this case, we DO want to mess with the actual current room and data stored within
+        return this.currentTile;
     }
 }
