@@ -134,7 +134,7 @@ public class Game
         else {
             return true;
         }
-        this.updateAllTIles();
+
     }
 
     // our own methods:
@@ -143,7 +143,7 @@ public class Game
      * <p>After all the tiles has the correct fish number of fish, it uses a nested for loop to migrate the fish which need to migrate and saves the number of the migrated fish r</p>
      * <p>The last nested for loop takes the migrated fish number and adds it to the current fish number </p>
      */
-    public void updateAllTIles(){
+    public void updateAllTiles(){
         for (int x = 0; x < tiles.length ; x++) {
             for (int y = 0; y < tiles[x].length; y++) {
                 tiles[x][y].updateFishNumbers(); //this updates the number of fish in Tile x,y

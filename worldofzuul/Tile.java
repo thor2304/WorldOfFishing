@@ -7,8 +7,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Tile
 {
-
-
     private String description;
     private HashMap<String, Tile> exits;
     private int numberOfFish;
@@ -17,7 +15,7 @@ public class Tile
     private boolean isProtectedFromFishing;
     private Fish fishInThisTile;//perhaps make this a list in the future for multiple different fish species in one tile
     //if we want to have more than one type of fish, look into hashmaps of fish and their number
-    Fish Makrald = new Fish();
+    Fish Makrald;
     //constructor(s):
 
     /**Fish should be able to contain a specific fish in the fish class. 
@@ -28,9 +26,7 @@ public class Tile
      */
     public Tile(String description)
     {
-        
-        this(description, 1, Makrald, 1);
-        
+        this(description, 1, new Fish(), 1000);
     }
 
     /**Add these params to be initialized:
@@ -45,11 +41,11 @@ public class Tile
      */
     public Tile(String description, double habitatQuality, Fish fishInThisTile, int numberOfFish){
         this.description = description;
-        exits = new HashMap<String, Tile>();
-
-
-
-        //implement declaration
+        this.exits = new HashMap<String, Tile>();
+        this.Makrald = fishInThisTile;
+        this.numberOfFish  = numberOfFish;
+        this.habitatQuality = habitatQuality;
+        
     }
 
     //Methods from world of zuul
@@ -103,14 +99,19 @@ public class Tile
         return out;
     }
 
-    /** implement the logic of how to grow or decrease the population
-     * use this.habitatQuality to determine how much the population should increase or decrease
-     * remember to get reproductionRate and deathRate from fishInThisTile.**
-     *
+
+    /**
+     *<p>increaseNumberOfFish works by a formula that multiplies habitatQuality, getReproductionRate and numberOfFish
+     *We cast increaseNumberOfFish to int and round it up.<p/>
+     *<p>decreaseNumberOfFish works by a formula that multiplies habitatQuality, getDeathRate and numberOfFish.
+     *We cast decreaseNumberOfFish to an int type. We round up decreaseNumberOfFish.<p/>7
+     * Currently uses Makrald, as a default fish created with noargs
      */
     public void updateFishNumbers(){
-        increaseNumberOfFish(0);
-        decreaseNumberOfFish(0);
+        increaseNumberOfFish( (int) Math.round(this.habitatQuality * Makrald.getReproductionRate() * numberOfFish));
+        decreaseNumberOfFish( (int) Math.round(this.habitatQuality * Makrald.getDeathRate() * numberOfFish));
+        //
+        //Add update of type of fish.
         //maybe more?
     }
 
@@ -141,20 +142,7 @@ public class Tile
         //think about different fish species and checking them (maybe important, maybe not to be decided)
     }
 
-    /**
-     *<p>increaseNumberOfFish works by a formula that multiplies habitatQuality, getReproductionRate and numberOfFish
-     *We cast increaseNumberOfFish to int and round it up.<p/>
-     *<p>decreaseNumberOfFish works by a formula that multiplies habitatQuality, getDeathRate and numberOfFish.
-     *We cast decreaseNumberOfFish to an int type. We round up decreaseNumberOfFish.<p/>
-     */
-    public void updateFishNumbers(double reproductionRate, double deathRate ){
 
-        increaseNumberOfFish( (int) Math.round(this.habitatQuality * Makrald.getReproductionRate() * numberOfFish));
-        decreaseNumberOfFish( (int) Math.round(this.habitatQuality * Makrald.getDeathRate() * numberOfFish));
-        //
-        //Add update of type of fish.
-        //maybe more?
-    }
 
     /**Is also called directly by Game
      * sets fishamount += migratedFish
