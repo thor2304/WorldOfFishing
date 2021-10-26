@@ -12,6 +12,7 @@ public class Tile
     private String description;
     private HashMap<String, Tile> exits;
     private int numberOfFish;
+    private int numberOfMigratedFish;
     private double habitatQuality;
     private boolean isProtectedFromFishing;
     private Fish fishInThisTile;//perhaps make this a list in the future for multiple different fish species in one tile
@@ -102,16 +103,30 @@ public class Tile
         return out;
     }
 
-    /**Lots of things to do, refer to the comments in the body
+    /** implement the logic of how to grow or decrease the population
+     * use this.habitatQuality to determine how much the population should increase or decrease
+     * remember to get reproductionRate and deathRate from fishInThisTile.**
      *
      */
-    private void migrateFishPopulation(){
+    public void updateFishNumbers(){
+        increaseNumberOfFish(0);
+        decreaseNumberOfFish(0);
+        //maybe more?
+    }
+
+    /**Is called directly by Game
+     *
+     */
+    public void migrateFishPopulation(){
         //do all the complex migrate math
         //get migration rate from fishInThisTile.getMigrationRate
         //Compare quality of current tile vs tile to migrate to
         //check fish numbers of current tile vs tile to migrate to
         //watch out for overfilling a tile beyond its capacity
         //Migrate based on position (perhaps with amount of circle area overlap
+
+        //use the exits Hashmap to get the neighbours of the tile
+        //check all neighbours before deciding where to migrate to
 
         //remember to use the methods in this class, increaseFishPopulation and decreaseFishPopulation
         //remember that this method may have to be reworked to be a public method called from Game
@@ -120,6 +135,7 @@ public class Tile
         //and what the return type should be
 
         //watch out for current/future problems (sending fish to a tile, that hasnt migrated yet)
+        //we will avoid this by sending migrated fish to the variable numberOfMigratedFish
 
 
         //think about different fish species and checking them (maybe important, maybe not to be decided)
@@ -139,6 +155,25 @@ public class Tile
         //Add update of type of fish.
         //maybe more?
     }
+
+    /**Is also called directly by Game
+     * sets fishamount += migratedFish
+     *<p></p>
+     * <p>
+     * It is intentional that we do not check if the amount of Fish is above the Tiles capacity.
+     * By doing it this way, we allow a tile to potentially be overfilled,
+     * but the fish would die by way of decrease numbers in the next round.
+     * </p>
+     * By this method we also depend on migrate to ensure that fish does not really want to migrate from an
+     * undercrowded tile to a more overcrowded tile
+     *
+     */
+    public void completeMigration(){
+        numberOfFish += numberOfMigratedFish;
+        numberOfMigratedFish = 0;
+
+    }
+
 
     /**Will add the input to habitatQuality
      *
@@ -163,10 +198,10 @@ public class Tile
     }
 
 
-    /**This method should return the number of fish, that have been fished up
-     * Remember to use the hoursToFish, quality, and a random number to determine the amount of fish caught (and in future implements, netType)
-     * remember to decrease quality after fishing have been completed
-     * remember to  decrease the number of fish in the tile, corresponding to the amount that have been fished up
+    /** <p>This method returns the number of fish, that have been fished up</p>
+     *      * <p>Uses the hoursToFish, quality, and a random number to determine the amount of fish caught (and in future implements, netType)</p>
+     *      * <p>The method decreases the quality after fishing have been completed</p>
+     *      * <p>The methods decreases the number of fish in the tile, corresponding to the amount that have been fished up</p>
      *
      * For future implementations, remember to add param, netType, and let this have an effect on how much quality is decreased and how many fish are caught
      * Please use the netDestruction variable so the above will be easier to implement
