@@ -11,7 +11,5 @@ public class Runner {
         System.out.println("Daniella test");
         game.play();
 
-        Fish Makrald = new Fish();
-
     }
 }
