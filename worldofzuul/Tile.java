@@ -14,10 +14,9 @@ public class Tile
     private double habitatQuality;
     private boolean isProtectedFromFishing;
     private Fish fishInThisTile;//perhaps make this a list in the future for multiple different fish species in one tile
-    //if we want to have more than one type of fish, look into hashmaps of fish and their number
-    Fish Makrald;
-    //constructor(s):
+    //if we want to have more than one type of fish, look into Hashmaps of fish and their number
 
+    //Tile constructors:
     /**Fish should be able to contain a specific fish in the fish class. 
      * Maybe look at how it would be possible to implement a metord to make more than one fish in each tile. 
      * 
@@ -26,7 +25,7 @@ public class Tile
      */
     public Tile(String description)
     {
-        this(description, 1, new Fish(), 1000);
+        this(description, 1, Fish.MAKREL, 1000);
     }
 
     /**Add these params to be initialized:
@@ -42,7 +41,7 @@ public class Tile
     public Tile(String description, double habitatQuality, Fish fishInThisTile, int numberOfFish){
         this.description = description;
         this.exits = new HashMap<String, Tile>();
-        this.Makrald = fishInThisTile;
+        this.fishInThisTile = fishInThisTile;
         this.numberOfFish  = numberOfFish;
         this.habitatQuality = habitatQuality;
         
@@ -105,11 +104,10 @@ public class Tile
      *We cast increaseNumberOfFish to int and round it up.<p/>
      *<p>decreaseNumberOfFish works by a formula that multiplies habitatQuality, getDeathRate and numberOfFish.
      *We cast decreaseNumberOfFish to an int type. We round up decreaseNumberOfFish.<p/>7
-     * Currently uses Makrald, as a default fish created with noargs
      */
     public void updateFishNumbers(){
-        increaseNumberOfFish( (int) Math.round(this.habitatQuality * Makrald.getReproductionRate() * numberOfFish));
-        decreaseNumberOfFish( (int) Math.round(this.habitatQuality * Makrald.getDeathRate() * numberOfFish));
+        increaseNumberOfFish( (int) Math.round(this.habitatQuality * fishInThisTile.getReproductionRate() * numberOfFish));
+        decreaseNumberOfFish( (int) Math.round(this.habitatQuality * fishInThisTile.getDeathRate() * numberOfFish));
         //
         //Add update of type of fish.
         //maybe more?

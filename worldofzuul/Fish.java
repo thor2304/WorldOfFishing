@@ -1,6 +1,10 @@
 package worldofzuul;
 
-public class Fish {
+public enum Fish {
+    MAKREL("Makrel", 25, 1.2, 0.1, 1.06),
+    SILD("Sild", 30, 1.3, 0.2, 1.03);
+
+
     private String name;
     private double salesPrice;
     private double reproductionRate;
@@ -8,11 +12,17 @@ public class Fish {
     private double migrationRate;
 
 
-
     //constructor:
-    //to be added!
-    //force the user to set all attributes at creation
+    Fish(String name, double salesPrice, double reproductionRate, double deathRate, double migrationRate) {
+        this.name = name;
+        this.salesPrice = salesPrice;
+        this.reproductionRate = reproductionRate;
+        this.deathRate = deathRate;
+        this.migrationRate = migrationRate;
+    }
 
+
+    //Getters for all attributes
     public String getName() {
         return name;
     }
@@ -35,4 +45,10 @@ public class Fish {
         return migrationRate;
     }
 
+    /** @return the name/type of the fish */
+    @Override
+    public String toString()
+    {
+        return this.name;
+    }
 }
