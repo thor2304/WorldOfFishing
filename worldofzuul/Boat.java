@@ -20,13 +20,23 @@ public class Boat {
     private Game game;
 
 
-    /**init local attributes
-     * set game to be Runner.game
-     *
+    /** <p>initializes local attributes </p>
+     *<p>sets this.game to be Runner.game</p>
      * maybe more things to do!
      */
-    public Boat(){
+    public Boat(double catchAmount, int hoursToFish, double goldStorage){
         //construct it
+        this.catchAmount = catchAmount;
+        this.hoursToFish = hoursToFish;
+        this.goldStorage = goldStorage;
+
+        this.game = Runner.game;
+
+    }
+
+
+    public Boat (int hoursToFish) {
+        this(0, hoursToFish,0);
     }
 
 
