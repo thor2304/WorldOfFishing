@@ -1,5 +1,6 @@
 package worldofzuul;
 
+import java.lang.reflect.Field;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
@@ -12,14 +13,20 @@ public class Tile
     private int numberOfMigratedFish;
     private double habitatQuality;
     private boolean isProtectedFromFishing;
-    private Fish fishInThisTile; //perhaps make this a list in the future for multiple different fish species in one tile
+    private Fish fishInThisTile;//perhaps make this a list in the future for multiple different fish species in one tile
     //if we want to have more than one type of fish, look into hashmaps of fish and their number
-
+    Fish Makrald;
     //constructor(s):
+
+    /**Fish should be able to contain a specific fish in the fish class. 
+     * Maybe look at how it would be possible to implement a metord to make more than one fish in each tile. 
+     * 
+     * <a href="#{@link}">{@link Fish}</a>
+     * @param description
+     */
     public Tile(String description)
     {
-        this.description = description;
-        exits = new HashMap<String, Tile>();
+        this(description, 1, new Fish(), 1000);
     }
 
     /**Add these params to be initialized:
@@ -33,9 +40,12 @@ public class Tile
      * @param numberOfFish The starting number of fish in this tile
      */
     public Tile(String description, double habitatQuality, Fish fishInThisTile, int numberOfFish){
-        this(description);
-
-        //implement declaration
+        this.description = description;
+        this.exits = new HashMap<String, Tile>();
+        this.Makrald = fishInThisTile;
+        this.numberOfFish  = numberOfFish;
+        this.habitatQuality = habitatQuality;
+        
     }
 
     //Methods from world of zuul
@@ -86,18 +96,22 @@ public class Tile
         if(this.numberOfFish < 0){
             this.numberOfFish = 0;
         }
-
         return out;
     }
 
-    /** implement the logic of how to grow or decrease the population
-     * use this.habitatQuality to determine how much the population should increase or decrease
-     * remember to get reproductionRate and deathRate from fishInThisTile.**
-     *
+
+    /**
+     *<p>increaseNumberOfFish works by a formula that multiplies habitatQuality, getReproductionRate and numberOfFish
+     *We cast increaseNumberOfFish to int and round it up.<p/>
+     *<p>decreaseNumberOfFish works by a formula that multiplies habitatQuality, getDeathRate and numberOfFish.
+     *We cast decreaseNumberOfFish to an int type. We round up decreaseNumberOfFish.<p/>7
+     * Currently uses Makrald, as a default fish created with noargs
      */
     public void updateFishNumbers(){
-        increaseNumberOfFish(0);
-        decreaseNumberOfFish(0);
+        increaseNumberOfFish( (int) Math.round(this.habitatQuality * Makrald.getReproductionRate() * numberOfFish));
+        decreaseNumberOfFish( (int) Math.round(this.habitatQuality * Makrald.getDeathRate() * numberOfFish));
+        //
+        //Add update of type of fish.
         //maybe more?
     }
 
@@ -128,6 +142,8 @@ public class Tile
         //think about different fish species and checking them (maybe important, maybe not to be decided)
     }
 
+
+
     /**Is also called directly by Game
      * sets fishamount += migratedFish
      *<p></p>
@@ -143,6 +159,7 @@ public class Tile
     public void completeMigration(){
         numberOfFish += numberOfMigratedFish;
         numberOfMigratedFish = 0;
+
     }
 
 

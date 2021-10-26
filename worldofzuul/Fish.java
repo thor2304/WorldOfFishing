@@ -7,6 +7,8 @@ public class Fish {
     private double deathRate;
     private double migrationRate;
 
+
+
     //constructor:
     //to be added!
     //force the user to set all attributes at creation
@@ -20,14 +22,17 @@ public class Fish {
     }
 
     public double getReproductionRate() {
+
         return reproductionRate;
     }
 
     public double getDeathRate() {
+
         return deathRate;
     }
 
     public double getMigrationRate() {
         return migrationRate;
     }
+
 }
