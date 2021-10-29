@@ -20,7 +20,7 @@ public class CommandWords
             }
         }
 
-        display = new DisplayToPlayer();
+        display = new DisplayToPlayer(this);
     }
 
     /**Gets the commandword from the list of valid commands
@@ -56,7 +56,7 @@ public class CommandWords
      */
     public void showAll() 
     {
-        display.DisplayAllCommands(this);
+        display.displayAllCommands();
     }
 
 
