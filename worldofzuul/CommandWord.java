@@ -11,7 +11,7 @@ public enum CommandWord
         this.commandString = commandString;
     }
 
-    @Override //i added this override annotation, sloppy devs
+    @Override //we added this override annotation, sloppy devs
     public String toString()
     {
         return this.commandString;

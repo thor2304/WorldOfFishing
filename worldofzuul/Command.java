@@ -24,6 +24,11 @@ public class Command
     private CommandWord commandWord;
     private String secondWord;
 
+    /**Constructs a new command object with the command and its second word, used to alter the behaviour of certain commands
+     *
+     * @param commandWord The command to execute
+     * @param secondWord The specifier required for certain commands. can be null
+     */
     public Command(CommandWord commandWord, String secondWord)
     {
         this.commandWord = commandWord;
@@ -40,6 +45,11 @@ public class Command
         return secondWord;
     }
 
+    /**Currently unused method for checking if the current command is valid or not
+     * Delete at will
+     *
+     * @return
+     */
     public boolean isUnknown()
     {
         return (commandWord == CommandWord.UNKNOWN);
