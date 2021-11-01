@@ -18,7 +18,7 @@ public class Tile
 
     //Tile constructors:
     /**Fish should be able to contain a specific fish in the fish class. 
-     * Maybe look at how it would be possible to implement a metord to make more than one fish in each tile. 
+     * Maybe look at how it would be possible to implement a method to make more than one fish in each tile.
      * 
      * <a href="#{@link}">{@link Fish}</a>
      * @param description
@@ -87,7 +87,7 @@ public class Tile
     /**Always check if the return of this method is negative, if so too many fish were removed
      *
      * @param numberOfFishToRemove The amount of fish to reduce the population by
-     * @return the initial result of the removal of fish
+     * @return the initial result of the removal of fish, will be negative if more fish were removed than there lived in the habitat
      */
     private int decreaseNumberOfFish(int numberOfFishToRemove){
         this.numberOfFish -= numberOfFishToRemove;
@@ -99,11 +99,10 @@ public class Tile
     }
 
 
-    /**
-     *<p>increaseNumberOfFish works by a formula that multiplies habitatQuality, getReproductionRate and numberOfFish
+    /**<p>{@link #increaseNumberOfFish(int)} works by a formula that multiplies habitatQuality, getReproductionRate and numberOfFish
      *We cast increaseNumberOfFish to int and round it up.<p/>
-     *<p>decreaseNumberOfFish works by a formula that multiplies habitatQuality, getDeathRate and numberOfFish.
-     *We cast decreaseNumberOfFish to an int type. We round up decreaseNumberOfFish.<p/>7
+     *<p>{@link #decreaseNumberOfFish(int)} works by a formula that multiplies habitatQuality, getDeathRate and numberOfFish.
+     *We cast decreaseNumberOfFish to an int type. We round up decreaseNumberOfFish.<p/>
      */
     public void updateFishNumbers(){
         increaseNumberOfFish( (int) Math.round(this.habitatQuality * fishInThisTile.getReproductionRate() * numberOfFish));
@@ -114,7 +113,6 @@ public class Tile
     }
 
     /**Is called directly by Game
-     *
      */
     public void migrateFishPopulation(){
         //do all the complex migrate math
@@ -143,7 +141,7 @@ public class Tile
 
 
     /**Is also called directly by Game
-     * sets fishamount += migratedFish
+     * sets {@link #numberOfFish} += {@link #numberOfMigratedFish}
      *<p></p>
      * <p>
      * It is intentional that we do not check if the amount of Fish is above the Tiles capacity.
@@ -157,12 +155,10 @@ public class Tile
     public void completeMigration(){
         numberOfFish += numberOfMigratedFish;
         numberOfMigratedFish = 0;
-
     }
 
 
-    /**Will add the input to habitatQuality
-     *
+    /**Will add the input to {@link #habitatQuality}
      * @param amount the amount to change quality by
      */
     public void updateQuality(double amount){
@@ -170,17 +166,15 @@ public class Tile
     }
 
     /** Protects the tile, so fishing can no longer be done
-     *
+     *<p>Done by setting {@link #isProtectedFromFishing} to true</p>
      * @return false if the tile is already protected, true if the tile was not protected
      */
     public boolean protectTile(){
-        if(isProtectedFromFishing) {
+        if(this.isProtectedFromFishing) {
             return false;
         } else {
-            isProtectedFromFishing = true;
-            return true;
+            return this.isProtectedFromFishing = true; //assignment operator returns the value assigned, thus it returns true
         }
-
     }
 
 
