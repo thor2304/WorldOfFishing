@@ -141,8 +141,9 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
      */
     @Override
     public void outOfBoundsText() {
-        System.out.println("You've hit land!");
-        System.out.println("You've done goofed");
+//        System.out.println("You've hit land!");
+//        System.out.println("You've done goofed");
+        this.displaySimpleInfo("You've hit land! \n You've done goofed");
     }
 
     /**Displays the description of the tile we are in
