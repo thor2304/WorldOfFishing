@@ -56,6 +56,9 @@ public class Boat {
         this.catchAmount += game.getCurrentTile().fishTile(this.hoursToFish);
     }
 
+    /**
+     * 
+     */
     public void sellFish(){
         //convert fish to gold
         //use the values from Fish
