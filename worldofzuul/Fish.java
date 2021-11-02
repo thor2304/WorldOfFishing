@@ -1,5 +1,8 @@
 package worldofzuul;
 
+/**When toStrig is called it returns  {@link #toString() Fish.toString}
+ *
+ */
 public enum Fish {
     MAKREL("Makrel", 25, 1.2, 0.1, 1.06),
     SILD("Sild", 30, 1.3, 0.2, 1.03);

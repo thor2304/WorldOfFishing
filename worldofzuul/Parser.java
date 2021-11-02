@@ -11,22 +11,33 @@ import java.util.StringTokenizer;
  */
 public class Parser 
 {
+    /** Stores the {@link CommandWords} object containing the list of valid commands */
     private CommandWords commands;
+    /** Is actually a {@link Scanner} object  */
     private Scanner reader;
+    private DisplayToPlayer display;
 
     public Parser() 
     {
         commands = new CommandWords();
         reader = new Scanner(System.in);
+        display = new DisplayToPlayer(commands);
     }
 
+    /**Reads the user input and parses it into a Command object
+     * <p>If the user command has a space, the rest is stored in the outgoing {@link Command} object as null</p>
+     *
+     * @return The constructed {@link Command} object containing both a {@link CommandWord}, and then a command modifier in the form of a string, as the secondword
+     */
     public Command getCommand() 
     {
         String inputLine;
         String word1 = null;
         String word2 = null;
 
-        System.out.print("> "); 
+        //System.out.print("> ");
+        display.readyForNextCommand();
+
 
         inputLine = reader.nextLine();
 
@@ -41,6 +52,16 @@ public class Parser
         return new Command(commands.getCommandWord(word1), word2);
     }
 
+    /**Added to allow for command displaying, and accessing the commandwords object: {@link #commands} outside of Parser
+     *
+     * @return the {@link CommandWords} object containing valid commands
+     */
+    public CommandWords getCommandWords() {
+        return commands;
+    }
+
+    /**@deprecated Should be unnecessary due to {@link DisplayToPlayer#displayAllCommands()}
+     */
     public void showCommands()
     {
         commands.showAll();

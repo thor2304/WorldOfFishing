@@ -35,6 +35,12 @@ public class Boat {
     }
 
 
+    /**Reduced constructor, taking only one param, and setting the rest to 0
+     * <p>CatchAmount is set to 0</p>
+     * <p>goldStorage is set to 0</p>
+     * is chained using {@link #Boat(double, int, double)}
+     * @param hoursToFish The default amount of hours to Fish
+     */
     public Boat (int hoursToFish) {
         this(0, hoursToFish,0);
     }
