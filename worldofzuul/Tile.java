@@ -44,7 +44,6 @@ public class Tile
         this.fishInThisTile = fishInThisTile;
         this.numberOfFish  = numberOfFish;
         this.habitatQuality = habitatQuality;
-        
     }
 
     //Methods from world of zuul
