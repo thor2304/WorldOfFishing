@@ -35,6 +35,12 @@ public class Boat {
     }
 
 
+    /**Reduced constructor, taking only one param, and setting the rest to 0
+     * <p>CatchAmount is set to 0</p>
+     * <p>goldStorage is set to 0</p>
+     * is chained using {@link #Boat(double, int, double)}
+     * @param hoursToFish The default amount of hours to Fish
+     */
     public Boat (int hoursToFish) {
         this(0, hoursToFish,0);
     }
@@ -50,9 +56,14 @@ public class Boat {
         this.catchAmount += game.getCurrentTile().fishTile(this.hoursToFish);
     }
 
+    /** sellFish method
+     *<p>goldStorage is equal to catchAmount multiplied by the price of the fish.</p>
+     * <p>The price is obtained from the Fish Class's getSalesPrice method.</p>
+     */
     public void sellFish(){
-        //convert fish to gold
-        //use the values from Fish
+        goldStorage += (catchAmount*Fish.MAKREL.getSalesPrice()); //convert fish(makrel) to gold
+        catchAmount = 0;
+
     }
 
     public double getCatchAmount() {

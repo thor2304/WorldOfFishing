@@ -5,13 +5,22 @@ public class Game
     private Parser parser;
     private Tile currentTile;
     private Tile[][] tiles;
+    public DisplayToPlayer display;
         
 
     //constructors
+
+    /**No args constructor,
+     * Currently the only constructor available.
+     * A new game should not take any arguyments.
+     * <p>It creates an instance of  {@link Parser} and {@link DisplayToPlayer}, to use for itself.</p>
+     * It also creates a net of {@link Tile Tiles} which are technically stored only because they refer to each other
+     */
     public Game() 
     {
         createTiles();
         parser = new Parser();
+        display = new DisplayToPlayer(parser.getCommandWords());
     }
 
 
@@ -46,12 +55,13 @@ public class Game
 
         }
 
-        currentTile = tiles[1][1];
+        this.currentTile = tiles[1][1];
     }
 
     public void play() 
     {            
-        printWelcome();
+        //printWelcome();
+        display.displayWelcome(this.currentTile);
 
                 
         boolean finished = false;
@@ -59,9 +69,14 @@ public class Game
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        //finished was true and therefore the game has ended
+        display.displayGoodbye();
     }
 
+    /**@deprecated This entire functionality is getting replaced by {@link DisplayToPlayer#displayWelcome(Tile)}
+     * <p><b>
+     * This method will be deleted shortly
+     */
     private void printWelcome()
     {
         System.out.println();
@@ -79,12 +94,14 @@ public class Game
         CommandWord commandWord = command.getCommandWord();
 
         if(commandWord == CommandWord.UNKNOWN) {
-            System.out.println("I don't know what you mean...");
+            //System.out.println("I don't know what you mean...");
+            display.unknownCommand("");
             return false;
         }
 
         if (commandWord == CommandWord.HELP) {
-            printHelp();
+            //printHelp();
+            display.displayHelpText();
         }
         else if (commandWord == CommandWord.GO) {
             goTile(command);
@@ -95,6 +112,10 @@ public class Game
         return wantToQuit;
     }
 
+    /**@deprecated This entire functionality is getting replaced by {@link DisplayToPlayer#displayHelpText()}
+     * <p><b>
+     * This method will be deleted shortly
+     */
     private void printHelp() 
     {
         System.out.println("You are lost. You are alone. You wander");
@@ -107,7 +128,8 @@ public class Game
     private void goTile(Command command)
     {
         if(!command.hasSecondWord()) {
-            System.out.println("Go where?");
+            //System.out.println("Go where?"); //has been replaced by below
+            display.unknownCommand("Go where?");
             return;
         }
 
@@ -116,19 +138,20 @@ public class Game
         Tile nextRoom = currentTile.getExit(direction);
 
         if (nextRoom == null) {
-            System.out.println("You've hit land!");
-            System.out.println("You've done goofed");
+            display.outOfBoundsText();
         }
         else {
             currentTile = nextRoom;
-            System.out.println(currentTile.getLongDescription());
+            //System.out.println(currentTile.getLongDescription());
+            display.displayTileDescription(currentTile.getLongDescription());
         }
     }
 
     private boolean quit(Command command) 
     {
         if(command.hasSecondWord()) {
-            System.out.println("Quit what?");
+            //System.out.println("Quit what?");
+            display.unknownCommand("Quit what?");
             return false;
         }
         else {
@@ -167,9 +190,9 @@ public class Game
     }
 
 
-    /** Returns the reference to the currentTile
+    /** Returns the reference to {@link #currentTile}, <b>not</b> a copy of the {@link Tile}
      * <p>
-     * If the Tile is manipulated it is the actual tile that is manipulated
+     * If the returned {@link Tile} is manipulated it is the actual {@link #currentTile} stored in Game that is manipulated
      * </p>
      *
      * @return a reference to the currentTile
