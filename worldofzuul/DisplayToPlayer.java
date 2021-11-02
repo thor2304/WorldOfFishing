@@ -171,4 +171,9 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
     public void displayNewGold(int amount) {
         this.displaySimpleInfo("" + amount);
     }
+
+    @Override
+    public void displayGold(double amount) {
+        this.displaySimpleInfo("You have " +amount+" gold");
+    }
 }

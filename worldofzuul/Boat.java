@@ -18,6 +18,7 @@ public class Boat {
     private int hoursToFish;
     private double goldStorage;
     private Game game;
+    private DisplayToPlayer display;
 
 
     /** <p>initializes local attributes </p>
@@ -31,6 +32,7 @@ public class Boat {
         this.goldStorage = goldStorage;
 
         this.game = Runner.game;
+        this.display = new DisplayToPlayer(new CommandWords());
 
     }
 
@@ -59,6 +61,10 @@ public class Boat {
     public void sellFish(){
         //convert fish to gold
         //use the values from Fish
+    }
+
+    public void showGold(){
+        this.display.displayGold(this.getGoldStorage());
     }
 
     public double getCatchAmount() {
