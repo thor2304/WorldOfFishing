@@ -198,4 +198,10 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
     public void displayCurrentFish(Map fish) {
         this.displaySimpleInfo("You have");
     }
+
+    public void displayCurrentFish(double fish) {
+        this.displaySimpleInfo("You have caught " + fish + " fish" );
+    }
+
+
 }

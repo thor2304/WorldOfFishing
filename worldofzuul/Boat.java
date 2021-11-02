@@ -78,7 +78,7 @@ public class Boat{
     }
 
     public void showFish(){
-//        this.display.displayCurrentFish(catchAmount);
+        this.display.displayCurrentFish(catchAmount);
     }
 
     public double getCatchAmount() {

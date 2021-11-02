@@ -121,6 +121,8 @@ public class Game
             boat.showGold();
         }else if(commandWord == CommandWord.SELL){
             boat.sellFish();
+        }else if(commandWord == CommandWord.TIME){
+            timeInfo(command);
         }
         return wantToQuit;
     }
@@ -182,8 +184,25 @@ public class Game
         }else {
             String newTimeString = command.getSecondWord();
             //convert the string to a number, remember that the user may not have typed a number, so watch out for errors
-            int newTimeInt = 0; //replace here
-            boat.fishTile();
+
+            try{
+                int newTimeInt = Integer.parseInt(newTimeString); //replace here
+                boat.fishTile(newTimeInt);
+            }catch (Exception e){
+                display.displaySimpleInfo(e.getMessage());
+            }
+
+        }
+    }
+
+    public void timeInfo(Command command){
+        if(!command.hasSecondWord()) {
+            display.displaySimpleInfo("" + boat.getHoursToFish());
+        }else {
+            String secondWord = command.getSecondWord();
+            if(secondWord == "set"){
+                //maybe do something with this?
+            }
         }
     }
 
