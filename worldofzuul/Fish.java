@@ -2,7 +2,9 @@ package worldofzuul;
 
 public enum Fish {
     MAKREL("Makrel", 25, 1.2, 0.1, 1.06),
-    SILD("Sild", 30, 1.3, 0.2, 1.03);
+    SILD("Sild", 30, 1.3, 0.2, 1.03),
+    Laks("Laks", 45, 1.35, 0.2, 1.07),
+    Ål("Ål", 20, 1.5, 0.15, 1.06);
 
 
     private String name;
