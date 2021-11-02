@@ -1,6 +1,8 @@
 package worldofzuul.DisplayInterfaces;
 
-public interface DisplayFishingResult {
+import java.util.Map;
 
+public interface DisplayFishingResult {
     void displayFishingResult (double catchRate, int hoursFished);
+    void displayCurrentFish(Map fish);
 }

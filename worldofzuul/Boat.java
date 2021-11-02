@@ -15,7 +15,7 @@ import worldofzuul.DisplayInterfaces.DisplayFishingResult;
  *
  *Add later, nettype, and commands to change this
  */
-public class Boat extends Game{
+public class Boat{
     private double catchAmount; //possibly rework this to use a HashMap<Fish, int> instead of a double, to allow for storage of different
     private int hoursToFish;
     private double goldStorage;
@@ -50,16 +50,22 @@ public class Boat extends Game{
     }
 
 
-    /**Make this method print info to the player about how the fishing went, how much fish were caught and how long we fished for
-     *
-     * !!update all tiles after calling this method!!
-     * Use the method Game.updateAllTiles()
+    /**<p>Calls {@link #fishTile(int)} with the value of {@link #hoursToFish} saved in {@link Boat}</p>
+     * <b>!!update all tiles after calling this method!!</b>
+     * Using the method Game.updateAllTiles()
      */
     public void fishTile(){
-        // do some fishing
-        this.catchAmount += game.getCurrentTile().fishTile(this.hoursToFish);
-        display.displayFishingResult(this.getCatchAmount(), this.getHoursToFish());
+        fishTile(this.hoursToFish);
+    }
 
+    /**Calling this method does not change {@link #hoursToFish} in {@link Boat}
+     *
+     * @param hoursToFish the amount of hours to fish
+     */
+    public void fishTile(int hoursToFish){
+        // do some fishing
+        this.catchAmount += game.getCurrentTile().fishTile(hoursToFish);
+        display.displayFishingResult(this.getCatchAmount(), hoursToFish);
     }
 
     public void sellFish(){
@@ -69,6 +75,10 @@ public class Boat extends Game{
 
     public void showGold(){
         this.display.displayGold(this.getGoldStorage());
+    }
+
+    public void showFish(){
+//        this.display.displayCurrentFish(catchAmount);
     }
 
     public double getCatchAmount() {

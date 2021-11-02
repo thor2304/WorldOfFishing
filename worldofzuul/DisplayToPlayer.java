@@ -2,6 +2,8 @@ package worldofzuul;
 
 import worldofzuul.DisplayInterfaces.*;
 
+import java.util.Map;
+
 /**<h2>This is the class responsible for everything displayed to the player</h2>
  * <h2>
  * How to Use: </h2>
@@ -185,7 +187,15 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
      */
     @Override
     public void displayFishingResult(double catchAmount, int hoursFished) {
-
         this.displaySimpleInfo("The fishing went well! you caught " + catchAmount + "and it took " + hoursFished);
+    }
+
+    /**Not yet finalized
+     *
+     * @param fish the map containing fish and number of fish
+     */
+    @Override
+    public void displayCurrentFish(Map fish) {
+        this.displaySimpleInfo("You have");
     }
 }

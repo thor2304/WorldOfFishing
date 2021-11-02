@@ -6,6 +6,7 @@ public class Game
     private Tile currentTile;
     private Tile[][] tiles;
     public DisplayToPlayer display;
+    public Boat boat;
         
 
     //constructors
@@ -19,10 +20,14 @@ public class Game
     public Game() 
     {
         createTiles();
-        parser = new Parser();
-        display = new DisplayToPlayer(parser.getCommandWords());
+        this.parser = new Parser();
+        this.display = new DisplayToPlayer(parser.getCommandWords());
     }
 
+
+    public void setBoat(){
+        this.boat = new Boat(4);
+    }
 
     //world of zuul methods:
 
@@ -108,8 +113,14 @@ public class Game
         }
         else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
+        }else if(commandWord == CommandWord.FISHTILE){
+            fish(command);
         }else if(commandWord == CommandWord.SHOWFISH){
-            
+            boat.showFish();
+        }else if(commandWord == CommandWord.SHOWGOLD){
+            boat.showGold();
+        }else if(commandWord == CommandWord.SELL){
+            boat.sellFish();
         }
         return wantToQuit;
     }
@@ -163,6 +174,18 @@ public class Game
     }
 
     // our own methods:
+
+    public void fish(Command command){
+        if(!command.hasSecondWord()) {
+            boat.fishTile();
+            updateAllTiles();
+        }else {
+            String newTimeString = command.getSecondWord();
+            //convert the string to a number, remember that the user may not have typed a number, so watch out for errors
+            int newTimeInt = 0; //replace here
+            boat.fishTile();
+        }
+    }
 
     /**<p>updateAllTiles starts by using a nested for loop to update all the tiles with the method updateFishNumbers</p>
      * <p>After all the tiles has the correct fish number of fish, it uses a nested for loop to migrate the fish which need to migrate and saves the number of the migrated fish r</p>
