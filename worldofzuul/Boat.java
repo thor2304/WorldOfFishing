@@ -59,12 +59,11 @@ public class Boat {
     /** sellFish method
      *<p>goldStorage is equal to catchAmount multiplied by the price of the fish.</p>
      * <p>The price is obtained from the Fish Class's getSalesPrice method.</p>
-     *
      */
     public void sellFish(){
         goldStorage += (catchAmount*Fish.MAKREL.getSalesPrice()); //convert fish(makrel) to gold
         goldStorage += (catchAmount*Fish.SILD.getSalesPrice());  //convert fish(sild) to gold
-        
+
     }
 
     public double getCatchAmount() {
