@@ -1,5 +1,7 @@
 package worldofzuul;
 
+import worldofzuul.DisplayInterfaces.DisplayFishingResult;
+
 /**Boat Class
  * Make commands for viewing the info (e.g. make a command to call getCatchAmount and show the player this info)
  * Make commands to let the player change the settings of hoursToFish
@@ -13,7 +15,7 @@ package worldofzuul;
  *
  *Add later, nettype, and commands to change this
  */
-public class Boat {
+public class Boat extends Game{
     private double catchAmount; //possibly rework this to use a HashMap<Fish, int> instead of a double, to allow for storage of different
     private int hoursToFish;
     private double goldStorage;
@@ -56,6 +58,7 @@ public class Boat {
     public void fishTile(){
         // do some fishing
         this.catchAmount += game.getCurrentTile().fishTile(this.hoursToFish);
+
     }
 
     public void sellFish(){

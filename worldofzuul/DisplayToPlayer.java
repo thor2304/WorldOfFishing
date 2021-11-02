@@ -51,7 +51,7 @@ import worldofzuul.DisplayInterfaces.*;
  * </p>
  *
  */
-public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, DisplayEndAndWelcome, CommandExecutionTexts, DisplayAddedGold{
+public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, DisplayEndAndWelcome, CommandExecutionTexts, DisplayAddedGold, DisplayFishingResult{
     private CommandWords commandWords;
 
     public DisplayToPlayer(CommandWords commandWords) {
@@ -175,5 +175,11 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
     @Override
     public void displayGold(double amount) {
         this.displaySimpleInfo("You have " +amount+" gold");
+    }
+
+    @Override
+    public void displayFishingResult(int catchRate, int hoursFished) {
+
+        this.displaySimpleInfo("The fishing went well! you caught " + catchRate + "and it took " + hoursFished);
     }
 }
