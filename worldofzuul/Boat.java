@@ -63,6 +63,9 @@ public class Boat {
         //use the values from Fish
     }
 
+    /**
+     * this method displays the amount of gold
+     */
     public void showGold(){
         this.display.displayGold(this.getGoldStorage());
     }

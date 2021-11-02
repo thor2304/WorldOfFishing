@@ -172,6 +172,10 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
         this.displaySimpleInfo("" + amount);
     }
 
+    /**Uses {@link #displaySimpleInfo(String)} to display gold amount
+     *
+     * @param amount
+     */
     @Override
     public void displayGold(double amount) {
         this.displaySimpleInfo("You have " +amount+" gold");
