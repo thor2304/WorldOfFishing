@@ -51,7 +51,7 @@ import worldofzuul.DisplayInterfaces.*;
  * </p>
  *
  */
-public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, DisplayEndAndWelcome, CommandExecutionTexts{
+public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, DisplayEndAndWelcome, CommandExecutionTexts, DisplayAddedGold{
     private CommandWords commandWords;
 
     public DisplayToPlayer(CommandWords commandWords) {
@@ -165,5 +165,10 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
     @Override
     public void readyForNextCommand() {
         this.displaySimpleInfo("> ");
+    }
+
+    @Override
+    public void displayNewGold(int amount) {
+        this.displaySimpleInfo("" + amount);
     }
 }
