@@ -12,7 +12,7 @@ public class Game
 
     /**No args constructor,
      * Currently the only constructor available.
-     * A new game should not take any arguyments.
+     * A new game should not take any arguments.
      * <p>It creates an instance of  {@link Parser} and {@link DisplayToPlayer}, to use for itself.</p>
      * It also creates a net of {@link Tile Tiles} which are technically stored only because they refer to each other
      */
@@ -108,6 +108,8 @@ public class Game
         }
         else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
+        }else if(commandWord == CommandWord.SHOWFISH){
+            
         }
         return wantToQuit;
     }
