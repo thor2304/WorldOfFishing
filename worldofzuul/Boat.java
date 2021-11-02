@@ -34,7 +34,7 @@ public class Boat extends Game{
         this.goldStorage = goldStorage;
 
         this.game = Runner.game;
-        this.display = new DisplayToPlayer(new CommandWords());
+        this.display = game.display;
 
     }
 
@@ -58,6 +58,7 @@ public class Boat extends Game{
     public void fishTile(){
         // do some fishing
         this.catchAmount += game.getCurrentTile().fishTile(this.hoursToFish);
+        display.displayFishingResult(this.getCatchAmount(), this.getHoursToFish());
 
     }
 

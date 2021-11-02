@@ -2,5 +2,5 @@ package worldofzuul.DisplayInterfaces;
 
 public interface DisplayFishingResult {
 
-    void displayFishingResult (int catchRate, int hoursFished);
+    void displayFishingResult (double catchRate, int hoursFished);
 }

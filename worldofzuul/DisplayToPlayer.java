@@ -177,9 +177,15 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
         this.displaySimpleInfo("You have " +amount+" gold");
     }
 
+    /**<p>The method displayFishingResult is used to display how many fished the boat caught and how long it took</p>
+     *  <p>The method uses {@link #displaySimpleInfo(String)} to display:</p>
+     *  <p>The fishing went well! you caught " + catchAmount + "and it took " + hoursFished</p>
+     * @param catchAmount catchAmount is the number of fish caught by the boat
+     * @param hoursFished hoursFished is the hours it takes the boat to complete the fishing
+     */
     @Override
-    public void displayFishingResult(int catchRate, int hoursFished) {
+    public void displayFishingResult(double catchAmount, int hoursFished) {
 
-        this.displaySimpleInfo("The fishing went well! you caught " + catchRate + "and it took " + hoursFished);
+        this.displaySimpleInfo("The fishing went well! you caught " + catchAmount + "and it took " + hoursFished);
     }
 }
