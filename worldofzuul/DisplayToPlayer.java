@@ -190,13 +190,17 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
         this.displaySimpleInfo("The fishing went well! you caught " + catchAmount + "and it took " + hoursFished);
     }
 
-    /**Not yet finalized
+    /**Used to display to the player how many fish are currently in storage
      *
-     * @param fish the map containing fish and number of fish
+     * @param fishMap the map containing fish and number of fish
      */
     @Override
-    public void displayCurrentFish(Map fish) {
-        this.displaySimpleInfo("You have");
+    public void displayCurrentFish(Map<Fish, Integer> fishMap) {
+        String printString = "";
+        for (Fish fish: fishMap.keySet()) {
+            printString += "You have caught " + fishMap.get(fish) + " " + fish + "\n";
+        }
+        this.displaySimpleInfo(printString);
     }
 
     public void displayCurrentFish(double fish) {

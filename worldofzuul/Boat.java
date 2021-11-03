@@ -2,6 +2,9 @@ package worldofzuul;
 
 import worldofzuul.DisplayInterfaces.DisplayFishingResult;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**Boat Class
  * Make commands for viewing the info (e.g. make a command to call getCatchAmount and show the player this info)
  * Make commands to let the player change the settings of hoursToFish
@@ -77,8 +80,18 @@ public class Boat{
         this.display.displayGold(this.getGoldStorage());
     }
 
+    /** Will display to the player how many fish is currently in storage
+     * <p>Needs to be updated when catchAmount have been converted to a Map</p>
+     * When that happens, use {@link DisplayToPlayer#displayCurrentFish(Map)}
+     */
     public void showFish(){
         this.display.displayCurrentFish(catchAmount);
+//        Map<Fish, Integer> testMap = new HashMap<>();
+//        testMap.put(Fish.MAKREL, (int)this.getCatchAmount());
+//        testMap.put(Fish.SILD, 300);
+//        this.display.displayCurrentFish(testMap);
+        // the commented block shows that the display to player method, also works when catchAmount have been changed to a Map
+
     }
 
     public double getCatchAmount() {
