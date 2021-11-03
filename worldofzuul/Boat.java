@@ -78,8 +78,8 @@ public class Boat{
      */
     public void sellFish(){
         goldStorage += (catchAmount*Fish.MAKREL.getSalesPrice()); //convert fish(makrel) to gold
-        goldStorage += (catchAmount*Fish.SILD.getSalesPrice());  //convert fish(sild) to gold
-
+        //goldStorage += (catchAmount*Fish.SILD.getSalesPrice());  //convert fish(sild) to gold
+        catchAmount = 0;
     }
 
     public void showGold(){
