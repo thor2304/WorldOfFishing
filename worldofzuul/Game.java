@@ -33,7 +33,7 @@ public class Game
 
     private void createTiles()
     {
-        tiles = new Tile[3][3];
+        tiles = new Tile[Settings.BOARDSIZE][Settings.BOARDSIZE];
         for (int i = 0; i < tiles.length ; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
                 tiles[i][j] = new Tile("Koordinat: "+ i + "," + j);

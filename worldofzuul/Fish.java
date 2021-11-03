@@ -1,6 +1,6 @@
 package worldofzuul;
 
-/**When toStrig is called it returns  {@link #toString() Fish.toString}
+/**When toString is called it returns  {@link #toString() Fish.toString}
  *
  */
 public enum Fish {
