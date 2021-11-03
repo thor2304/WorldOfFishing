@@ -67,8 +67,9 @@ public class Boat{
      */
     public void fishTile(int hoursToFish){
         // do some fishing
-        this.catchAmount += game.getCurrentTile().fishTile(hoursToFish);
-        display.displayFishingResult(this.getCatchAmount(), hoursToFish);
+        int fishResult = game.getCurrentTile().fishTile(hoursToFish);
+        this.catchAmount += fishResult;
+        display.displayFishingResult(fishResult, hoursToFish);
     }
 
     public void sellFish(){

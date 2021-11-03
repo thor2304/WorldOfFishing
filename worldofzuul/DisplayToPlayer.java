@@ -3,6 +3,7 @@ package worldofzuul;
 import worldofzuul.DisplayInterfaces.*;
 
 import java.util.Map;
+import java.util.Random;
 
 /**<h2>This is the class responsible for everything displayed to the player</h2>
  * <h2>
@@ -187,7 +188,8 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
      */
     @Override
     public void displayFishingResult(double catchAmount, int hoursFished) {
-        this.displaySimpleInfo("The fishing went well! you caught " + catchAmount + "and it took " + hoursFished);
+        this.displaySimpleInfo("The fishing went well! you caught " + catchAmount + " and it took " + hoursFished);
+
     }
 
     /**Used to display to the player how many fish are currently in storage
