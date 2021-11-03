@@ -1,7 +1,7 @@
 package worldofzuul;
 
 public class ASCIIArt {
-    public static final String WelcomeScreen = " __          __         _                                       _               \n" +
+    public static final String WelcomeScreen = ConsoleColor.BLUE + " __          __         _                                       _               \n" +
             " \\ \\        / /        | |                                     | |            _ \n" +
             "  \\ \\  /\\  / /    ___  | |   ___    ___    _ __ ___     ___    | |_    ___   (_)\n" +
             "   \\ \\/  \\/ /    / _ \\ | |  / __|  / _ \\  | '_ ` _ \\   / _ \\   | __|  / _ \\     \n" +
@@ -13,7 +13,7 @@ public class ASCIIArt {
             "    \\  /\\  /    | (_) | | |    | | | (_| |   | (_) | | |     | |   | | \\__ \\ | | | | | | | | | | | (_| |\n" +
             "     \\/  \\/      \\___/  |_|    |_|  \\__,_|    \\___/  |_|     |_|   |_| |___/ |_| |_| |_| |_| |_|  \\__, |\n" +
             "                                                                                                   __/ |\n" +
-            "                                                                                                  |___/ ";
+            "                                                                                                  |___/ " + ConsoleColor.RESET;
 
     public static final String Boat = "               v  ~.      v\n" +
             "          v           /|\n" +
