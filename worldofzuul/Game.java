@@ -36,7 +36,7 @@ public class Game
         tiles = new Tile[3][3];
         for (int i = 0; i < tiles.length ; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
-                tiles[i][j] = new Tile("Koordinat: "+ i + "," + j);
+                tiles[i][j] = new Tile("coordinate: "+ i + "," + j);
 
             }
 

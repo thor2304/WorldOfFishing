@@ -96,11 +96,23 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
      */
     @Override
     public void displayWelcome(Tile currentTile) {
+
         System.out.println();
-        System.out.println("Welcome to World of Fishing!");
-        System.out.println("World of fishing is a game.");
+
+        System.out.println();
+
+
+        System.out.println(ASCIIArt.WelcomeScreen);
+
+
+
+        System.out.println(ASCIIArt.Boat);
         System.out.println("Type '" + CommandWord.HELP + "' if you need help, but i guess you're fucked then.");
-        System.out.println("Lets start the game now: \n");
+        System.out.println("You are a fisherman, who needs to catch some fish, to earn money for your case opening debt");
+        System.out.println("I whis you the best of luck");
+        System.out.println("But you need to watch out for the evil MSC, their boat will look like this");
+        System.out.println(ASCIIArt.MSC);
+        System.out.println("Lets start the fishing now: \n");
         System.out.println(currentTile.getLongDescription());
     }
 
