@@ -59,7 +59,7 @@ public class Tile
 
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + getExitString();
+        return "You have sailed to this " + description + ".\n" + getExitString();
     }
 
     private String getExitString()
