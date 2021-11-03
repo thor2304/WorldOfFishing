@@ -143,8 +143,8 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
      */
     @Override
     public void displayHelpText() {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println("You are lost. You are alone. You drift");
+        System.out.println("at sea.");
         System.out.println();
         System.out.println("Your command words are:");
         this.displayAllCommands();
