@@ -25,7 +25,7 @@ public class Tile
      */
     public Tile(String description)
     {
-        this(description, 1, Fish.MAKREL, 1000);
+        this(description, Settings.DEFAULTHABITATQUALITY, Fish.MAKREL, Settings.DEFAULTNUMBEROFFISH);
     }
 
     /**Add these params to be initialized:
@@ -44,7 +44,6 @@ public class Tile
         this.fishInThisTile = fishInThisTile;
         this.numberOfFish  = numberOfFish;
         this.habitatQuality = habitatQuality;
-        
     }
 
     //Methods from world of zuul
@@ -190,8 +189,8 @@ public class Tile
      * @return the amount of fish, that have been caught, -1 if tile is protected
      */
     public int fishTile(int hoursToFish){
-        double netDestruction = 0.1; //arbitrary number, perhaps the range 0 to 1 would be good
-        double catchRate = 0.06; //depends on the nettype, and thus should be updated when different nets are implemented
+        double netDestruction = Settings.DEFAULTNETDESTRUCTION; //arbitrary number, perhaps the range 0 to 1 would be good
+        double catchRate = Settings.DEFAULTCATCHRATE; //depends on the nettype, and thus should be updated when different nets are implemented
 
 
         return fishTile(hoursToFish, netDestruction, catchRate);
@@ -202,7 +201,7 @@ public class Tile
             int out = 0; //the number of fish caught in this tile
             int min = 0;
             int max = 0;
-            double diff = 0.2; // the amount of variance in the caught fish
+            double diff = Settings.VARIANCE; // the amount of variance in the caught fish
 
             double fishCaughtAverage = this.habitatQuality * this.numberOfFish * catchRate; //maybe remove habitat quality from this line?
             min = (int) Math.round(fishCaughtAverage * (1 -diff));
