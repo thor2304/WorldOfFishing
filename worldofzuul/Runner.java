@@ -4,6 +4,7 @@ public class Runner {
     public static Game game;
     public static void main(String[] args){
         game = new Game();
+        game.setBoat();
 //        System.out.println("test");
 //        System.out.println("live test");
 //        System.out.println();

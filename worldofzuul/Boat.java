@@ -1,5 +1,10 @@
 package worldofzuul;
 
+import worldofzuul.DisplayInterfaces.DisplayFishingResult;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**Boat Class
  * Make commands for viewing the info (e.g. make a command to call getCatchAmount and show the player this info)
  * Make commands to let the player change the settings of hoursToFish
@@ -13,11 +18,12 @@ package worldofzuul;
  *
  *Add later, nettype, and commands to change this
  */
-public class Boat {
+public class Boat{
     private double catchAmount; //possibly rework this to use a HashMap<Fish, int> instead of a double, to allow for storage of different
     private int hoursToFish;
     private double goldStorage;
     private Game game;
+    private DisplayToPlayer display;
 
 
     /** <p>initializes local attributes </p>
@@ -31,6 +37,7 @@ public class Boat {
         this.goldStorage = goldStorage;
 
         this.game = Runner.game;
+        this.display = game.display;
 
     }
 
@@ -46,14 +53,23 @@ public class Boat {
     }
 
 
-    /**Make this method print info to the player about how the fishing went, how much fish were caught and how long we fished for
-     *
-     * !!update all tiles after calling this method!!
-     * Use the method Game.updateAllTiles()
+    /**<p>Calls {@link #fishTile(int)} with the value of {@link #hoursToFish} saved in {@link Boat}</p>
+     * <b>!!update all tiles after calling this method!!</b>
+     * Using the method Game.updateAllTiles()
      */
     public void fishTile(){
+        fishTile(this.hoursToFish);
+    }
+
+    /**Calling this method does not change {@link #hoursToFish} in {@link Boat}
+     *
+     * @param hoursToFish the amount of hours to fish
+     */
+    public void fishTile(int hoursToFish){
         // do some fishing
-        this.catchAmount += game.getCurrentTile().fishTile(this.hoursToFish);
+        int fishResult = game.getCurrentTile().fishTile(hoursToFish);
+        this.catchAmount += fishResult;
+        display.displayFishingResult(fishResult, hoursToFish);
     }
 
     /** sellFish method
@@ -62,7 +78,25 @@ public class Boat {
      */
     public void sellFish(){
         goldStorage += (catchAmount*Fish.MAKREL.getSalesPrice()); //convert fish(makrel) to gold
+        //goldStorage += (catchAmount*Fish.SILD.getSalesPrice());  //convert fish(sild) to gold
         catchAmount = 0;
+    }
+
+    public void showGold(){
+        this.display.displayGold(this.getGoldStorage());
+    }
+
+    /** Will display to the player how many fish is currently in storage
+     * <p>Needs to be updated when catchAmount have been converted to a Map</p>
+     * When that happens, use {@link DisplayToPlayer#displayCurrentFish(Map)}
+     */
+    public void showFish(){
+        this.display.displayCurrentFish(catchAmount);
+//        Map<Fish, Integer> testMap = new HashMap<>();
+//        testMap.put(Fish.MAKREL, (int)this.getCatchAmount());
+//        testMap.put(Fish.SILD, 300);
+//        this.display.displayCurrentFish(testMap);
+        // the commented block shows that the display to player method, also works when catchAmount have been changed to a Map
 
     }
 
