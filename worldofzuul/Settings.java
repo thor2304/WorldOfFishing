@@ -30,7 +30,7 @@ public class Settings {
 
 
     /** the board size of the tile.{@link Game()}
-     *
+     * the board size value can be found in the createTiles method
      */
     public static final int BOARDSIZE = 3;
 
