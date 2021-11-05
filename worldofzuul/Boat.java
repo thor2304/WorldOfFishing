@@ -1,4 +1,6 @@
 package worldofzuul;
+import worldofzuul.Errors.TileProtectedFromFishingError;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +54,6 @@ public class Boat {
         for(Fish fi : Fish.values()){
             this.catchAmount.put(fi,0);
         }
-
     }
 
 
@@ -60,11 +61,22 @@ public class Boat {
      *
      * !!update all tiles after calling this method!!
      * Use the method Game.updateAllTiles()
+     * @TODO Check if the tile is protected when getting the fishing results, a.k.a handle the TileProtected exception
      */
-    public void fishTile(){
-        // do some fishing
-        this.catchAmount += game.getCurrentTile().fishTile(this.hoursToFish);
+    public void fishTile(int hoursToFish) {
+        // do some fishin
+        try{
+            Map<Fish, Integer> caughtFish = this.game.getCurrentTile().fishTile(hoursToFish);
+            for (Fish fish : Fish.values()) {
+                this.catchAmount.put(fish, this.catchAmount.get(fish) + caughtFish.get(fish));
+            }
+        }catch(TileProtectedFromFishingError T){
+            display.displaySimpleInfo(T.getMessage());
+        }
+
+
     }
+
 
     /** sellFish method
      *<p>goldStorage is equal to catchAmount multiplied by the price of the fish.
