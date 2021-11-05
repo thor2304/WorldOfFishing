@@ -187,7 +187,12 @@ public class Game
 
             try{
                 int newTimeInt = Integer.parseInt(newTimeString); //replace here
-                boat.fishTile(newTimeInt);
+                if (newTimeInt > 12){
+                    display.DisplayTooManyHours();
+                } else {
+                    boat.fishTile(newTimeInt);
+                }
+
             }catch (Exception e){
                 display.displaySimpleInfo(e.getMessage());
             }

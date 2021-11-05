@@ -193,6 +193,7 @@ public class Tile
         double netDestruction = 0.1; //arbitrary number, perhaps the range 0 to 1 would be good
         double catchRate = 0.06; //depends on the nettype, and thus should be updated when different nets are implemented
 
+
         return fishTile(hoursToFish, netDestruction, catchRate);
     }
 
