@@ -55,8 +55,8 @@ public class Boat {
      */
     public Boat (int hoursToFish) {
         this(new HashMap<Fish, Integer>(), hoursToFish,0);
-        for(Fish fi : Fish.values()){
-            this.catchAmount.put(fi,0);
+        for(Fish fish : Fish.values()){
+            this.catchAmount.put(fish,0);
         }
     }
 
@@ -98,9 +98,11 @@ public class Boat {
      *
      */
     public void sellFish(){
-        goldStorage += (catchAmount*Fish.MAKREL.getSalesPrice()); //convert fish(makrel) to gold
-        //goldStorage += (catchAmount*Fish.SILD.getSalesPrice());  //convert fish(sild) to gold
-        catchAmount = 0;
+        for (Fish fish : Fish.values()){
+            int fishAmount = catchAmount.get(fish);
+            goldStorage += (fishAmount * fish.getSalesPrice());
+            this.catchAmount.put(fish,0);
+        }
     }
 
     public void showGold(){
