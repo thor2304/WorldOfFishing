@@ -75,7 +75,7 @@ public class Boat {
      * @param hoursToFish the amount of hours to fish
      */
     public void fishTile(int hoursToFish) {
-        // do some fishin
+        // do some fishing
         try{
             Map<Fish, Integer> caughtFish = this.game.getCurrentTile().fishTile(hoursToFish);
             for (Fish fish : Fish.values()) {
@@ -85,9 +85,6 @@ public class Boat {
         }catch(TileProtectedFromFishingError T){
             display.displaySimpleInfo(T.getMessage());
         }
-
-
-
     }
 
 
@@ -97,9 +94,11 @@ public class Boat {
      *
      */
     public void sellFish(){
-        goldStorage += (catchAmount.get(Fish.MAKREL)*Fish.MAKREL.getSalesPrice()); //convert fish(makrel) to gold
+        double newGold = (catchAmount.get(Fish.MAKREL)*Fish.MAKREL.getSalesPrice()); //convert fish(makrel) to gold
+        goldStorage += newGold;
         //goldStorage += (catchAmount*Fish.SILD.getSalesPrice());  //convert fish(sild) to gold
         catchAmount.put(Fish.MAKREL, 0);
+        display.displayNewGold(newGold);
         //Basic get it working implementation
     }
 

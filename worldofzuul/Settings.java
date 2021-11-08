@@ -38,5 +38,5 @@ public class Settings {
     /** the amount of variance of the caught fish.{@link Tile#fishTile(int, double, double)}
      * click link to read what the method does.
      */
-    public static final double VARIANCE = 0.2;
+    public static final double VARIANCE = 0.4;
 }

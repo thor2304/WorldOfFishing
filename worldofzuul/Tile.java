@@ -207,8 +207,14 @@ public class Tile
     }
 
 
-
-
+    /**
+     * @TODO Check if the random generater works
+     * @param hoursToFish
+     * @param netDestruction
+     * @param catchRate
+     * @return
+     * @throws TileProtectedFromFishingError
+     */
     public Map<Fish, Integer> fishTile(int hoursToFish, double netDestruction, double catchRate) throws TileProtectedFromFishingError{
         if(!isProtectedFromFishing){
             Map<Fish, Integer> out = new HashMap<Fish, Integer>(); //the number of fish caught in this tile
@@ -216,7 +222,6 @@ public class Tile
             int max = 0;
             double diff = Settings.VARIANCE; // the amount of variance in the caught fish
 
-            //For loop
             for (Fish fish : Fish.values()){
                 double fishCaughtAverage = this.habitatQuality * this.numberOfFish.get(fish) * catchRate; //maybe remove habitat quality from this line?
                 fishCaughtAverage = (fishCaughtAverage <0) ? 0: fishCaughtAverage;
@@ -228,10 +233,10 @@ public class Tile
                 //by doing it this way, we provide an opportunity for the player to overfish, and an incentive to fish for long periods of time
                 for (int i = 0; i < hoursToFish; i++) {
                     int randomNum = 0;
-                    if(min == max){
+                    if(min != max){
                          randomNum = ThreadLocalRandom.current().nextInt(min, max + 1); //taken from: https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-ja
                     }
-                    int temp = (int)fishCaughtAverage + randomNum; //hack, should be correctly rounded
+                    int temp = out.get(fish) + randomNum; //hack, should be correctly rounded
                     out.put(fish, temp);
                 }
 
@@ -240,7 +245,6 @@ public class Tile
                     out.put(fish, possibleFishNumber);
                 }
             }
-            //for loop ^^^^
 
             this.updateQuality(-netDestruction);
 

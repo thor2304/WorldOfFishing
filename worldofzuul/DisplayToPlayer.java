@@ -183,8 +183,8 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
     }
 
     @Override
-    public void displayNewGold(int amount) {
-        this.displaySimpleInfo("" + amount);
+    public void displayNewGold(double amount) {
+        this.displaySimpleInfo("You got " + amount + " gold for selling all your fish");
     }
 
     @Override
