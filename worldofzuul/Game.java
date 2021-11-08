@@ -233,7 +233,7 @@ public class Game
         //Complete migration
         for (int x = 0; x < tiles.length ; x++) {
             for (int y = 0; y < tiles[x].length; y++) {
-                tiles[x][y].completeMigration(); //this adds the migrated fish to the amount of fish in the tile
+                //tiles[x][y].completeMigration(); //this adds the migrated fish to the amount of fish in the tile
             }
         }
     }

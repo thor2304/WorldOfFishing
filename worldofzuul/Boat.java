@@ -1,8 +1,6 @@
 package worldofzuul;
 import worldofzuul.Errors.TileProtectedFromFishingError;
 
-import worldofzuul.DisplayInterfaces.DisplayFishingResult;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -82,13 +80,14 @@ public class Boat {
             Map<Fish, Integer> caughtFish = this.game.getCurrentTile().fishTile(hoursToFish);
             for (Fish fish : Fish.values()) {
                 this.catchAmount.put(fish, this.catchAmount.get(fish) + caughtFish.get(fish));
+                display.displayFishingResult(caughtFish.get(fish), hoursToFish, fish);
             }
         }catch(TileProtectedFromFishingError T){
             display.displaySimpleInfo(T.getMessage());
         }
 
 
-        display.displayFishingResult(fishResult, hoursToFish);
+
     }
 
 
@@ -98,9 +97,10 @@ public class Boat {
      *
      */
     public void sellFish(){
-        goldStorage += (catchAmount*Fish.MAKREL.getSalesPrice()); //convert fish(makrel) to gold
+        goldStorage += (catchAmount.get(Fish.MAKREL)*Fish.MAKREL.getSalesPrice()); //convert fish(makrel) to gold
         //goldStorage += (catchAmount*Fish.SILD.getSalesPrice());  //convert fish(sild) to gold
-        catchAmount = 0;
+        catchAmount.put(Fish.MAKREL, 0);
+        //Basic get it working implementation
     }
 
     public void showGold(){

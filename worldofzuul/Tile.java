@@ -28,11 +28,10 @@ public class Tile
      */
     public Tile(String description)
     {
-        this(description, 1, new HashMap<Fish, Integer>());
+        this(description, Settings.DEFAULTHABITATQUALITY, new HashMap<Fish, Integer>());
         for(Fish fish : Fish.values()) {
-            this.numberOfFish.put(fish, 1000);
+            this.numberOfFish.put(fish, Settings.DEFAULTNUMBEROFFISH);
         }
-        this(description, Settings.DEFAULTHABITATQUALITY, Fish.MAKREL, Settings.DEFAULTNUMBEROFFISH);
     }
 
     /**Add these params to be initialized:
@@ -42,7 +41,6 @@ public class Tile
      *
      * @param description The text shown to the user when entering the Tile
      * @param habitatQuality The starting quality of the habitat
-     * @param fishInThisTile The type of fish in this tile, a Fish object
      * @param numberOfFish The starting number of fish in this tile
      */
     public Tile(String description, double habitatQuality, Map numberOfFish){
@@ -107,9 +105,9 @@ public class Tile
     }
 
 
-    /**<p>{@link #increaseNumberOfFish(int)} works by a formula that multiplies habitatQuality, getReproductionRate and numberOfFish
+    /**<p>{@link #increaseNumberOfFish(Fish, int)} works by a formula that multiplies habitatQuality, getReproductionRate and numberOfFish
      *We cast increaseNumberOfFish to int and round it up.<p/>
-     *<p>{@link #decreaseNumberOfFish(int)} works by a formula that multiplies habitatQuality, getDeathRate and numberOfFish.
+     *<p>{@link #decreaseNumberOfFish(Fish, int)} works by a formula that multiplies habitatQuality, getDeathRate and numberOfFish.
      *We cast decreaseNumberOfFish to an int type. We round up decreaseNumberOfFish.<p/>
      */
     public void updateFishNumbers(){
@@ -221,14 +219,19 @@ public class Tile
             //For loop
             for (Fish fish : Fish.values()){
                 double fishCaughtAverage = this.habitatQuality * this.numberOfFish.get(fish) * catchRate; //maybe remove habitat quality from this line?
+                fishCaughtAverage = (fishCaughtAverage <0) ? 0: fishCaughtAverage;
                 min = (int) Math.round(fishCaughtAverage * (1 -diff));
                 max = (int) Math.round(fishCaughtAverage * (1 + diff)); //maybe percentages dont work this way? we dont care
+                out.put(fish, 0);
 
                 //It is intentional that we do not update min and max along the way
                 //by doing it this way, we provide an opportunity for the player to overfish, and an incentive to fish for long periods of time
                 for (int i = 0; i < hoursToFish; i++) {
-                    int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1); //taken from: https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-ja
-                    int temp = out.get(fish) + randomNum;
+                    int randomNum = 0;
+                    if(min == max){
+                         randomNum = ThreadLocalRandom.current().nextInt(min, max + 1); //taken from: https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-ja
+                    }
+                    int temp = (int)fishCaughtAverage + randomNum; //hack, should be correctly rounded
                     out.put(fish, temp);
                 }
 

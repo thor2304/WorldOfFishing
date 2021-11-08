@@ -199,8 +199,8 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
      * @param hoursFished hoursFished is the hours it takes the boat to complete the fishing
      */
     @Override
-    public void displayFishingResult(double catchAmount, int hoursFished) {
-        this.displaySimpleInfo("The fishing went well! you caught " + catchAmount + " and it took " + hoursFished);
+    public void displayFishingResult(double catchAmount, int hoursFished, Fish fishType) {
+        this.displaySimpleInfo("The fishing went well! you caught " + catchAmount + " " + fishType +" and it took " + hoursFished);
 
     }
 
