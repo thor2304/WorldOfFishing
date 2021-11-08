@@ -2,6 +2,7 @@ package worldofzuul;
 
 import worldofzuul.DisplayInterfaces.*;
 
+import java.io.Console;
 import java.util.Map;
 import java.util.Random;
 
@@ -54,7 +55,8 @@ import java.util.Random;
  * </p>
  *
  */
-public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, DisplayEndAndWelcome, CommandExecutionTexts, DisplayAddedGold, DisplayFishingResult{
+public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, DisplayEndAndWelcome,
+        CommandExecutionTexts, DisplayAddedGold, DisplayFishingResult, DisplayTooManyHours{
     private CommandWords commandWords;
 
     public DisplayToPlayer(CommandWords commandWords) {
@@ -108,11 +110,9 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
 
 
         System.out.println(ASCIIArt.Boat);
-        System.out.println("Type '" + CommandWord.HELP + "' if you need help, but i guess you're fucked then.");
-        System.out.println("You are a fisherman, who needs to catch some fish, to earn money for your case opening debt");
-        System.out.println("I whis you the best of luck");
-        System.out.println("But you need to watch out for the evil MSC, their boat will look like this");
-        System.out.println(ASCIIArt.MSC);
+        System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
+        System.out.println("You´re a fisherman, who needs to catch some fish, to earn money for your new started fish company. ");
+        System.out.println("I wish you the best of luck!");
         System.out.println("Lets start the fishing now: \n");
         System.out.println(currentTile.getLongDescription());
     }
@@ -219,6 +219,11 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
 
     public void displayCurrentFish(double fish) {
         this.displaySimpleInfo("You have caught " + fish + " fish" );
+    }
+
+    @Override
+    public void DisplayTooManyHours(){
+        this.displaySimpleInfo("You have fished to many hours!" + "\n" + "You can only fish for 12 hours.");
     }
 
 

@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 public class Tile
 {
@@ -192,6 +193,7 @@ public class Tile
         double netDestruction = Settings.DEFAULTNETDESTRUCTION; //arbitrary number, perhaps the range 0 to 1 would be good
         double catchRate = Settings.DEFAULTCATCHRATE; //depends on the nettype, and thus should be updated when different nets are implemented
 
+
         return fishTile(hoursToFish, netDestruction, catchRate);
     }
 
@@ -205,13 +207,18 @@ public class Tile
             double fishCaughtAverage = this.habitatQuality * this.numberOfFish * catchRate; //maybe remove habitat quality from this line?
             min = (int) Math.round(fishCaughtAverage * (1 -diff));
             max = (int) Math.round(fishCaughtAverage * (1 + diff)); //maybe percentages dont work this way? we dont care
-
+            Random r = new Random();
             //It is intentional that we do not update min and max along the way
             //by doing it this way, we provide an opportunity for the player to overfish, and an incentive to fish for long periods of time
-            for (int i = 0; i < hoursToFish; i++) {
-                int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1); //taken from: https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java
-                out += randomNum;
+
+            try {
+                    for (int i = 0; i < hoursToFish; i++) {
+
+                        int randomNum = r.nextInt(max - min) + min;
+                        out += randomNum;
             }
+            }catch(IllegalArgumentException ex) {
+                System.out.println("Your tile is dead! Move to a new area."); }
 
             int possibleFishNumber = this.numberOfFish;
             if (this.decreaseNumberOfFish(out) < 0){
