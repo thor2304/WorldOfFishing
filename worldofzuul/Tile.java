@@ -253,11 +253,5 @@ public class Tile
             throw new TileProtectedFromFishingError();
         }
     }
-
-
-
-
-
-
 }
 

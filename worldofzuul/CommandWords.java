@@ -52,13 +52,11 @@ public class CommandWords
 
     /**Calls display all commands from DisplayToPlayer
      * think about reworking this to a dirct call to DisplayToPlayer
-     *
      */
     public void showAll() 
     {
         display.displayAllCommands();
     }
-
 
     /**gets the list of valid commands in the game
      * <p>Be careful not to alter the values in the HashMap, only read the results or create a deep copy</p>

@@ -2,9 +2,7 @@ package worldofzuul;
 
 import worldofzuul.DisplayInterfaces.*;
 
-import java.io.Console;
 import java.util.Map;
-import java.util.Random;
 
 /**<h2>This is the class responsible for everything displayed to the player</h2>
  * <h2>
@@ -99,15 +97,9 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
      */
     @Override
     public void displayWelcome(Tile currentTile) {
-
-        System.out.println();
-
-        System.out.println();
-
+        System.out.println("\n"); //two newlines
 
         System.out.println(ASCIIArt.WelcomeScreen);
-
-
 
         System.out.println(ASCIIArt.Boat);
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
@@ -225,6 +217,4 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
     public void DisplayTooManyHours(){
         this.displaySimpleInfo("You have fished to many hours!" + "\n" + "You can only fish for 12 hours.");
     }
-
-
 }

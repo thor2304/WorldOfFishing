@@ -15,7 +15,7 @@ import java.util.Map;
  * > fish x
  * will start fishing immediately with hoursToFish set to x
  *
- *Add later, nettype, and commands to change this
+ *@TODO Later, add nettype, and commands to change this
  */
 public class Boat {
     //private double catchAmount; //possibly rework this to use a HashMap<Fish, int> instead of a double, to allow for storage of different
@@ -24,9 +24,6 @@ public class Boat {
     private Game game;
     private Map<Fish, Integer> catchAmount;
     private DisplayToPlayer display;
-
-
-
 
 
     /** <p>initializes local attributes </p>
@@ -41,9 +38,7 @@ public class Boat {
 
         this.game = Runner.game;
         this.display = game.display;
-
     }
-
 
     /**Reduced constructor, taking only one param, and setting the rest to 0
      * <p>CatchAmount is set to 0</p>
@@ -57,7 +52,6 @@ public class Boat {
             this.catchAmount.put(fi,0);
         }
     }
-
 
     /**<p>Calls {@link #fishTile(int)} with the value of {@link #hoursToFish} saved in {@link Boat}</p>
      * <b>!!update all tiles after calling this method!!</b>
@@ -86,7 +80,6 @@ public class Boat {
             display.displaySimpleInfo(T.getMessage());
         }
     }
-
 
     /** sellFish method
      *<p>goldStorage is equal to catchAmount multiplied by the price of the fish.

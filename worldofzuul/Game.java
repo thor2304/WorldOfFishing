@@ -82,8 +82,7 @@ public class Game
      * <p><b>
      * This method will be deleted shortly
      */
-    private void printWelcome()
-    {
+    private void printWelcome(){
         System.out.println();
         System.out.println("Welcome to World of Fishing!");
         System.out.println("World of fishing is a game.");
@@ -92,8 +91,7 @@ public class Game
         System.out.println(currentTile.getLongDescription());
     }
 
-    private boolean processCommand(Command command) 
-    {
+    private boolean processCommand(Command command){
         boolean wantToQuit = false;
 
         CommandWord commandWord = command.getCommandWord();
@@ -162,8 +160,7 @@ public class Game
         }
     }
 
-    private boolean quit(Command command) 
-    {
+    private boolean quit(Command command){
         if(command.hasSecondWord()) {
             //System.out.println("Quit what?");
             display.unknownCommand("Quit what?");
@@ -172,7 +169,6 @@ public class Game
         else {
             return true;
         }
-
     }
 
     // our own methods:
@@ -196,7 +192,6 @@ public class Game
             }catch (Exception e){
                 display.displaySimpleInfo(e.getMessage());
             }
-
         }
     }
 

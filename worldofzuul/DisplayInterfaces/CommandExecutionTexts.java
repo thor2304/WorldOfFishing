@@ -7,7 +7,7 @@ public interface CommandExecutionTexts {
     void displayTileDescription(String tileDescription);
 
     /**
-     * Is used in {@link worldofzuul.Parser Parser} contrary to the other methods in this interface, which are called from Game
+     * Is called from {@link worldofzuul.Parser Parser} contrary to the other methods in this interface, which are called from {@link worldofzuul.Game}
      */
     void readyForNextCommand();
 }
