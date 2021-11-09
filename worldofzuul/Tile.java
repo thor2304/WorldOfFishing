@@ -1,20 +1,23 @@
 package worldofzuul;
 
+import worldofzuul.Errors.TileProtectedFromFishingError;
+
 import java.lang.reflect.Field;
 import java.util.Set;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 public class Tile
 {
     private String description;
     private HashMap<String, Tile> exits;
-    private int numberOfFish;
-    private int numberOfMigratedFish;
+    private Map<Fish, Integer> numberOfFish;
+    private Map<Fish, Integer> numberOfMigratedFish;
     private double habitatQuality;
     private boolean isProtectedFromFishing;
-    private Fish fishInThisTile;//perhaps make this a list in the future for multiple different fish species in one tile
-    //if we want to have more than one type of fish, look into Hashmaps of fish and their number
+
 
     //Tile constructors:
     /**Fish should be able to contain a specific fish in the fish class. 
@@ -25,7 +28,10 @@ public class Tile
      */
     public Tile(String description)
     {
-        this(description, 1, Fish.MAKREL, 1000);
+        this(description, Settings.DEFAULTHABITATQUALITY, new HashMap<Fish, Integer>());
+        for(Fish fish : Fish.values()) {
+            this.numberOfFish.put(fish, Settings.DEFAULTNUMBEROFFISH);
+        }
     }
 
     /**Add these params to be initialized:
@@ -35,16 +41,13 @@ public class Tile
      *
      * @param description The text shown to the user when entering the Tile
      * @param habitatQuality The starting quality of the habitat
-     * @param fishInThisTile The type of fish in this tile, a Fish object
      * @param numberOfFish The starting number of fish in this tile
      */
-    public Tile(String description, double habitatQuality, Fish fishInThisTile, int numberOfFish){
+    public Tile(String description, double habitatQuality, Map numberOfFish){
         this.description = description;
         this.exits = new HashMap<String, Tile>();
-        this.fishInThisTile = fishInThisTile;
-        this.numberOfFish  = numberOfFish;
+        this.numberOfFish = numberOfFish;
         this.habitatQuality = habitatQuality;
-        
     }
 
     //Methods from world of zuul
@@ -60,7 +63,7 @@ public class Tile
 
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + getExitString();
+        return "You have sailed to this " + description + ".\n" + getExitString();
     }
 
     private String getExitString()
@@ -79,9 +82,10 @@ public class Tile
     }
 
     //Methods from our implementation
-    private int increaseNumberOfFish(int numberOfNewFish){
-        this.numberOfFish += numberOfNewFish;
-        return this.numberOfFish;
+    private int increaseNumberOfFish(Fish fish, int numberOfNewFish){
+        int currentFish = this.numberOfFish.get(fish);
+        this.numberOfFish.put(fish,numberOfNewFish + currentFish);
+        return this.numberOfFish.get(fish);
     }
 
     /**Always check if the return of this method is negative, if so too many fish were removed
@@ -89,27 +93,28 @@ public class Tile
      * @param numberOfFishToRemove The amount of fish to reduce the population by
      * @return the initial result of the removal of fish, will be negative if more fish were removed than there lived in the habitat
      */
-    private int decreaseNumberOfFish(int numberOfFishToRemove){
-        this.numberOfFish -= numberOfFishToRemove;
-        int out = this.numberOfFish;
-        if(this.numberOfFish < 0){
-            this.numberOfFish = 0;
+    private int decreaseNumberOfFish(Fish fish, int numberOfFishToRemove){
+        int currentFish = this.numberOfFish.get(fish);
+        int out = currentFish - numberOfFishToRemove;
+        currentFish = out;
+        if(out < 0){
+            currentFish = 0;
         }
+        this.numberOfFish.put(fish, currentFish);
         return out;
     }
 
 
-    /**<p>{@link #increaseNumberOfFish(int)} works by a formula that multiplies habitatQuality, getReproductionRate and numberOfFish
+    /**<p>{@link #increaseNumberOfFish(Fish, int)} works by a formula that multiplies habitatQuality, getReproductionRate and numberOfFish
      *We cast increaseNumberOfFish to int and round it up.<p/>
-     *<p>{@link #decreaseNumberOfFish(int)} works by a formula that multiplies habitatQuality, getDeathRate and numberOfFish.
+     *<p>{@link #decreaseNumberOfFish(Fish, int)} works by a formula that multiplies habitatQuality, getDeathRate and numberOfFish.
      *We cast decreaseNumberOfFish to an int type. We round up decreaseNumberOfFish.<p/>
      */
     public void updateFishNumbers(){
-        increaseNumberOfFish( (int) Math.round(this.habitatQuality * fishInThisTile.getReproductionRate() * numberOfFish));
-        decreaseNumberOfFish( (int) Math.round(this.habitatQuality * fishInThisTile.getDeathRate() * numberOfFish));
-        //
-        //Add update of type of fish.
-        //maybe more?
+        for(Fish fish : Fish.values()) {
+            increaseNumberOfFish( fish, (int) Math.round( this.habitatQuality * fish.getReproductionRate() * this.numberOfFish.get(fish) ) );
+            decreaseNumberOfFish( fish, (int) Math.round( this.habitatQuality * fish.getDeathRate() * this.numberOfFish.get(fish) ) );
+         }
     }
 
     /**Is called directly by Game
@@ -153,12 +158,16 @@ public class Tile
      *
      */
     public void completeMigration(){
-        numberOfFish += numberOfMigratedFish;
-        numberOfMigratedFish = 0;
+        for(Fish fish : Fish.values()) {
+            int currentFish = this.numberOfFish.get(fish);
+            currentFish += this.numberOfMigratedFish.get(fish);
+            this.numberOfFish.put(fish, currentFish);
+            this.numberOfMigratedFish.put(fish,0);
+        }
     }
 
 
-    /**Will add the input to {@link #habitatQuality}
+/**Will add the input to {@link #habitatQuality}
      * @param amount the amount to change quality by
      */
     public void updateQuality(double amount){
@@ -189,41 +198,59 @@ public class Tile
      * @param hoursToFish The number of hours to fish, in the initial implementation
      * @return the amount of fish, that have been caught, -1 if tile is protected
      */
-    public int fishTile(int hoursToFish){
-        double netDestruction = 0.1; //arbitrary number, perhaps the range 0 to 1 would be good
-        double catchRate = 0.06; //depends on the nettype, and thus should be updated when different nets are implemented
+    public Map<Fish, Integer> fishTile(int hoursToFish) throws TileProtectedFromFishingError{
+        double netDestruction = Settings.DEFAULTNETDESTRUCTION; //arbitrary number, perhaps the range 0 to 1 would be good
+        double catchRate = Settings.DEFAULTCATCHRATE; //depends on the nettype, and thus should be updated when different nets are implemented
+
 
         return fishTile(hoursToFish, netDestruction, catchRate);
     }
 
-    public int fishTile(int hoursToFish, double netDestruction, double catchRate){
+
+    /**
+     * @TODO Check if the random generater works
+     * @param hoursToFish
+     * @param netDestruction
+     * @param catchRate
+     * @return
+     * @throws TileProtectedFromFishingError
+     */
+    public Map<Fish, Integer> fishTile(int hoursToFish, double netDestruction, double catchRate) throws TileProtectedFromFishingError{
         if(!isProtectedFromFishing){
-            int out = 0; //the number of fish caught in this tile
+            Map<Fish, Integer> out = new HashMap<Fish, Integer>(); //the number of fish caught in this tile
             int min = 0;
             int max = 0;
-            double diff = 0.2; // the amount of variance in the caught fish
+            double diff = Settings.VARIANCE; // the amount of variance in the caught fish
 
-            double fishCaughtAverage = this.habitatQuality * this.numberOfFish * catchRate; //maybe remove habitat quality from this line?
-            min = (int) Math.round(fishCaughtAverage * (1 -diff));
-            max = (int) Math.round(fishCaughtAverage * (1 + diff)); //maybe percentages dont work this way? we dont care
+            for (Fish fish : Fish.values()){
+                double fishCaughtAverage = this.habitatQuality * this.numberOfFish.get(fish) * catchRate; //maybe remove habitat quality from this line?
+                fishCaughtAverage = (fishCaughtAverage <0) ? 0: fishCaughtAverage;
+                min = (int) Math.round(fishCaughtAverage * (1 -diff));
+                max = (int) Math.round(fishCaughtAverage * (1 + diff)); //maybe percentages dont work this way? we dont care
+                out.put(fish, 0);
 
-            //It is intentional that we do not update min and max along the way
-            //by doing it this way, we provide an opportunity for the player to overfish, and an incentive to fish for long periods of time
-            for (int i = 0; i < hoursToFish; i++) {
-                int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1); //taken from: https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-java
-                out += randomNum;
-            }
+                //It is intentional that we do not update min and max along the way
+                //by doing it this way, we provide an opportunity for the player to overfish, and an incentive to fish for long periods of time
+                for (int i = 0; i < hoursToFish; i++) {
+                    int randomNum = 0;
+                    if(min != max){
+                         randomNum = ThreadLocalRandom.current().nextInt(min, max + 1); //taken from: https://stackoverflow.com/questions/363681/how-do-i-generate-random-integers-within-a-specific-range-in-ja
+                    }
+                    int temp = out.get(fish) + randomNum; //hack, should be correctly rounded
+                    out.put(fish, temp);
+                }
 
-            int possibleFishNumber = this.numberOfFish;
-            if (this.decreaseNumberOfFish(out) < 0){
-                out = possibleFishNumber;
+                int possibleFishNumber = this.numberOfFish.get(fish);
+                if (this.decreaseNumberOfFish(fish, out.get(fish)) < 0){
+                    out.put(fish, possibleFishNumber);
+                }
             }
 
             this.updateQuality(-netDestruction);
 
             return out;
         }else{
-            return -1;
+            throw new TileProtectedFromFishingError();
         }
     }
 

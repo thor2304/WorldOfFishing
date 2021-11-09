@@ -6,32 +6,37 @@ public class Game
     private Tile currentTile;
     private Tile[][] tiles;
     public DisplayToPlayer display;
+    public Boat boat;
         
 
     //constructors
 
     /**No args constructor,
      * Currently the only constructor available.
-     * A new game should not take any arguyments.
+     * A new game should not take any arguments.
      * <p>It creates an instance of  {@link Parser} and {@link DisplayToPlayer}, to use for itself.</p>
      * It also creates a net of {@link Tile Tiles} which are technically stored only because they refer to each other
      */
     public Game() 
     {
         createTiles();
-        parser = new Parser();
-        display = new DisplayToPlayer(parser.getCommandWords());
+        this.parser = new Parser();
+        this.display = new DisplayToPlayer(parser.getCommandWords());
     }
 
+
+    public void setBoat(){
+        this.boat = new Boat(4);
+    }
 
     //world of zuul methods:
 
     private void createTiles()
     {
-        tiles = new Tile[3][3];
+        tiles = new Tile[Settings.BOARDSIZE][Settings.BOARDSIZE];
         for (int i = 0; i < tiles.length ; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
-                tiles[i][j] = new Tile("Koordinat: "+ i + "," + j);
+                tiles[i][j] = new Tile("coordinate: "+ i + "," + j);
 
             }
 
@@ -108,6 +113,16 @@ public class Game
         }
         else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
+        }else if(commandWord == CommandWord.FISHTILE){
+            fish(command);
+        }else if(commandWord == CommandWord.SHOWFISH){
+            boat.showFish();
+        }else if(commandWord == CommandWord.SHOWGOLD){
+            boat.showGold();
+        }else if(commandWord == CommandWord.SELL){
+            boat.sellFish();
+        }else if(commandWord == CommandWord.TIME){
+            timeInfo(command);
         }
         return wantToQuit;
     }
@@ -162,6 +177,40 @@ public class Game
 
     // our own methods:
 
+    public void fish(Command command){
+        if(!command.hasSecondWord()) {
+            boat.fishTile();
+            updateAllTiles();
+        }else {
+            String newTimeString = command.getSecondWord();
+            //convert the string to a number, remember that the user may not have typed a number, so watch out for errors
+
+            try{
+                int newTimeInt = Integer.parseInt(newTimeString); //replace here
+                if (newTimeInt > 12){
+                    display.DisplayTooManyHours();
+                } else {
+                    boat.fishTile(newTimeInt);
+                }
+
+            }catch (Exception e){
+                display.displaySimpleInfo(e.getMessage());
+            }
+
+        }
+    }
+
+    public void timeInfo(Command command){
+        if(!command.hasSecondWord()) {
+            display.displaySimpleInfo("" + boat.getHoursToFish());
+        }else {
+            String secondWord = command.getSecondWord();
+            if(secondWord == "set"){
+                //maybe do something with this?
+            }
+        }
+    }
+
     /**<p>updateAllTiles starts by using a nested for loop to update all the tiles with the method updateFishNumbers</p>
      * <p>After all the tiles has the correct fish number of fish, it uses a nested for loop to migrate the fish which need to migrate and saves the number of the migrated fish r</p>
      * <p>The last nested for loop takes the migrated fish number and adds it to the current fish number </p>
@@ -184,7 +233,7 @@ public class Game
         //Complete migration
         for (int x = 0; x < tiles.length ; x++) {
             for (int y = 0; y < tiles[x].length; y++) {
-                tiles[x][y].completeMigration(); //this adds the migrated fish to the amount of fish in the tile
+                //tiles[x][y].completeMigration(); //this adds the migrated fish to the amount of fish in the tile
             }
         }
     }

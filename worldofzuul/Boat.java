@@ -1,6 +1,8 @@
 package worldofzuul;
+import worldofzuul.Errors.TileProtectedFromFishingError;
 
-import worldofzuul.DisplayInterfaces.DisplayFishingResult;
+import java.util.HashMap;
+import java.util.Map;
 
 /**Boat Class
  * Make commands for viewing the info (e.g. make a command to call getCatchAmount and show the player this info)
@@ -15,19 +17,23 @@ import worldofzuul.DisplayInterfaces.DisplayFishingResult;
  *
  *Add later, nettype, and commands to change this
  */
-public class Boat extends Game{
-    private double catchAmount; //possibly rework this to use a HashMap<Fish, int> instead of a double, to allow for storage of different
+public class Boat {
+    //private double catchAmount; //possibly rework this to use a HashMap<Fish, int> instead of a double, to allow for storage of different
     private int hoursToFish;
     private double goldStorage;
     private Game game;
+    private Map<Fish, Integer> catchAmount;
     private DisplayToPlayer display;
+
+
+
 
 
     /** <p>initializes local attributes </p>
      *<p>sets this.game to be Runner.game</p>
      * maybe more things to do!
      */
-    public Boat(double catchAmount, int hoursToFish, double goldStorage){
+    public Boat(Map<Fish, Integer> catchAmount, int hoursToFish, double goldStorage){
         //construct it
         this.catchAmount = catchAmount;
         this.hoursToFish = hoursToFish;
@@ -42,40 +48,83 @@ public class Boat extends Game{
     /**Reduced constructor, taking only one param, and setting the rest to 0
      * <p>CatchAmount is set to 0</p>
      * <p>goldStorage is set to 0</p>
-     * is chained using {@link #Boat(double, int, double)}
+     * is chained using {@link #Boat(Map, int, double)}
      * @param hoursToFish The default amount of hours to Fish
      */
     public Boat (int hoursToFish) {
-        this(0, hoursToFish,0);
+        this(new HashMap<Fish, Integer>(), hoursToFish,0);
+        for(Fish fi : Fish.values()){
+            this.catchAmount.put(fi,0);
+        }
     }
 
 
-    /**Make this method print info to the player about how the fishing went, how much fish were caught and how long we fished for
+    /**<p>Calls {@link #fishTile(int)} with the value of {@link #hoursToFish} saved in {@link Boat}</p>
+     * <b>!!update all tiles after calling this method!!</b>
+     * Using the method Game.updateAllTiles()
+     */
+    public void fishTile(){
+        fishTile(this.hoursToFish);
+    }
+
+    /**Calling this method does not change {@link #hoursToFish} in {@link Boat}
      *
      * !!update all tiles after calling this method!!
      * Use the method Game.updateAllTiles()
+     * @TODO Check if the tile is protected when getting the fishing results, a.k.a handle the TileProtected exception
+     * @param hoursToFish the amount of hours to fish
      */
-    public void fishTile(){
+    public void fishTile(int hoursToFish) {
         // do some fishing
-        this.catchAmount += game.getCurrentTile().fishTile(this.hoursToFish);
-        display.displayFishingResult(this.getCatchAmount(), this.getHoursToFish());
-
+        try{
+            Map<Fish, Integer> caughtFish = this.game.getCurrentTile().fishTile(hoursToFish);
+            for (Fish fish : Fish.values()) {
+                this.catchAmount.put(fish, this.catchAmount.get(fish) + caughtFish.get(fish));
+                display.displayFishingResult(caughtFish.get(fish), hoursToFish, fish);
+            }
+        }catch(TileProtectedFromFishingError T){
+            display.displaySimpleInfo(T.getMessage());
+        }
     }
 
+
+    /** sellFish method
+     *<p>goldStorage is equal to catchAmount multiplied by the price of the fish.
+     *The price is obtained from the Fish Class's getSalesPrice method.</p>
+     *
+     */
     public void sellFish(){
-        //convert fish to gold
-        //use the values from Fish
+        double newGold = (catchAmount.get(Fish.MAKREL)*Fish.MAKREL.getSalesPrice()); //convert fish(makrel) to gold
+        goldStorage += newGold;
+        //goldStorage += (catchAmount*Fish.SILD.getSalesPrice());  //convert fish(sild) to gold
+        catchAmount.put(Fish.MAKREL, 0);
+        display.displayNewGold(newGold);
+        //Basic get it working implementation
     }
 
     public void showGold(){
         this.display.displayGold(this.getGoldStorage());
     }
 
-    public double getCatchAmount() {
+    /** Will display to the player how many fish is currently in storage
+     * <p>Needs to be updated when catchAmount have been converted to a Map</p>
+     * When that happens, use {@link DisplayToPlayer#displayCurrentFish(Map)}
+     */
+    public void showFish(){
+        this.display.displayCurrentFish(catchAmount);
+//        Map<Fish, Integer> testMap = new HashMap<>();
+//        testMap.put(Fish.MAKREL, (int)this.getCatchAmount());
+//        testMap.put(Fish.SILD, 300);
+//        this.display.displayCurrentFish(testMap);
+        // the commented block shows that the display to player method, also works when catchAmount have been changed to a Map
+
+    }
+
+    public Map getCatchAmount() {
         return catchAmount;
     }
 
-    public void setCatchAmount(double catchAmount) {
+    public void setCatchAmount(Map catchAmount) {
         this.catchAmount = catchAmount;
     }
 
