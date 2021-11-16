@@ -1,4 +1,4 @@
-package worldofzuul;
+package worldofzuul.Display;
 
 public class ASCIIArt {
     public static final String WelcomeScreen = ConsoleColor.BLUE + " __          __         _                                       _               \n" +

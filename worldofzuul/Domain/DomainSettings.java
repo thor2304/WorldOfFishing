@@ -1,9 +1,9 @@
-package worldofzuul;
+package worldofzuul.Domain;
 
 /**
  * this class defines default settings to make it more manageable.
  */
-public class Settings {
+class DomainSettings {
     /** the default number of the habitat quality in the tile.{@link Tile#Tile(String)}
      * click link to read what the method does.
      */
@@ -29,7 +29,7 @@ public class Settings {
     public static final double DEFAULTCATCHRATE = 0.06;
 
 
-    /** the board size of the tile.{@link Game()}
+    /** the board size of the tile.{@link Game}
      * the board size value can be found in the createTiles method
      */
     public static final int BOARDSIZE = 3;

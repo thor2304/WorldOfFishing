@@ -1,7 +1,6 @@
-package worldofzuul;
+package worldofzuul.Display;
 
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 /**This class could be reworked to be static and experiment with perhaps making the class abstract to ensure no instanses are created
  *
@@ -54,16 +53,12 @@ public class Parser
 
     /**Added to allow for command displaying, and accessing the commandwords object: {@link #commands} outside of Parser
      *
+     * Should be deprecated after {@link CommandWords} and {@link DisplayToPlayer} rework
+     *
      * @return the {@link CommandWords} object containing valid commands
      */
     public CommandWords getCommandWords() {
         return commands;
     }
 
-    /**@deprecated Should be unnecessary due to {@link DisplayToPlayer#displayAllCommands()}
-     */
-    public void showCommands()
-    {
-        commands.showAll();
-    }
 }

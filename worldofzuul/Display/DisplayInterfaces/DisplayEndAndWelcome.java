@@ -1,6 +1,6 @@
-package worldofzuul.DisplayInterfaces;
+package worldofzuul.Display.DisplayInterfaces;
 
-import worldofzuul.Tile;
+import worldofzuul.Domain.Tile;
 
 public interface DisplayEndAndWelcome {
     void displayWelcome(Tile currentTile);

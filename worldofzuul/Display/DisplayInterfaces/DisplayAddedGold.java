@@ -1,4 +1,4 @@
-package worldofzuul.DisplayInterfaces;
+package worldofzuul.Display.DisplayInterfaces;
 
 public interface DisplayAddedGold {
     void displayNewGold(double amount);

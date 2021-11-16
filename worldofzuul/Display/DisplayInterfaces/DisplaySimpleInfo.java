@@ -1,4 +1,4 @@
-package worldofzuul.DisplayInterfaces;
+package worldofzuul.Display.DisplayInterfaces;
 
 public interface DisplaySimpleInfo {
     void displaySimpleInfo(String Info) ;

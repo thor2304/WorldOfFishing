@@ -1,4 +1,4 @@
-package worldofzuul;
+package worldofzuul.Display;
 
 public enum CommandWord
 {

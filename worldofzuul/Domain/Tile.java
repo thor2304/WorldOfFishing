@@ -1,15 +1,13 @@
-package worldofzuul;
+package worldofzuul.Domain;
 
 import worldofzuul.Errors.TileProtectedFromFishingError;
 
-import java.lang.reflect.Field;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.Random;
 
-public class Tile
+class Tile
 {
     private String description;
     private HashMap<String, Tile> exits;
@@ -28,9 +26,9 @@ public class Tile
      */
     public Tile(String description)
     {
-        this(description, Settings.DEFAULTHABITATQUALITY, new HashMap<Fish, Integer>());
+        this(description, DomainSettings.DEFAULTHABITATQUALITY, new HashMap<Fish, Integer>());
         for(Fish fish : Fish.values()) {
-            this.numberOfFish.put(fish, Settings.DEFAULTNUMBEROFFISH);
+            this.numberOfFish.put(fish, DomainSettings.DEFAULTNUMBEROFFISH);
         }
     }
 
@@ -199,8 +197,8 @@ public class Tile
      * @return the amount of fish, that have been caught, -1 if tile is protected
      */
     public Map<Fish, Integer> fishTile(int hoursToFish) throws TileProtectedFromFishingError{
-        double netDestruction = Settings.DEFAULTNETDESTRUCTION; //arbitrary number, perhaps the range 0 to 1 would be good
-        double catchRate = Settings.DEFAULTCATCHRATE; //depends on the nettype, and thus should be updated when different nets are implemented
+        double netDestruction = DomainSettings.DEFAULTNETDESTRUCTION; //arbitrary number, perhaps the range 0 to 1 would be good
+        double catchRate = DomainSettings.DEFAULTCATCHRATE; //depends on the nettype, and thus should be updated when different nets are implemented
 
 
         return fishTile(hoursToFish, netDestruction, catchRate);
@@ -220,7 +218,7 @@ public class Tile
             Map<Fish, Integer> out = new HashMap<Fish, Integer>(); //the number of fish caught in this tile
             int min = 0;
             int max = 0;
-            double diff = Settings.VARIANCE; // the amount of variance in the caught fish
+            double diff = DomainSettings.VARIANCE; // the amount of variance in the caught fish
 
             for (Fish fish : Fish.values()){
                 double fishCaughtAverage = this.habitatQuality * this.numberOfFish.get(fish) * catchRate; //maybe remove habitat quality from this line?

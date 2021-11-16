@@ -1,5 +1,6 @@
-package worldofzuul;
+package worldofzuul.Domain;
 import worldofzuul.Errors.TileProtectedFromFishingError;
+import worldofzuul.Runner;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,13 +18,13 @@ import java.util.Map;
  *
  *@TODO Later, add nettype, and commands to change this
  */
-public class Boat {
+class Boat {
     //private double catchAmount; //possibly rework this to use a HashMap<Fish, int> instead of a double, to allow for storage of different
     private int hoursToFish;
     private double goldStorage;
-    private Game game;
+    private Game game; //this should be deleted, and passed as an argument to the methods that need it
     private Map<Fish, Integer> catchAmount;
-    private DisplayToPlayer display;
+
 
 
     /** <p>initializes local attributes </p>
@@ -36,8 +37,7 @@ public class Boat {
         this.hoursToFish = hoursToFish;
         this.goldStorage = goldStorage;
 
-        this.game = Runner.game;
-        this.display = game.display;
+        this.game = Runner.game; //this is the source of boat not initializing
     }
 
     /**Reduced constructor, taking only one param, and setting the rest to 0

@@ -1,4 +1,4 @@
-package worldofzuul;
+package worldofzuul.Display;
 
 public class ConsoleColor {
     public static final String RESET = "\033[0m";  // Text Reset

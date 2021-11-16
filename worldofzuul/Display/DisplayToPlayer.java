@@ -1,10 +1,11 @@
-package worldofzuul;
+package worldofzuul.Display;
 
-import worldofzuul.DisplayInterfaces.*;
+import worldofzuul.Display.DisplayInterfaces.*;
 
 import java.util.Map;
 
-/**<h2>This is the class responsible for everything displayed to the player</h2>
+/**
+ * <h2>This is the class responsible for everything displayed to the player</h2>
  * <h2>
  * How to Use: </h2>
  * <h3>When displaying using existing functions:</h3>
@@ -23,68 +24,73 @@ import java.util.Map;
  * <p></p>
  *
  * <p><b>Step 1: </b></p>
- *Create an interface with a fitting name that describes the method(s) to implement.
+ * Create an interface with a fitting name that describes the method(s) to implement.
  * This interface should be put in the package DisplayInterfaces.(an example of this is {@link DisplaySimpleInfo})
  * and should ideally have a <b>docstring</b> with information
  * about what information should be displayed by the methods when implemented
  * <p>
- *     An interface cannot describe static methods (as far as our testing goes),
- *     so avoid that when describing your interface.
+ * An interface cannot describe static methods (as far as our testing goes),
+ * so avoid that when describing your interface.
  * </p>
  * <p>
  * Remember to add the interface to the list of implemented interfaces in {@link DisplayToPlayer}
  * </p>
- *<p></p>
+ * <p></p>
  *
  * <p><b>Step 2: </b></p>
- *Implement the method in DisplayToPlayer.
+ * Implement the method in DisplayToPlayer.
  * <p>
- *     if you are just being thorough and implementing a seperate method for a simple Display of a string
- *     feel free to use {@link #displaySimpleInfo(String)} as this help make the transition to iteration 2 smoother
+ * if you are just being thorough and implementing a seperate method for a simple Display of a string
+ * feel free to use {@link #displaySimpleInfo(String)} as this help make the transition to iteration 2 smoother
  * </p>
- *<p></p>
+ * <p></p>
  *
  * <p><b>Step 3: </b></p>
  * Remember to call your beautiful new method from the class you want,
  * see the point in this doc called <i>When displaying using existing functions:</i> for info on how to make that work.
  * <p>
- *     The very last thing to do is to make a <b><i>Git commit</i></b> with the final result of this change, remember to include:
- *     the name of your new Interface and perhaps your new method. This makes it easier to Code review
+ * The very last thing to do is to make a <b><i>Git commit</i></b> with the final result of this change, remember to include:
+ * the name of your new Interface and perhaps your new method. This makes it easier to Code review
  * </p>
- *
  */
 public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, DisplayEndAndWelcome,
-        CommandExecutionTexts, DisplayAddedGold, DisplayFishingResult, DisplayTooManyHours{
+        CommandExecutionTexts, DisplayAddedGold, DisplayFishingResult, DisplayTooManyHours {
     private CommandWords commandWords;
 
     public DisplayToPlayer(CommandWords commandWords) {
         this.commandWords = commandWords;
     }
 
-    /**This method displays a simple string to the user
+    /**
+     * This method displays a simple string to the user
      * <p>
      * In iteration 1 this seems silly, but in iteration 2 will become quite handy
      * </p>
      * Specific for iteration 2 think about max string length
+     *
      * @param info The string to display to the user
      */
     @Override
-    public void displaySimpleInfo(String info){
+    public void displaySimpleInfo(String info) {
         System.out.println(info);
     }
 
-    /**This method displays all the available commands/actions to the user */
+    /**
+     * This method displays all the available commands/actions to the user
+     */
     @Override
     public void displayAllCommands() {
-        for(String command : this.commandWords.getValidCommands().keySet()) {
+        for (String command : this.commandWords.getValidCommands().keySet()) {
             System.out.print(command + "  ");
         }
         System.out.println();
     }
 
-    /**This method is used for displaying a single command to the user.
-     *Perhaps useless, remove at will
-     * @param text Displayed in the beginning of the display to the user
+    /**
+     * This method is used for displaying a single command to the user.
+     * Perhaps useless, remove at will
+     *
+     * @param text        Displayed in the beginning of the display to the user
      * @param commandWord the {@link CommandWord} to display
      */
     @Override
@@ -93,7 +99,8 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
     }
 
 
-    /**Is responsible for showing the player a welcome screen at the beginning of the game
+    /**
+     * Is responsible for showing the player a welcome screen at the beginning of the game
      */
     @Override
     public void displayWelcome(Tile currentTile) {
@@ -109,8 +116,8 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
         System.out.println(currentTile.getLongDescription());
     }
 
-    /**Shows the player a goodbye message and ends the game
-     *
+    /**
+     * Shows the player a goodbye message and ends the game
      */
     @Override
     public void displayGoodbye() {
@@ -118,7 +125,8 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
     }
 
 
-    /**Tells the player, that the attempted action cannot be done by writing:
+    /**
+     * Tells the player, that the attempted action cannot be done by writing:
      * <p><b><i>I don't know what you mean... </i></b></p>
      * followed by the passed in String as bonusinfo
      *
@@ -129,7 +137,8 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
         System.out.println("I don't know what you mean... " + bonusInfo);
     }
 
-    /**Displays a help text to the player
+    /**
+     * Displays a help text to the player
      * <p>Should be called when the player types "help"
      * <p>Ends with printing a list of the valid commands
      */
@@ -142,7 +151,8 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
         this.displayAllCommands();
     }
 
-    /** Prints out the following lines:
+    /**
+     * Prints out the following lines:
      * <p>You've hit land!</p>
      * <p>You've done goofed</p>
      */
@@ -153,7 +163,8 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
         this.displaySimpleInfo("You've hit land! \n You've done goofed");
     }
 
-    /**Displays the description of the tile we are in
+    /**
+     * Displays the description of the tile we are in
      * <p>in iteration 1 this is simply a call to {@link #displaySimpleInfo(String)} with the string passed in</p>
      * however this will likely change in iteration 2
      *
@@ -164,7 +175,8 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
         this.displaySimpleInfo(tileDescription);
     }
 
-    /**Very simple in iteration 1
+    /**
+     * Very simple in iteration 1
      * <p>it uses {@link #displaySimpleInfo(String)} to display:</p>
      * <b>"> "</b>
      * <p>Is called from {@link Parser}</p>
@@ -181,40 +193,43 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, Disp
 
     @Override
     public void displayGold(double amount) {
-        this.displaySimpleInfo("You have " +amount+" gold");
+        this.displaySimpleInfo("You have " + amount + " gold");
     }
 
-    /**<p>The method displayFishingResult is used to display how many fished the boat caught and how long it took</p>
-     *  <p>The method uses {@link #displaySimpleInfo(String)} to display:</p>
-     *  <p>The fishing went well! you caught " + catchAmount + "and it took " + hoursFished</p>
+    /**
+     * <p>The method displayFishingResult is used to display how many fished the boat caught and how long it took</p>
+     * <p>The method uses {@link #displaySimpleInfo(String)} to display:</p>
+     * <p>The fishing went well! you caught " + catchAmount + "and it took " + hoursFished</p>
+     *
      * @param catchAmount catchAmount is the number of fish caught by the boat
      * @param hoursFished hoursFished is the hours it takes the boat to complete the fishing
      */
     @Override
     public void displayFishingResult(double catchAmount, int hoursFished, Fish fishType) {
-        this.displaySimpleInfo("The fishing went well! you caught " + catchAmount + " " + fishType +" and it took " + hoursFished);
+        this.displaySimpleInfo("The fishing went well! you caught " + catchAmount + " " + fishType + " and it took " + hoursFished);
 
     }
 
-    /**Used to display to the player how many fish are currently in storage
+    /**
+     * Used to display to the player how many fish are currently in storage
      *
      * @param fishMap the map containing fish and number of fish
      */
     @Override
     public void displayCurrentFish(Map<Fish, Integer> fishMap) {
         String printString = "";
-        for (Fish fish: fishMap.keySet()) {
+        for (Fish fish : fishMap.keySet()) {
             printString += "You have caught " + fishMap.get(fish) + " " + fish + "\n";
         }
         this.displaySimpleInfo(printString);
     }
 
     public void displayCurrentFish(double fish) {
-        this.displaySimpleInfo("You have caught " + fish + " fish" );
+        this.displaySimpleInfo("You have caught " + fish + " fish");
     }
 
     @Override
-    public void DisplayTooManyHours(){
+    public void DisplayTooManyHours() {
         this.displaySimpleInfo("You have fished to many hours!" + "\n" + "You can only fish for 12 hours.");
     }
 }

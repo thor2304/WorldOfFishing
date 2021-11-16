@@ -1,4 +1,4 @@
-package worldofzuul;
+package worldofzuul.Display;
 import java.util.HashMap;
 
 
@@ -40,15 +40,6 @@ public class CommandWords
         }
     }
 
-    /**Unused method, to check whether a command is known or unknown
-     *
-     * @param aString the string containing a command to check
-     * @return true, if command is known, false if command is unknown
-     */
-    public boolean isCommand(String aString)
-    {
-        return validCommands.containsKey(aString);
-    }
 
     /**Calls display all commands from DisplayToPlayer
      * think about reworking this to a dirct call to DisplayToPlayer
@@ -56,6 +47,7 @@ public class CommandWords
     public void showAll() 
     {
         display.displayAllCommands();
+        //rework this to return a string list or array with all valid commands
     }
 
     /**gets the list of valid commands in the game

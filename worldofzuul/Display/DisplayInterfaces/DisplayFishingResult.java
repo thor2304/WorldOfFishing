@@ -1,6 +1,6 @@
-package worldofzuul.DisplayInterfaces;
+package worldofzuul.Display.DisplayInterfaces;
 
-import worldofzuul.Fish;
+import worldofzuul.Domain.Fish;
 
 import java.util.Map;
 

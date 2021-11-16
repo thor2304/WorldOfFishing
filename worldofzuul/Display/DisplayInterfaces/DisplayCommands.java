@@ -1,6 +1,6 @@
-package worldofzuul.DisplayInterfaces;
+package worldofzuul.Display.DisplayInterfaces;
 
-import worldofzuul.*;
+import worldofzuul.Display.CommandWord;
 
 public interface DisplayCommands {
     void displayCommand(String text, CommandWord commandWord);
