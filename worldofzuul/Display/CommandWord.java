@@ -1,6 +1,6 @@
 package worldofzuul.Display;
 
-public enum CommandWord
+enum CommandWord
 {
     TIME("time"), SHOWGOLD("gold"), SHOWFISH("caught"), SELL("sell"), FISHTILE("fish"), GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"); //the ? is not stored in the list of valid commands, therefore the contents of the string inside unknown does not matter.
     

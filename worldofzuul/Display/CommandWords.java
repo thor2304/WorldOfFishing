@@ -2,7 +2,7 @@ package worldofzuul.Display;
 import java.util.HashMap;
 
 
-public class CommandWords
+class CommandWords
 {
     private HashMap<String, CommandWord> validCommands;
     private DisplayToPlayer display; //should be removed if the class ends up having no calls to DisplayToPlayer

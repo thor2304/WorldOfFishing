@@ -8,7 +8,7 @@ import java.util.Scanner;
  * These above classes should be merged in some combination
  *
  */
-public class Parser 
+class Parser
 {
     /** Stores the {@link CommandWords} object containing the list of valid commands */
     private CommandWords commands;

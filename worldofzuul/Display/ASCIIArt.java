@@ -1,6 +1,6 @@
 package worldofzuul.Display;
 
-public class ASCIIArt {
+class ASCIIArt {
     public static final String WelcomeScreen = ConsoleColor.BLUE + " __          __         _                                       _               \n" +
             " \\ \\        / /        | |                                     | |            _ \n" +
             "  \\ \\  /\\  / /    ___  | |   ___    ___    _ __ ___     ___    | |_    ___   (_)\n" +

@@ -2,6 +2,9 @@ package worldofzuul.Display;
 
 import worldofzuul.Domain.Tile;
 
+/**Has to be public because it is called by Runner
+ *
+ */
 public class GameLoop {
     public DisplayToPlayer display;
     private Parser parser;

@@ -1,8 +1,5 @@
 package worldofzuul.Display.DisplayInterfaces;
 
-import worldofzuul.Display.Parser;
-import worldofzuul.Domain.Game;
-
 public interface CommandExecutionTexts {
     void unknownCommand(String bonusInfo);
     void displayHelpText();
@@ -10,7 +7,7 @@ public interface CommandExecutionTexts {
     void displayTileDescription(String tileDescription);
 
     /**
-     * Is called from {@link Parser Parser} contrary to the other methods in this interface, which are called from {@link Game}
+     * Is called from {@link worldofzuul.Display.Parser} contrary to the other methods in this interface, which are called from {@link worldofzuul.Domain.Game}
      */
     void readyForNextCommand();
 }

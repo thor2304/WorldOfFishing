@@ -53,7 +53,7 @@ import java.util.Map;
  * the name of your new Interface and perhaps your new method. This makes it easier to Code review
  * </p>
  */
-public class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, DisplayEndAndWelcome,
+class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, DisplayEndAndWelcome,
         CommandExecutionTexts, DisplayAddedGold, DisplayFishingResult, DisplayTooManyHours {
     private CommandWords commandWords;
 

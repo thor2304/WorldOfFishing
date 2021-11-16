@@ -19,7 +19,7 @@
 
 package worldofzuul.Display;
 
-public class Command
+class Command
 {
     private CommandWord commandWord;
     private String secondWord;
