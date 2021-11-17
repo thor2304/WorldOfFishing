@@ -20,7 +20,7 @@ class CommandWords
             }
         }
 
-        display = new DisplayToPlayer(this);
+        display = new DisplayToPlayer();
     }
 
     /**Gets the commandword from the list of valid commands
@@ -38,16 +38,6 @@ class CommandWords
         else {
             return CommandWord.UNKNOWN;
         }
-    }
-
-
-    /**Calls display all commands from DisplayToPlayer
-     * think about reworking this to a dirct call to DisplayToPlayer
-     */
-    public void showAll() 
-    {
-        display.displayAllCommands();
-        //rework this to return a string list or array with all valid commands
     }
 
     /**gets the list of valid commands in the game

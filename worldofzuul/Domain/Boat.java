@@ -22,7 +22,6 @@ class Boat {
     //private double catchAmount; //possibly rework this to use a HashMap<Fish, int> instead of a double, to allow for storage of different
     private int hoursToFish;
     private double goldStorage;
-    private Game game; //this should be deleted, and passed as an argument to the methods that need it
     private Map<Fish, Integer> catchAmount;
 
 
@@ -36,8 +35,6 @@ class Boat {
         this.catchAmount = catchAmount;
         this.hoursToFish = hoursToFish;
         this.goldStorage = goldStorage;
-
-        this.game = Runner.game; //this is the source of boat not initializing
     }
 
     /**Reduced constructor, taking only one param, and setting the rest to 0
@@ -53,12 +50,12 @@ class Boat {
         }
     }
 
-    /**<p>Calls {@link #fishTile(int)} with the value of {@link #hoursToFish} saved in {@link Boat}</p>
+    /**<p>Calls {@link #fishTile(int, Tile)} with the value of {@link #hoursToFish} saved in {@link Boat}</p>
      * <b>!!update all tiles after calling this method!!</b>
      * Using the method Game.updateAllTiles()
      */
-    public void fishTile(){
-        fishTile(this.hoursToFish);
+    public Map<Fish, Integer> fishTile(Tile currentTile) throws TileProtectedFromFishingError{
+        return fishTile(this.hoursToFish, currentTile);
     }
 
     /**Calling this method does not change {@link #hoursToFish} in {@link Boat}
@@ -68,17 +65,13 @@ class Boat {
      * @TODO Check if the tile is protected when getting the fishing results, a.k.a handle the TileProtected exception
      * @param hoursToFish the amount of hours to fish
      */
-    public void fishTile(int hoursToFish) {
+    public Map<Fish, Integer> fishTile(int hoursToFish, Tile currentTile) throws TileProtectedFromFishingError{
         // do some fishing
-        try{
-            Map<Fish, Integer> caughtFish = this.game.getCurrentTile().fishTile(hoursToFish);
-            for (Fish fish : Fish.values()) {
-                this.catchAmount.put(fish, this.catchAmount.get(fish) + caughtFish.get(fish));
-                display.displayFishingResult(caughtFish.get(fish), hoursToFish, fish);
-            }
-        }catch(TileProtectedFromFishingError T){
-            display.displaySimpleInfo(T.getMessage());
+        Map<Fish, Integer> caughtFish = currentTile.fishTile(hoursToFish);
+        for (Fish fish : Fish.values()) {
+            this.catchAmount.put(fish, this.catchAmount.get(fish) + caughtFish.get(fish));
         }
+        return caughtFish;
     }
 
     /** sellFish method
@@ -86,7 +79,7 @@ class Boat {
      *The price is obtained from the Fish Class's getSalesPrice method.</p>
      *
      */
-    public void sellFish(){
+    public double sellFish(){
         double newGold = 0;
         for (Fish fish : Fish.values()){
             int fishAmount = catchAmount.get(fish);
@@ -95,28 +88,11 @@ class Boat {
             newGold += fishGold;
             this.catchAmount.put(fish,0);
         }
-        display.displayNewGold(newGold);
+        return newGold;
     }
 
-    public void showGold(){
-        this.display.displayGold(this.getGoldStorage());
-    }
 
-    /** Will display to the player how many fish is currently in storage
-     * <p>Needs to be updated when catchAmount have been converted to a Map</p>
-     * When that happens, use {@link DisplayToPlayer#displayCurrentFish(Map)}
-     */
-    public void showFish(){
-        this.display.displayCurrentFish(catchAmount);
-//        Map<Fish, Integer> testMap = new HashMap<>();
-//        testMap.put(Fish.MAKREL, (int)this.getCatchAmount());
-//        testMap.put(Fish.SILD, 300);
-//        this.display.displayCurrentFish(testMap);
-        // the commented block shows that the display to player method, also works when catchAmount have been changed to a Map
-
-    }
-
-    public Map getCatchAmount() {
+    public Map<Fish, Integer> getCatchAmount() {
         return catchAmount;
     }
 

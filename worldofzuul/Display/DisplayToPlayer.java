@@ -3,6 +3,7 @@ package worldofzuul.Display;
 import worldofzuul.Display.DisplayInterfaces.*;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * <h2>This is the class responsible for everything displayed to the player</h2>
@@ -53,13 +54,8 @@ import java.util.Map;
  * the name of your new Interface and perhaps your new method. This makes it easier to Code review
  * </p>
  */
-class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, DisplayEndAndWelcome,
+class DisplayToPlayer implements DisplaySimpleInfo, DisplayEndAndWelcome,
         CommandExecutionTexts, DisplayAddedGold, DisplayFishingResult, DisplayTooManyHours {
-    private CommandWords commandWords;
-
-    public DisplayToPlayer(CommandWords commandWords) {
-        this.commandWords = commandWords;
-    }
 
     /**
      * This method displays a simple string to the user
@@ -75,35 +71,12 @@ class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, DisplayEndA
         System.out.println(info);
     }
 
-    /**
-     * This method displays all the available commands/actions to the user
-     */
-    @Override
-    public void displayAllCommands() {
-        for (String command : this.commandWords.getValidCommands().keySet()) {
-            System.out.print(command + "  ");
-        }
-        System.out.println();
-    }
-
-    /**
-     * This method is used for displaying a single command to the user.
-     * Perhaps useless, remove at will
-     *
-     * @param text        Displayed in the beginning of the display to the user
-     * @param commandWord the {@link CommandWord} to display
-     */
-    @Override
-    public void displayCommand(String text, CommandWord commandWord) {
-        System.out.println(text + commandWord);
-    }
-
 
     /**
      * Is responsible for showing the player a welcome screen at the beginning of the game
      */
     @Override
-    public void displayWelcome(Tile currentTile) {
+    public void displayWelcome(String descriptionOfCurrentTile) {
         System.out.println("\n"); //two newlines
 
         System.out.println(ASCIIArt.WelcomeScreen);
@@ -113,7 +86,7 @@ class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, DisplayEndA
         System.out.println("You´re a fisherman, who needs to catch some fish, to earn money for your new started fish company. ");
         System.out.println("I wish you the best of luck!");
         System.out.println("Lets start the fishing now: \n");
-        System.out.println(currentTile.getLongDescription());
+        System.out.println(descriptionOfCurrentTile);
     }
 
     /**
@@ -143,12 +116,15 @@ class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, DisplayEndA
      * <p>Ends with printing a list of the valid commands
      */
     @Override
-    public void displayHelpText() {
+    public void displayHelpText(Set<String> allValidCommands) {
         System.out.println("You are lost. You are alone. You drift");
         System.out.println("at sea.");
         System.out.println();
         System.out.println("Your command words are:");
-        this.displayAllCommands();
+        for (String command : allValidCommands) {
+            System.out.print(command + "  ");
+        }
+        System.out.println();
     }
 
     /**
@@ -199,15 +175,18 @@ class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, DisplayEndA
     /**
      * <p>The method displayFishingResult is used to display how many fished the boat caught and how long it took</p>
      * <p>The method uses {@link #displaySimpleInfo(String)} to display:</p>
-     * <p>The fishing went well! you caught " + catchAmount + "and it took " + hoursFished</p>
+     * <p>The fishing went well! you caught " + catchAmount</p>
      *
-     * @param catchAmount catchAmount is the number of fish caught by the boat
-     * @param hoursFished hoursFished is the hours it takes the boat to complete the fishing
+     * If we want to print how many hours we fished, it should be passed as a param in the Map.
+     * probably as key "hoursToFish"
+     *
+     * @param fishResult The input Map of how many fish were caught of each type
      */
     @Override
-    public void displayFishingResult(double catchAmount, int hoursFished, Fish fishType) {
-        this.displaySimpleInfo("The fishing went well! you caught " + catchAmount + " " + fishType + " and it took " + hoursFished);
-
+    public void displayFishingResult(Map<String, Integer> fishResult) {
+        for (String fish: fishResult.keySet()) {
+            this.displaySimpleInfo("The fishing went well! you caught " + fishResult.get(fish) + " " + fish);
+        }
     }
 
     /**
@@ -216,16 +195,12 @@ class DisplayToPlayer implements DisplaySimpleInfo, DisplayCommands, DisplayEndA
      * @param fishMap the map containing fish and number of fish
      */
     @Override
-    public void displayCurrentFish(Map<Fish, Integer> fishMap) {
+    public void displayCurrentFish(Map<String, Integer> fishMap) {
         String printString = "";
-        for (Fish fish : fishMap.keySet()) {
+        for (String fish : fishMap.keySet()) {
             printString += "You have caught " + fishMap.get(fish) + " " + fish + "\n";
         }
         this.displaySimpleInfo(printString);
-    }
-
-    public void displayCurrentFish(double fish) {
-        this.displaySimpleInfo("You have caught " + fish + " fish");
     }
 
     @Override

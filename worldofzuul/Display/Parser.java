@@ -20,7 +20,7 @@ class Parser
     {
         commands = new CommandWords();
         reader = new Scanner(System.in);
-        display = new DisplayToPlayer(commands);
+        display = new DisplayToPlayer();
     }
 
     /**Reads the user input and parses it into a Command object

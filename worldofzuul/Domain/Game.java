@@ -1,5 +1,12 @@
 package worldofzuul.Domain;
 
+import worldofzuul.Errors.OutOfBoundsError;
+import worldofzuul.Errors.TileProtectedFromFishingError;
+import worldofzuul.Errors.TooManyHoursToFishError;
+
+import java.util.Map;
+import java.util.Objects;
+
 class Game {
     public Boat boat;
     private Tile currentTile;
@@ -12,6 +19,7 @@ class Game {
      * No args constructor,
      * Currently the only constructor available.
      * A new game should not take any arguments.
+     * It also creates a net of {@link Tile Tiles} which are technically stored only because they refer to each other
      */
     public Game() {
         createTiles();
@@ -53,46 +61,36 @@ class Game {
     }
 
 
-    private void goTile(String direction) {
-//        if (!command.hasSecondWord()) {
-//            //System.out.println("Go where?"); //has been replaced by below
-//            display.unknownCommand("Go where?");
-//            return;
-//        }
-        // the above should be implemented in GameLoop
-
+    public String goTile(String direction) throws OutOfBoundsError {
         Tile nextRoom = currentTile.getExit(direction);
 
         if (nextRoom == null) {
-            display.outOfBoundsText();
+            throw new OutOfBoundsError();
         } else {
             currentTile = nextRoom;
-            //System.out.println(currentTile.getLongDescription());
-            display.displayTileDescription(currentTile.getLongDescription());
+            return currentTile.getLongDescription();
         }
     }
 
 
     // our own methods:
 
-    public void fish(Command command) {
-        if (!command.hasSecondWord()) {
-            boat.fishTile();
+    /**
+     * @param hoursToFish a string containing only the number of hours to fish
+     */
+    public Map<Fish, Integer> fish(String hoursToFish) throws NumberFormatException, TooManyHoursToFishError, TileProtectedFromFishingError {
+        if (Objects.isNull(hoursToFish)) {
+            Map<Fish, Integer> newlyCaughtFish = boat.fishTile(currentTile);
             updateAllTiles();
+            return newlyCaughtFish;
         } else {
-            String newTimeString = command.getSecondWord();
-            //convert the string to a number, remember that the user may not have typed a number, so watch out for errors
-
-            try {
-                int newTimeInt = Integer.parseInt(newTimeString); //replace here
-                if (newTimeInt > 12) {
-                    display.DisplayTooManyHours();
-                } else {
-                    boat.fishTile(newTimeInt);
-                }
-
-            } catch (NumberFormatException e) {
-                display.displaySimpleInfo(e.getMessage());
+            int newTimeInt = Integer.parseInt(hoursToFish);
+            if (newTimeInt > 12) {
+                throw new TooManyHoursToFishError(hoursToFish);
+            } else {
+                Map<Fish, Integer> newlyCaughtFish = boat.fishTile(newTimeInt, currentTile);
+                updateAllTiles();
+                return newlyCaughtFish;
             }
         }
     }
