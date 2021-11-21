@@ -3,6 +3,7 @@ package oop.javafxtest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import oop.javafxtest.worldofzuul.Display.Command;
 import oop.javafxtest.worldofzuul.Display.CommandWord;
 import oop.javafxtest.worldofzuul.Display.GameLoop;
@@ -26,7 +27,7 @@ public class HelloController {
     Label ålCount;
 
     @FXML
-    Label fishCaughtInfoBox;
+    GridPane fishCaughtInfoBox;
 
 
 
@@ -68,6 +69,11 @@ public class HelloController {
     protected void fish(){
         updateGeneralLabel(Runner.gameLoop.fish());
         //Remember to also update the display to the right
+    }
+
+    @FXML
+    protected void hoursToFishChanging(){
+        // change the hours to fish
     }
 
     @FXML
