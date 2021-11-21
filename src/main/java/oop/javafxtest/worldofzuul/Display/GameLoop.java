@@ -155,4 +155,20 @@ public class GameLoop {
         }
     }
 
+    public int getHoursTofish(){
+        return domain.getBoatHoursToFish();
+    }
+
+    public double getCurrentGold(){
+        return domain.getBoatGold();
+    }
+
+    public Map<String, Integer> getBoatCaughtFish(){
+        return domain.getBoatCaughtFish();
+    }
+
+    public void setBoatHoursToFish(int hoursToFish){
+        domain.setBoatHoursToFish(hoursToFish);
+    }
+
 }

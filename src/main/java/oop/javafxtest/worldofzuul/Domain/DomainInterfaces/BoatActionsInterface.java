@@ -7,4 +7,5 @@ public interface BoatActionsInterface {
     double getBoatGold();
     Map<String, Integer> getBoatCaughtFish();
     int getBoatHoursToFish();
+    void setBoatHoursToFish(int hoursToFish);
 }

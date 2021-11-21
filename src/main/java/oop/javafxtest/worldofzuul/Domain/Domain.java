@@ -38,6 +38,11 @@ public class Domain implements BoatActionsInterface, CommandHandlingInterface , 
     }
 
     @Override
+    public void setBoatHoursToFish(int hoursToFish) {
+        game.boat.setHoursToFish(hoursToFish);
+    }
+
+    @Override
     public Map<String, Integer> fishCurrentTile() throws TileProtectedFromFishingError {
         return convertFishIntegerToStringIntegerMap(game.fish());
     }
