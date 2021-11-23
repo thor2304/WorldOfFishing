@@ -4,6 +4,7 @@ import oop.javafxtest.worldofzuul.Errors.OutOfBoundsError;
 import oop.javafxtest.worldofzuul.Errors.TileProtectedFromFishingError;
 import oop.javafxtest.worldofzuul.Errors.TooManyHoursToFishError;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -96,13 +97,16 @@ class Game {
     }
 
 
-    /**
+    /** TODO add error handling in the method which calls this
      * @param hoursToFish a string containing only the number of hours to fish
      */
     public Map<Fish, Integer> fish() throws TileProtectedFromFishingError {
-        Map<Fish, Integer> newlyCaughtFish = boat.fishTile(currentTile);
-        updateAllTiles();
-        return newlyCaughtFish;
+        try {
+            return fish(String.valueOf(boat.getHoursToFish()));
+        } catch (TooManyHoursToFishError e) {
+            e.printStackTrace();
+            return new HashMap<>();
+        }
     }
 
 
