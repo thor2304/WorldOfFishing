@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import oop.javafxtest.worldofzuul.Display.Command;
@@ -47,11 +49,15 @@ public class HelloController {
     Slider fishingHoursSlider;
 
     @FXML
+    Label dailyExpensesLabel;
+
+    @FXML
     private void initialize()
     {
         initGoldLabel();
         initFishLabel();
         updateFishCountLabels();
+        updateDailyExpensesLabel();
     }
 
     @FXML
@@ -137,6 +143,22 @@ public class HelloController {
         initFishLabel();
         initGoldLabel();
         updateFishCountLabels();
+        updateDailyExpensesLabel();
+    }
+
+    @FXML
+    protected void keyPressed(KeyEvent keyEvent){
+        String letter = keyEvent.getCode().toString();
+        switch(letter){
+            case "W": goUp();
+            break;
+            case "S": goDown();
+            break;
+            case "D": goRight();
+            break;
+            case "A": goLeft();
+            default:
+        }
     }
 
     private void initFishLabel(){
@@ -145,6 +167,10 @@ public class HelloController {
 
     private void initGoldLabel(){
         currentGoldLabel.setText("" + Runner.gameLoop.getCurrentGold());
+    }
+
+    private void updateDailyExpensesLabel(){
+        dailyExpensesLabel.setText("" + Runner.gameLoop.getDailyExpenses());
     }
 
     private void updateFishCountLabels(){

@@ -171,4 +171,8 @@ public class GameLoop {
         domain.setBoatHoursToFish(hoursToFish);
     }
 
+    public double getDailyExpenses(){
+        return domain.getDailyExpenses();
+    }
+
 }

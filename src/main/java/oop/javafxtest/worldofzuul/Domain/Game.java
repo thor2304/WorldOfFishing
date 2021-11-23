@@ -152,4 +152,6 @@ class Game {
         // but in this case, we DO want to mess with the actual current room and data stored within
         return this.currentTile;
     }
+
 }
+

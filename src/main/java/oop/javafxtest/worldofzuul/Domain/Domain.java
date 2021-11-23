@@ -64,5 +64,12 @@ public class Domain implements BoatActionsInterface, CommandHandlingInterface , 
             out.put(fish.toString(), fishIntegerMap.get(fish));
         }
         return out;
+
+
+    }
+
+    @Override
+    public double getDailyExpenses(){
+        return game.boat.getDailyExpenses();
     }
 }

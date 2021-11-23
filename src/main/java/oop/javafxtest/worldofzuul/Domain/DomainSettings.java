@@ -35,13 +35,16 @@ class DomainSettings {
     public static final int BOARDSIZE = 3;
 
 
-    /** the amount of variance of the caught fish.{@link Tile#fishTile(int, double, double)}
+    /** the amount of variance of the caught fish. {@link Tile#fishTile(int, double, double)}
      * click link to read what the method does.
      */
     public static final double VARIANCE = 0.4;
 
 
-    public static final double DAILYEXPENSE = 1000;
+    /** The way DAILYEXPENSES is used is that it is multiplied by EXPENSESCLAING.
+     *
+     */
+    public static final double DAILYEXPENSES = 1000;
 
 
     public static final double EXPENSESCALING = 1.1;
