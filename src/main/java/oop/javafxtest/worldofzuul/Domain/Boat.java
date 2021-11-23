@@ -23,6 +23,7 @@ class Boat {
     private int hoursToFish;
     private double goldStorage;
     private Map<Fish, Integer> catchAmount;
+    private double expense;
 
 
 
@@ -91,6 +92,18 @@ class Boat {
         return newGold;
     }
 
+    /**
+     * <p>Daily expenses so you force the player to fish more.</p>
+     * @return
+     */
+    public void dailyExpenses(){
+        do {
+            expense = 0.5 * goldStorage;
+            goldStorage = goldStorage - expense;
+        }
+        while ();
+    }
+
 
     public Map<Fish, Integer> getCatchAmount() {
         return catchAmount;
@@ -114,5 +127,9 @@ class Boat {
 
     public void setGoldStorage(double goldStorage) {
         this.goldStorage = goldStorage;
+    }
+
+    public double getExpense(){
+        return expense;
     }
 }
