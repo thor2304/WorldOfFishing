@@ -96,8 +96,8 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #66b3ff;" VBox.vgrow="ALWAYS">
       <children>
-            <Label fx:id="generalInfoLabel" alignment="CENTER" layoutX="519.0" layoutY="86.0" prefHeight="82.0" prefWidth="114.0" text="General info" />
-            <GridPane layoutX="453.0" layoutY="260.0" prefHeight="105.0" prefWidth="173.0">
+            <Label fx:id="generalInfoLabel" alignment="CENTER" layoutX="466.0" layoutY="147.0" prefHeight="114.0" prefWidth="173.0" text="General info" />
+            <GridPane alignment="BOTTOM_RIGHT" layoutX="453.0" layoutY="260.0" prefHeight="105.0" prefWidth="173.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -108,10 +108,10 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="leftButton" mnemonicParsing="false" onAction="#goLeft" scaleX="2.0" scaleY="2.0" text="A" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <Button fx:id="upButton" mnemonicParsing="false" onAction="#goUp" scaleX="2.0" scaleY="2.0" text="W" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <Button fx:id="rightButton" mnemonicParsing="false" onAction="#goRight" scaleX="2.0" scaleY="2.0" text="D" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <Button fx:id="downButton" mnemonicParsing="false" onAction="#goDown" scaleX="2.0" scaleY="2.0" text="S" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Button fx:id="leftButton" focusTraversable="false" mnemonicParsing="false" onAction="#goLeft" scaleX="2.0" scaleY="2.0" text="A" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Button fx:id="upButton" focusTraversable="false" mnemonicParsing="false" onAction="#goUp" scaleX="2.0" scaleY="2.0" text="W" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Button fx:id="rightButton" focusTraversable="false" mnemonicParsing="false" onAction="#goRight" scaleX="2.0" scaleY="2.0" text="D" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Button fx:id="downButton" focusTraversable="false" mnemonicParsing="false" onAction="#goDown" scaleX="2.0" scaleY="2.0" text="S" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                </children>
             </GridPane>
             <Button fx:id="fishButton" layoutX="24.0" layoutY="256.0" mnemonicParsing="false" onAction="#fish" prefHeight="67.0" prefWidth="114.0" style="-fx-background-color: #5c72ff; -fx-border-color: #000000; -fx-border-radius: 10; -fx-background-radius: 11;" text="Fish">

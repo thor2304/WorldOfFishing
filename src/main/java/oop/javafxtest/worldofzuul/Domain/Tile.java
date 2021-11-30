@@ -2,6 +2,7 @@ package oop.javafxtest.worldofzuul.Domain;
 
 import oop.javafxtest.worldofzuul.Errors.TileProtectedFromFishingError;
 
+import java.lang.reflect.Array;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,6 +51,11 @@ class Tile
         this.habitatQuality = habitatQuality;
         this.x = x;
         this.y = y;
+
+        this.numberOfMigratedFish = new HashMap<>();
+        for (Fish fish: Fish.values()) {
+            this.numberOfMigratedFish.put(fish, 0);
+        }
     }
 
     //Methods from world of zuul
@@ -86,7 +92,9 @@ class Tile
     //Methods from our implementation
     private int increaseNumberOfFish(Fish fish, int numberOfNewFish){
         int currentFish = this.numberOfFish.get(fish);
+        System.out.println(this.description);
         System.out.println("increasing fish by: " + numberOfNewFish);
+        System.out.println("Fish already there: " + currentFish);
         this.numberOfFish.put(fish,numberOfNewFish + currentFish);
         return this.numberOfFish.get(fish);
     }
@@ -116,7 +124,6 @@ class Tile
      */
     public void updateFishNumbers(){
         for(Fish fish : Fish.values()) {
-
             increaseNumberOfFish( fish, getExtraFish(fish.getReproductionRate() * this.habitatQuality, this.numberOfFish.get(fish), (int) Math.round(this.habitatQuality * DomainSettings.DEFAULTCARRYINGCAPACITYOFTILE)) );
             //decreaseNumberOfFish( fish, (int) Math.round( 1/this.habitatQuality * fish.getDeathRate() * this.numberOfFish.get(fish) ) );
          }
@@ -124,7 +131,7 @@ class Tile
 
     private int getExtraFish(double growthRate, int currentPopulation, int carryingCap){
         double out;
-        if(carryingCap > 0){
+        if(carryingCap > 0 && currentPopulation < carryingCap){
             out = (growthRate) * (1- currentPopulation/carryingCap) * currentPopulation;
         }else{
             out = 0;
@@ -139,28 +146,48 @@ class Tile
     /**Is called directly by Game
      */
     public void migrateFishPopulation(){
-        //do all the complex migrate math
-        //get migration rate from fishInThisTile.getMigrationRate
-        //Compare quality of current tile vs tile to migrate to
-        //check fish numbers of current tile vs tile to migrate to
-        //watch out for overfilling a tile beyond its capacity
-        //Migrate based on position (perhaps with amount of circle area overlap
+        for (Fish currentFish: Fish.values()) {
+            int numberOfFishToMigrate = (int) Math.round(numberOfFish.get(currentFish) / 10.0);
 
-        //use the exits Hashmap to get the neighbours of the tile
-        //check all neighbours before deciding where to migrate to
+            Map<String, Double> neighbourMultipliers = new HashMap<>();
+            double sum = 0;
+            double multiplierValue;
 
-        //remember to use the methods in this class, increaseFishPopulation and decreaseFishPopulation
-        //remember that this method may have to be reworked to be a public method called from Game
+            for(String neighbour: exits.keySet()){
+                neighbourMultipliers.put(neighbour, (this.numberOfFish.get(currentFish) / (double)this.exits.get(neighbour).numberOfFish.get(currentFish))
+                        * (this.exits.get(neighbour).habitatQuality / this.habitatQuality));
+
+                multiplierValue = neighbourMultipliers.get(neighbour);
+                if(multiplierValue > 1){
+                    sum += multiplierValue;
+                }
+            }
+
+            // 10 + 20 + 30
+            // sum 60
+            // 10/60   20/ 60   30/ 60
+            // 1/6 2/6=1/3 1/2
+            // 16,6%   33%   50%
+
+
+            for(String neighbour: neighbourMultipliers.keySet()){
+                multiplierValue = neighbourMultipliers.get(neighbour);
+                if(multiplierValue < 1){
+                    continue;
+                }
+                int prevFishInNeighbour = exits.get(neighbour).numberOfMigratedFish.get(currentFish);
+                int fishToSwimOut = (int) Math.floor((multiplierValue / sum) * numberOfFishToMigrate);
+                exits.get(neighbour).numberOfMigratedFish.put(currentFish, prevFishInNeighbour + fishToSwimOut);
+                int prevFishInThisMigrated = this.numberOfMigratedFish.get(currentFish);
+                this.numberOfMigratedFish.put(currentFish, prevFishInThisMigrated - fishToSwimOut);
+            }
+
+        }
 
         //make a decision of what the inputs should be
-        //and what the return type should be
-
-        //watch out for current/future problems (sending fish to a tile, that hasnt migrated yet)
-        //we will avoid this by sending migrated fish to the variable numberOfMigratedFish
-
-
-        //think about different fish species and checking them (maybe important, maybe not to be decided)
     }
+
+
 
 
 
@@ -178,9 +205,11 @@ class Tile
      */
     public void completeMigration(){
         for(Fish fish : Fish.values()) {
-            int currentFish = this.numberOfFish.get(fish);
-            currentFish += this.numberOfMigratedFish.get(fish);
-            this.numberOfFish.put(fish, currentFish);
+//            int currentFish = this.numberOfFish.get(fish);
+//            currentFish += this.numberOfMigratedFish.get(fish);
+//            this.numberOfFish.put(fish, currentFish);
+            this.decreaseNumberOfFish(fish, -this.numberOfMigratedFish.get(fish));
+
             this.numberOfMigratedFish.put(fish,0);
         }
     }
@@ -242,7 +271,7 @@ class Tile
             double diff = DomainSettings.VARIANCE; // the amount of variance in the caught fish
 
             for (Fish fish : Fish.values()){
-                double fishCaughtAverage = this.habitatQuality * this.numberOfFish.get(fish) * catchRate; //maybe remove habitat quality from this line?
+                double fishCaughtAverage = this.numberOfFish.get(fish) * catchRate; 
                 fishCaughtAverage = (fishCaughtAverage <0) ? 0: fishCaughtAverage;
                 min = (int) Math.round(fishCaughtAverage * (1 -diff));
                 max = (int) Math.round(fishCaughtAverage * (1 + diff)); //maybe percentages dont work this way? we dont care

@@ -207,7 +207,7 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayEndAndWelcome,
     public String displayFishingResult(Map<String, Integer> fishResult) {
         String out = "";
         for (String fish: fishResult.keySet()) {
-            out += this.displaySimpleInfo("The fishing went well! you caught " + fishResult.get(fish) + " " + fish + "\n");
+            out += this.displaySimpleInfo("You caught " + fishResult.get(fish) + " " + fish + "\n");
         }
         return out;
     }
