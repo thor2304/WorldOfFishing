@@ -1,17 +1,16 @@
 package oop.javafxtest.worldofzuul.Domain;
 
-import oop.javafxtest.worldofzuul.Display.GameLoop;
 import oop.javafxtest.worldofzuul.Domain.DomainInterfaces.BoatActionsInterface;
 import oop.javafxtest.worldofzuul.Domain.DomainInterfaces.CommandHandlingInterface;
 import oop.javafxtest.worldofzuul.Domain.DomainInterfaces.GeneralGameInfoInterface;
 import oop.javafxtest.worldofzuul.Errors.OutOfBoundsError;
 import oop.javafxtest.worldofzuul.Errors.TileProtectedFromFishingError;
-import oop.javafxtest.worldofzuul.Errors.TooManyHoursToFishError;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Domain implements BoatActionsInterface, CommandHandlingInterface , GeneralGameInfoInterface {
+
     private Game game;
 
     public Domain() {
@@ -20,6 +19,11 @@ public class Domain implements BoatActionsInterface, CommandHandlingInterface , 
 
     public static int getSettingsBoardSize(){
         return DomainSettings.BOARDSIZE;
+    }
+
+    public boolean protecTile() {
+
+        return game.protecTiles();
     }
 
     public int getCurrentXCoordinate () {

@@ -27,6 +27,7 @@ class Boat {
     private double goldStorage;
     private Map<Fish, Integer> catchAmount;
     private double dailyExpenses;
+    private double protectionExpenses;
 
 
 
@@ -84,18 +85,24 @@ class Boat {
      *The price is obtained from the Fish Class's getSalesPrice method.</p>
      *
      */
-    public double sellFish(){
+    public double sellFish() {
         double newGold = 0;
-        for (Fish fish : Fish.values()){
+        for (Fish fish : Fish.values()) {
             int fishAmount = catchAmount.get(fish);
             double fishGold = (fishAmount * fish.getSalesPrice());
             goldStorage += fishGold;
             newGold += fishGold;
-            this.catchAmount.put(fish,0);
+            this.catchAmount.put(fish, 0);
         }
         return newGold;
     }
 
+    public void protectionCost(){
+        if (goldStorage >= DomainSettings.PROTECTIONCOST){
+            this.protectionExpenses = DomainSettings.PROTECTIONCOST;
+            goldStorage -= this.protectionExpenses;
+        }
+    }
 
     /**
      * <p>Daily expenses so you force the player to fish more.</p>
@@ -108,10 +115,6 @@ class Boat {
 
     public Map<Fish, Integer> getCatchAmount() {
         return catchAmount;
-    }
-
-    public void setCatchAmount(Map catchAmount) {
-        this.catchAmount = catchAmount;
     }
 
     public int getHoursToFish() {
