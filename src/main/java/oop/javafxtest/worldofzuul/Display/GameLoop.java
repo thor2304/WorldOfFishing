@@ -155,6 +155,10 @@ public class GameLoop {
         }
     }
 
+    public boolean checkWinCondition(){
+        return domain.checkWinCondition();
+    }
+
 
 
 

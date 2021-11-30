@@ -51,4 +51,6 @@ class DomainSettings {
 
 
     public static final double EXPENSESCALING = 1.1;
+
+    public static final double REQUIREDGOLDTOWIN = 1000000;
 }

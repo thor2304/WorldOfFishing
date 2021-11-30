@@ -85,4 +85,11 @@ public class Domain implements BoatActionsInterface, CommandHandlingInterface , 
     public double getDailyExpenses(){
         return game.boat.getDailyExpenses();
     }
+
+
+    @Override
+    public boolean checkWinCondition(){
+        return game.checkWinCondition();
+    }
 }
+

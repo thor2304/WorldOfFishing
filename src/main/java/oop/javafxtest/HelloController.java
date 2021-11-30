@@ -212,6 +212,9 @@ public class HelloController {
     @FXML
     protected void sellAllFish(){
         updateGeneralLabel(Runner.gameLoop.sellAllFish());
+        if (Runner.gameLoop.checkWinCondition()){
+            System.out.println("win");
+        }
     }
 
     @FXML
