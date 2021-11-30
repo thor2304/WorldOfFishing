@@ -5,6 +5,9 @@ import oop.javafxtest.worldofzuul.Runner;
 import java.util.HashMap;
 import java.util.Map;
 
+import static oop.javafxtest.worldofzuul.Domain.DomainSettings.DAILYEXPENSES;
+import static oop.javafxtest.worldofzuul.Domain.DomainSettings.EXPENSESCALING;
+
 /**Boat Class
  * Make commands for viewing the info (e.g. make a command to call getCatchAmount and show the player this info)
  * Make commands to let the player change the settings of hoursToFish
@@ -23,6 +26,7 @@ class Boat {
     private int hoursToFish;
     private double goldStorage;
     private Map<Fish, Integer> catchAmount;
+    private double dailyExpenses;
 
 
 
@@ -35,6 +39,7 @@ class Boat {
         this.catchAmount = catchAmount;
         this.hoursToFish = hoursToFish;
         this.goldStorage = goldStorage;
+        this.dailyExpenses = DAILYEXPENSES;
     }
 
     /**Reduced constructor, taking only one param, and setting the rest to 0
@@ -71,6 +76,7 @@ class Boat {
         for (Fish fish : Fish.values()) {
             this.catchAmount.put(fish, this.catchAmount.get(fish) + caughtFish.get(fish));
         }
+        subtractDailyExpenses();
         return caughtFish;
     }
 
@@ -91,6 +97,15 @@ class Boat {
         return newGold;
     }
 
+
+    /**
+     * <p>Daily expenses so you force the player to fish more.</p>
+     * @return
+     */
+    public void subtractDailyExpenses(){
+        this.dailyExpenses *= EXPENSESCALING;
+        goldStorage -= this.dailyExpenses;
+    }
 
     public Map<Fish, Integer> getCatchAmount() {
         return catchAmount;
@@ -114,5 +129,9 @@ class Boat {
 
     public void setGoldStorage(double goldStorage) {
         this.goldStorage = goldStorage;
+    }
+
+    public double getDailyExpenses(){
+        return this.dailyExpenses;
     }
 }

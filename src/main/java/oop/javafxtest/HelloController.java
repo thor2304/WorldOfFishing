@@ -12,6 +12,10 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import oop.javafxtest.worldofzuul.Display.Command;
 import oop.javafxtest.worldofzuul.Display.CommandWord;
 import oop.javafxtest.worldofzuul.Display.GameLoop;
@@ -61,11 +65,15 @@ public class HelloController {
     GridPane baseGridPane;
 
     @FXML
+    Label dailyExpensesLabel;
+
+    @FXML
     private void initialize()
     {
         initGoldLabel();
         initFishLabel();
         updateFishCountLabels();
+        updateDailyExpensesLabel();
         String pathBoat = "src/main/resources/oop/javafxtest/images/Boat.png";
         File boatFile = new File(pathBoat);
         String pathWaterTile = "src/main/resources/oop/javafxtest/images/WaterTile.jpg";
@@ -216,6 +224,22 @@ public class HelloController {
         initFishLabel();
         initGoldLabel();
         updateFishCountLabels();
+        updateDailyExpensesLabel();
+    }
+
+    @FXML
+    protected void keyPressed(KeyEvent keyEvent){
+        String letter = keyEvent.getCode().toString();
+        switch(letter){
+            case "W": goUp();
+            break;
+            case "S": goDown();
+            break;
+            case "D": goRight();
+            break;
+            case "A": goLeft();
+            default:
+        }
     }
 
     private void initFishLabel(){
@@ -224,6 +248,10 @@ public class HelloController {
 
     private void initGoldLabel(){
         currentGoldLabel.setText("" + Runner.gameLoop.getCurrentGold());
+    }
+
+    private void updateDailyExpensesLabel(){
+        dailyExpensesLabel.setText("" + Runner.gameLoop.getDailyExpenses());
     }
 
     private void updateFishCountLabels(){
