@@ -96,7 +96,7 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #66b3ff;" VBox.vgrow="ALWAYS">
       <children>
-            <Label fx:id="generalInfoLabel" alignment="CENTER" prefHeight="255.0" prefWidth="487.0" text="General info" />
+            <Label fx:id="generalInfoLabel" alignment="CENTER" layoutX="519.0" layoutY="86.0" prefHeight="82.0" prefWidth="114.0" text="General info" />
             <GridPane layoutX="453.0" layoutY="260.0" prefHeight="105.0" prefWidth="173.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -165,6 +165,15 @@
                   <Slider fx:id="fishingHoursSlider" blockIncrement="1.0" max="12.0" min="1.0" onMouseReleased="#sliderDone" prefHeight="14.0" prefWidth="107.0" showTickLabels="true" showTickMarks="true" value="4.0" visible="false" />
                </children>
             </StackPane>
+            <GridPane fx:id="baseGridPane" gridLinesVisible="true" layoutX="14.0" layoutY="10.0" prefHeight="239.0" prefWidth="434.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
       </children>
     </AnchorPane>
   </children>

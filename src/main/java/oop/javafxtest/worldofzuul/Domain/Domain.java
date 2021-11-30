@@ -1,5 +1,6 @@
 package oop.javafxtest.worldofzuul.Domain;
 
+import oop.javafxtest.worldofzuul.Display.GameLoop;
 import oop.javafxtest.worldofzuul.Domain.DomainInterfaces.BoatActionsInterface;
 import oop.javafxtest.worldofzuul.Domain.DomainInterfaces.CommandHandlingInterface;
 import oop.javafxtest.worldofzuul.Domain.DomainInterfaces.GeneralGameInfoInterface;
@@ -15,6 +16,18 @@ public class Domain implements BoatActionsInterface, CommandHandlingInterface , 
 
     public Domain() {
         this.game = new Game();
+    }
+
+    public static int getSettingsBoardSize(){
+        return DomainSettings.BOARDSIZE;
+    }
+
+    public int getCurrentXCoordinate () {
+        return game.currentXCoordinate();
+    }
+
+    public int getCurrentYCoordinate () {
+        return game.currentYCoordinate();
     }
 
     @Override

@@ -15,6 +15,8 @@ class Tile
     private Map<Fish, Integer> numberOfMigratedFish;
     private double habitatQuality;
     private boolean isProtectedFromFishing;
+    private int x;
+    private int y;
 
 
     //Tile constructors:
@@ -24,9 +26,9 @@ class Tile
      * <a href="#{@link}">{@link Fish}</a>
      * @param description
      */
-    public Tile(String description)
+    public Tile(String description, int x, int y)
     {
-        this(description, DomainSettings.DEFAULTHABITATQUALITY, new HashMap<Fish, Integer>());
+        this(description, DomainSettings.DEFAULTHABITATQUALITY, new HashMap<Fish, Integer>(), x, y);
         for(Fish fish : Fish.values()) {
             this.numberOfFish.put(fish, DomainSettings.DEFAULTNUMBEROFFISH);
         }
@@ -41,11 +43,13 @@ class Tile
      * @param habitatQuality The starting quality of the habitat
      * @param numberOfFish The starting number of fish in this tile
      */
-    public Tile(String description, double habitatQuality, Map numberOfFish){
+    public Tile(String description, double habitatQuality, Map numberOfFish, int x, int y){
         this.description = description;
         this.exits = new HashMap<String, Tile>();
         this.numberOfFish = numberOfFish;
         this.habitatQuality = habitatQuality;
+        this.x = x;
+        this.y = y;
     }
 
     //Methods from world of zuul
@@ -250,6 +254,14 @@ class Tile
         }else{
             throw new TileProtectedFromFishingError();
         }
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }
 

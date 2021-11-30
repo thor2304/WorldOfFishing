@@ -155,6 +155,10 @@ public class GameLoop {
         }
     }
 
+
+
+
+
     public int getHoursTofish(){
         return domain.getBoatHoursToFish();
     }
@@ -169,6 +173,14 @@ public class GameLoop {
 
     public void setBoatHoursToFish(int hoursToFish){
         domain.setBoatHoursToFish(hoursToFish);
+    }
+
+    public int currentYCoordinate() {
+        return domain.getCurrentYCoordinate();
+    }
+
+    public int currentXCoordinate() {
+        return domain.getCurrentXCoordinate();
     }
 
 }

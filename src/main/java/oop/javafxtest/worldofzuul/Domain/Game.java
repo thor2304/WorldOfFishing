@@ -33,7 +33,7 @@ class Game {
         tiles = new Tile[DomainSettings.BOARDSIZE][DomainSettings.BOARDSIZE];
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
-                tiles[i][j] = new Tile("coordinate: " + i + "," + j);
+                tiles[i][j] = new Tile("coordinate: " + i + "," + j, i, j);
 
             }
 
@@ -147,5 +147,13 @@ class Game {
         // normally we would use copy() or a self implemented safe copy, to ensure, that we dont mess with the actual current room
         // but in this case, we DO want to mess with the actual current room and data stored within
         return this.currentTile;
+    }
+
+    public int currentXCoordinate() {
+        return currentTile.getX();
+    }
+
+    public int currentYCoordinate() {
+        return currentTile.getY();
     }
 }
