@@ -86,6 +86,7 @@ class Tile
     //Methods from our implementation
     private int increaseNumberOfFish(Fish fish, int numberOfNewFish){
         int currentFish = this.numberOfFish.get(fish);
+        System.out.println("increasing fish by: " + numberOfNewFish);
         this.numberOfFish.put(fish,numberOfNewFish + currentFish);
         return this.numberOfFish.get(fish);
     }
@@ -101,6 +102,7 @@ class Tile
         currentFish = out;
         if(out < 0){
             currentFish = 0;
+            System.out.println("oof: " + fish);
         }
         this.numberOfFish.put(fish, currentFish);
         return out;
@@ -114,9 +116,24 @@ class Tile
      */
     public void updateFishNumbers(){
         for(Fish fish : Fish.values()) {
-            increaseNumberOfFish( fish, (int) Math.round( this.habitatQuality * fish.getReproductionRate() * this.numberOfFish.get(fish) ) );
-            decreaseNumberOfFish( fish, (int) Math.round( this.habitatQuality * fish.getDeathRate() * this.numberOfFish.get(fish) ) );
+
+            increaseNumberOfFish( fish, getExtraFish(fish.getReproductionRate() * this.habitatQuality, this.numberOfFish.get(fish), (int) Math.round(this.habitatQuality * DomainSettings.DEFAULTCARRYINGCAPACITYOFTILE)) );
+            //decreaseNumberOfFish( fish, (int) Math.round( 1/this.habitatQuality * fish.getDeathRate() * this.numberOfFish.get(fish) ) );
          }
+    }
+
+    private int getExtraFish(double growthRate, int currentPopulation, int carryingCap){
+        double out;
+        if(carryingCap > 0){
+            out = (growthRate) * (1- currentPopulation/carryingCap) * currentPopulation;
+        }else{
+            out = 0;
+        }
+        if(out <0){
+            out = 0;
+        }
+        return (int) out;
+
     }
 
     /**Is called directly by Game

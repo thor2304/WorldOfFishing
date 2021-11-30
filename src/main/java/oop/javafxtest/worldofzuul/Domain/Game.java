@@ -115,6 +115,7 @@ class Game {
         for (int x = 0; x < tiles.length; x++) {
             for (int y = 0; y < tiles[x].length; y++) {
                 tiles[x][y].updateFishNumbers(); //this updates the number of fish in Tile x,y
+                tiles[x][y].updateQuality(0.1);
             }
         }
 

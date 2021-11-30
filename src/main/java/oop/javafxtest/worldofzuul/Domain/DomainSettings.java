@@ -16,6 +16,9 @@ class DomainSettings {
     public static final int DEFAULTNUMBEROFFISH = 1000;
 
 
+    public static final int DEFAULTCARRYINGCAPACITYOFTILE = 5000;
+
+
     /** the default number of the net destruction.{@link Tile#fishTile(int)}
      * click link to read what the method does.
      */
