@@ -32,6 +32,8 @@ public class GameLoop {
 //        display.displayGoodbye();
     }
 
+
+
     public boolean processCommand(Command command) {
         boolean wantToQuit = false;
 
@@ -110,6 +112,10 @@ public class GameLoop {
         }catch (TileProtectedFromFishingError e){
             return display.displaySimpleInfo(e.getMessage());
         }
+    }
+
+    public void protecTile(){
+        domain.protecTile();
     }
 
     private void goTile(Command command) {

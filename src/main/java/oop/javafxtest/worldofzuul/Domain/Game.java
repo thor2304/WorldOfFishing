@@ -1,16 +1,18 @@
 package oop.javafxtest.worldofzuul.Domain;
 
+
 import oop.javafxtest.worldofzuul.Errors.OutOfBoundsError;
 import oop.javafxtest.worldofzuul.Errors.TileProtectedFromFishingError;
 import oop.javafxtest.worldofzuul.Errors.TooManyHoursToFishError;
-
 import java.util.Map;
 import java.util.Objects;
+
 
 class Game {
     public Boat boat;
     private Tile currentTile;
     private Tile[][] tiles;
+
 
 
     //constructors
@@ -26,6 +28,21 @@ class Game {
         this.boat = new Boat(4);
     }
 
+    public boolean protecTiles(){
+
+        boolean out = currentTile.protectTile();
+
+        if (out == false) {
+
+            return false;
+
+        } else {
+            boat.protectionCost();
+            return currentTile.protectTile();
+        }
+
+
+    }
 
     //world of zuul methods:
 
@@ -96,9 +113,7 @@ class Game {
     }
 
 
-    /**
-     * @param hoursToFish a string containing only the number of hours to fish
-     */
+
     public Map<Fish, Integer> fish() throws TileProtectedFromFishingError {
         Map<Fish, Integer> newlyCaughtFish = boat.fishTile(currentTile);
         updateAllTiles();

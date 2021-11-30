@@ -204,6 +204,12 @@ public class HelloController {
     }
 
     @FXML
+    protected void tileProtection(){
+        Runner.gameLoop.protecTile();
+        generalInfoLabel.setText("You have protected this tile.");
+    }
+
+    @FXML
     protected void sliderDone(){
         fishingHoursSlider.setVisible(!fishingHoursSlider.isVisible());
 

@@ -39,4 +39,6 @@ class DomainSettings {
      * click link to read what the method does.
      */
     public static final double VARIANCE = 0.4;
+
+    public static final double PROTECTIONCOST = 15000;
 }
