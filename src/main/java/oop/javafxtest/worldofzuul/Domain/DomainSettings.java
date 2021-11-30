@@ -35,7 +35,7 @@ class DomainSettings {
     /** the board size of the tile.{@link Game}
      * the board size value can be found in the createTiles method
      */
-    public static final int BOARDSIZE =3;
+    public static final int BOARDSIZE = 3;
 
 
     /** the amount of variance of the caught fish. {@link Tile#fishTile(int, double, double)}

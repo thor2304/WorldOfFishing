@@ -67,7 +67,6 @@ class Boat {
      *
      * !!update all tiles after calling this method!!
      * Use the method Game.updateAllTiles()
-     * @TODO Check if the tile is protected when getting the fishing results, a.k.a handle the TileProtected exception
      * @param hoursToFish the amount of hours to fish
      */
     public Map<Fish, Integer> fishTile(int hoursToFish, Tile currentTile) throws TileProtectedFromFishingError{
