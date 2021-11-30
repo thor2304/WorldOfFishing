@@ -71,27 +71,9 @@ public class HelloController {
         String pathWaterTile = "src/main/resources/oop/javafxtest/images/WaterTile.jpg";
         File waterTile = new File(pathWaterTile);
 
-
-        try {
+        try{
+            Image waterTileImageTemp = new Image(new FileInputStream(waterTile));
             Image boatImage = new Image(new FileInputStream(boatFile));
-            imageBoatView = new ImageView();
-            imageBoatView.setImage(boatImage);
-
-
-            Image waterTileImage = new Image(new FileInputStream(waterTile));
-            ImageView waterTileView = new ImageView();
-            waterTileView.setImage(waterTileImage);
-
-            waterTileView.setFitWidth(80);
-            waterTileView.setFitHeight(80);
-
-            imageBoatView.setFitHeight(75);
-            imageBoatView.setFitWidth(75);
-
-
-
-            baseGridPane.getColumnConstraints().remove(0);
-            baseGridPane.getRowConstraints().remove(0);
 
             for (int i = 0; i < Domain.getSettingsBoardSize(); i++) {
                 ColumnConstraints colum1 = new ColumnConstraints();
@@ -103,37 +85,40 @@ public class HelloController {
                 baseGridPane.getRowConstraints().add(row1);
             }
 
+            baseGridPane.getColumnConstraints().remove(0);
+            baseGridPane.getColumnConstraints().remove(0);
+            baseGridPane.getRowConstraints().remove(0);
 
-
+            double tileHeight = baseGridPane.getPrefHeight()/ baseGridPane.getRowCount();
+            double tileWidth = baseGridPane.getPrefWidth() / baseGridPane.getColumnCount();
 
             for (int i = 0; i < Domain.getSettingsBoardSize(); i++) {
                 for (int j = 0; j < Domain.getSettingsBoardSize(); j++) {
-                    Image waterTileImageTemp = new Image(new FileInputStream(waterTile));
+
                     ImageView waterTileViewTemp = new ImageView();
                     waterTileViewTemp.setImage(waterTileImageTemp);
 
-                    double tileWidth = baseGridPane.getPrefWidth() /baseGridPane.getColumnCount();
                     waterTileViewTemp.setFitWidth(tileWidth);
-                    double tileHeight = baseGridPane.getPrefHeight();
-                    waterTileViewTemp.setFitHeight(tileHeight/baseGridPane.getRowCount());
+                    waterTileViewTemp.setFitHeight(tileHeight);
 
                     baseGridPane.add(waterTileViewTemp,j,i,1,1);
-
                 }
-
             }
 
+            imageBoatView = new ImageView();
+            imageBoatView.setImage(boatImage);
+            imageBoatView.setFitHeight(tileHeight);
+            imageBoatView.setFitWidth(tileWidth);
 
 
             baseGridPane.add(imageBoatView, 1,1,1,1);
             move();
 
-
-
-            //baseGridPane.setAlignment(Pos.BASELINE_CENTER);
-        } catch (FileNotFoundException e) {
+        }catch (FileNotFoundException e){
             e.printStackTrace();
         }
+
+
 
     }
     @FXML
