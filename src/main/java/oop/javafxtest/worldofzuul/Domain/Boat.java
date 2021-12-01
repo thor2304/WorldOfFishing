@@ -95,6 +95,7 @@ class Boat {
             int fishAmount = catchAmount.get(fish);
             double fishGold = (fishAmount * fish.getSalesPrice());
             goldStorage += fishGold;
+            goldStorage = Math.round(goldStorage);
             newGold += fishGold;
             this.catchAmount.put(fish, 0);
         }

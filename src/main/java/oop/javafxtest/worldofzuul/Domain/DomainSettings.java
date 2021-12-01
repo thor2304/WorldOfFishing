@@ -13,10 +13,10 @@ class DomainSettings {
     /** the default number of fish.{@link Tile#Tile(String)}
      * click link to read what the method does.
      */
-    public static final int DEFAULTNUMBEROFFISH = 1000;
+    public static final int DEFAULTNUMBEROFFISH = 100;
 
 
-    public static final int DEFAULTCARRYINGCAPACITYOFTILE = 5000;
+    public static final int DEFAULTCARRYINGCAPACITYOFTILE = 1000;
 
 
     /** the default number of the net destruction.{@link Tile#fishTile(int)}
@@ -29,7 +29,7 @@ class DomainSettings {
     /** the default catch rate.{@link Tile#fishTile(int)}
      * click link to read what the method does.
      */
-    public static final double DEFAULTCATCHRATE = 0.03;
+    public static final double DEFAULTCATCHRATE = 0.16;
 
 
     /** the board size of the tile.{@link Game}
