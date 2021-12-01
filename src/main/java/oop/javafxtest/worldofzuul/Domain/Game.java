@@ -158,6 +158,7 @@ class Game {
     }
 
 
+
     /**
      * Returns the reference to {@link #currentTile}, <b>not</b> a copy of the {@link Tile}
      * <p>
@@ -178,6 +179,10 @@ class Game {
 
     public int currentYCoordinate() {
         return currentTile.getY();
+    }
+
+    public boolean checkWinCondition(){
+        return  boat.getGoldStorage() >= DomainSettings.REQUIREDGOLDTOWIN;
     }
 }
 

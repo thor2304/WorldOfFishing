@@ -68,6 +68,9 @@ public class HelloController {
     Label dailyExpensesLabel;
 
     @FXML
+    Label checkWinConditionLabel;
+
+    @FXML
     private void initialize()
     {
         initGoldLabel();
@@ -218,8 +221,11 @@ public class HelloController {
     @FXML
     protected void sellAllFish(){
         updateGeneralLabel(Runner.gameLoop.sellAllFish());
+        if (Runner.gameLoop.checkWinCondition()){
+            checkWinConditionLabel.setVisible(true);
+        }
     }
-
+    
     @FXML
     protected void showFishCaught(){
         fishCaughtInfoBox.setVisible(!fishCaughtInfoBox.isVisible());
