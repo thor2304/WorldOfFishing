@@ -172,7 +172,7 @@ class Tile
 
             for(String neighbour: neighbourMultipliers.keySet()){
                 multiplierValue = neighbourMultipliers.get(neighbour);
-                if(multiplierValue < 1){
+                if(multiplierValue <= 1){
                     continue;
                 }
                 int prevFishInNeighbour = exits.get(neighbour).numberOfMigratedFish.get(currentFish);
