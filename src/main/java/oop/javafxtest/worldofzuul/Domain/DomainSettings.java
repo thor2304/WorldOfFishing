@@ -29,7 +29,7 @@ class DomainSettings {
     /** the default catch rate.{@link Tile#fishTile(int)}
      * click link to read what the method does.
      */
-    public static final double DEFAULTCATCHRATE = 0.06;
+    public static final double DEFAULTCATCHRATE = 0.03;
 
 
     /** the board size of the tile.{@link Game}
@@ -50,9 +50,9 @@ class DomainSettings {
     public static final double DAILYEXPENSES = 1000;
 
 
-    public static final double EXPENSESCALING = 1.1;
+    public static final double EXPENSESCALING = 1.05;
 
-    public static final double REQUIREDGOLDTOWIN = 1000;
-
+    public static final double REQUIREDGOLDTOWIN = 1000000000;
     public static final double PROTECTIONCOST = 15000;
+
 }

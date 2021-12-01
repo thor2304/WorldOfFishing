@@ -225,7 +225,7 @@ public class HelloController {
             checkWinConditionLabel.setVisible(true);
         }
     }
-    
+
     @FXML
     protected void showFishCaught(){
         fishCaughtInfoBox.setVisible(!fishCaughtInfoBox.isVisible());

@@ -21,13 +21,17 @@ import static oop.javafxtest.worldofzuul.Domain.DomainSettings.EXPENSESCALING;
  *
  *@TODO Later, add nettype, and commands to change this
  */
+
+
 class Boat {
     //private double catchAmount; //possibly rework this to use a HashMap<Fish, int> instead of a double, to allow for storage of different
     private int hoursToFish;
     private double goldStorage;
     private Map<Fish, Integer> catchAmount;
     private double dailyExpenses;
+    private int counter = 0;
     private double protectionExpenses;
+
 
 
 
@@ -109,9 +113,16 @@ class Boat {
      * @return
      */
     public void subtractDailyExpenses(){
-        this.dailyExpenses *= EXPENSESCALING;
-        goldStorage -= this.dailyExpenses;
+        if (counter >= 7) {
+            this.dailyExpenses *= EXPENSESCALING;
+            goldStorage -= this.dailyExpenses;
+            counter = 0;
+        } else{
+            counter++;
+        }
     }
+
+
 
     public Map<Fish, Integer> getCatchAmount() {
         return catchAmount;
