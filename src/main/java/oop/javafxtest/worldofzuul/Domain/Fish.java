@@ -2,10 +2,10 @@ package oop.javafxtest.worldofzuul.Domain;
 
 /**When toString is called on these objects it returns  {@link #toString() Fish.toString}  */
 enum Fish {
-    MAKREL("Makrel", 10, 1.2, 0.1, 1.06),
-    SILD("Sild", 15, 1.3, 0.2, 1.03),
-    LAKS("Laks", 15, 1.35, 0.2, 1.07),
-    ÅL("Ål", 5, 1.5, 0.15, 1.06);
+    MAKREL("Makrel", 0.2, 1.02, 0.1, 1.0001),
+    SILD("Sild", 0.5, 1.03, 0.2, 1.0001),
+    LAKS("Laks", 0.6, 1.035, 0.2, 1.0001),
+    ÅL("Ål", 0.3, 1.05, 0.15, 1.0001);
 
 
     private String name;
