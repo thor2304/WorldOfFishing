@@ -24,6 +24,10 @@ public class HelloApplication extends Application {
 
         stage.setTitle("WorldOfFishing: The Game!");
         stage.setScene(scene);
+        String pathBoat = "src/main/resources/oop/javafxtest/images/Boat.png";
+        File boatFile = new File(pathBoat);
+        Image boatImage = new Image(new FileInputStream(boatFile));
+        stage.getIcons().add(boatImage);
         stage.show();
     }
 
