@@ -125,22 +125,21 @@ class Tile
     public void updateFishNumbers(){
         for(Fish fish : Fish.values()) {
             increaseNumberOfFish( fish, getExtraFish(fish.getReproductionRate() * this.habitatQuality, this.numberOfFish.get(fish), (int) Math.round(this.habitatQuality * DomainSettings.DEFAULTCARRYINGCAPACITYOFTILE)) );
-            //decreaseNumberOfFish( fish, (int) Math.round( 1/this.habitatQuality * fish.getDeathRate() * this.numberOfFish.get(fish) ) );
+            decreaseNumberOfFish( fish, (int) Math.round( 1/this.habitatQuality * fish.getDeathRate() * this.numberOfFish.get(fish) ) );
          }
     }
 
     private int getExtraFish(double growthRate, int currentPopulation, int carryingCap){
         double out;
         if(carryingCap > 0 && currentPopulation < carryingCap){
-            out = (growthRate) * (1- currentPopulation/carryingCap) * currentPopulation;
+            out = (growthRate) * (1- currentPopulation/ (double) carryingCap) * currentPopulation;
+            if(out <0){
+                return 0;
+            }
+            return (int) out;
         }else{
-            out = 0;
+            return 0;
         }
-        if(out <0){
-            out = 0;
-        }
-        return (int) out;
-
     }
 
     /**Is called directly by Game

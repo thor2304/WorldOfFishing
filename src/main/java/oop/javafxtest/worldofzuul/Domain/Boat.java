@@ -92,21 +92,19 @@ class Boat {
     public double sellFish() {
         double newGold = 0;
         for (Fish fish : Fish.values()) {
-            int fishAmount = catchAmount.get(fish);
+            int fishAmount = this.catchAmount.get(fish);
             double fishGold = (fishAmount * fish.getSalesPrice());
-            goldStorage += fishGold;
-            goldStorage = Math.round(goldStorage);
+            this.goldStorage += fishGold;
+            this.goldStorage = Math.round(this.goldStorage);
             newGold += fishGold;
             this.catchAmount.put(fish, 0);
         }
         return newGold;
     }
 
-    public void protectionCost(){
-        if (goldStorage >= DomainSettings.PROTECTIONCOST){
-            this.protectionExpenses = DomainSettings.PROTECTIONCOST;
-            goldStorage -= this.protectionExpenses;
-        }
+    public void payForProtection(){
+        this.protectionExpenses = DomainSettings.PROTECTIONCOST;
+        this.goldStorage -= this.protectionExpenses;
     }
 
     /**
@@ -116,21 +114,19 @@ class Boat {
     public void subtractDailyExpenses(){
         if (counter >= 7) {
             this.dailyExpenses *= EXPENSESCALING;
-            goldStorage -= this.dailyExpenses;
-            counter = 0;
-        } else{
-            counter++;
+            this.goldStorage -= this.dailyExpenses;
+            this.counter = 0;
+            return;
         }
+        this.counter++;
     }
 
-
-
     public Map<Fish, Integer> getCatchAmount() {
-        return catchAmount;
+        return this.catchAmount;
     }
 
     public int getHoursToFish() {
-        return hoursToFish;
+        return this.hoursToFish;
     }
 
     public void setHoursToFish(int hoursToFish) {
@@ -138,11 +134,7 @@ class Boat {
     }
 
     public double getGoldStorage() {
-        return goldStorage;
-    }
-
-    public void setGoldStorage(double goldStorage) {
-        this.goldStorage = goldStorage;
+        return this.goldStorage;
     }
 
     public double getDailyExpenses(){

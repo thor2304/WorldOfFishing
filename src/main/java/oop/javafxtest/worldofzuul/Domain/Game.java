@@ -39,7 +39,7 @@ class Game {
             return false;
 
         } else {
-            boat.protectionCost();
+            boat.payForProtection();
             return currentTile.protectTile();
         }
 
