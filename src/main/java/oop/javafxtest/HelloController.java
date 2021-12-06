@@ -1,24 +1,15 @@
 package oop.javafxtest;
 
-import javafx.beans.binding.Bindings;
-import javafx.css.Size;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import oop.javafxtest.worldofzuul.Display.Command;
-import oop.javafxtest.worldofzuul.Display.CommandWord;
-import oop.javafxtest.worldofzuul.Display.GameLoop;
 import oop.javafxtest.worldofzuul.Domain.Domain;
 import oop.javafxtest.worldofzuul.Runner;
 

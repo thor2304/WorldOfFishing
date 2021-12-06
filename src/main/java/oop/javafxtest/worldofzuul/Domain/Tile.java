@@ -21,32 +21,29 @@ class Tile
 
 
     //Tile constructors:
-    /**Fish should be able to contain a specific fish in the fish class. 
-     * Maybe look at how it would be possible to implement a method to make more than one fish in each tile.
-     * 
-     * <a href="#{@link}">{@link Fish}</a>
-     * @param description
+    /**Basic Constructor which sets habitatQuality and numberOfFish to the defaults set in {@link DomainSettings}
+     * @param description the text that the Tile displays when asked for a description
+     * @param x The x coordinate that the Tile reports
+     * @param y The y coordinate that the Tile
      */
     public Tile(String description, int x, int y)
     {
-        this(description, DomainSettings.DEFAULTHABITATQUALITY, new HashMap<Fish, Integer>(), x, y);
+        this(description, DomainSettings.DEFAULTHABITATQUALITY, new HashMap<>(), x, y);
         for(Fish fish : Fish.values()) {
             this.numberOfFish.put(fish, DomainSettings.DEFAULTNUMBEROFFISH);
         }
     }
 
-    /**Add these params to be initialized:
-     * fishInThisTile
-     * habitatQuality
-     * numberOfFish
-     *
+    /**Master constructor which takes all params to set
      * @param description The text shown to the user when entering the Tile
      * @param habitatQuality The starting quality of the habitat
      * @param numberOfFish The starting number of fish in this tile
+     * @param x The x coordinate that the Tile reports
+     * @param y The y coordinate that the Tile
      */
-    public Tile(String description, double habitatQuality, Map numberOfFish, int x, int y){
+    public Tile(String description, double habitatQuality, Map<Fish, Integer> numberOfFish, int x, int y){
         this.description = description;
-        this.exits = new HashMap<String, Tile>();
+        this.exits = new HashMap<>();
         this.numberOfFish = numberOfFish;
         this.habitatQuality = habitatQuality;
         this.x = x;
@@ -153,21 +150,21 @@ class Tile
             double multiplierValue;
 
             for(String neighbour: exits.keySet()){
-                neighbourMultipliers.put(neighbour, (this.numberOfFish.get(currentFish) / (double)this.exits.get(neighbour).numberOfFish.get(currentFish))
-                        * (this.exits.get(neighbour).habitatQuality / this.habitatQuality));
+                if(this.exits.get(neighbour).numberOfFish.get(currentFish) > 1){
+                    multiplierValue = ( this.numberOfFish.get(currentFish) /
+                            (double)this.exits.get(neighbour).numberOfFish.get(currentFish) )
+                            * ( this.exits.get(neighbour).habitatQuality / this.habitatQuality);
+                    neighbourMultipliers.put(neighbour, multiplierValue );
+                }else{
+                    multiplierValue = this.numberOfFish.get(currentFish)
+                            * ( this.exits.get(neighbour).habitatQuality / this.habitatQuality);
+                    neighbourMultipliers.put(neighbour, multiplierValue );
+                }
 
-                multiplierValue = neighbourMultipliers.get(neighbour);
                 if(multiplierValue > 1){
                     sum += multiplierValue;
                 }
             }
-
-            // 10 + 20 + 30
-            // sum 60
-            // 10/60   20/ 60   30/ 60
-            // 1/6 2/6=1/3 1/2
-            // 16,6%   33%   50%
-
 
             for(String neighbour: neighbourMultipliers.keySet()){
                 multiplierValue = neighbourMultipliers.get(neighbour);
@@ -180,10 +177,7 @@ class Tile
                 int prevFishInThisMigrated = this.numberOfMigratedFish.get(currentFish);
                 this.numberOfMigratedFish.put(currentFish, prevFishInThisMigrated - fishToSwimOut);
             }
-
         }
-
-        //make a decision of what the inputs should be
     }
 
 
@@ -192,23 +186,18 @@ class Tile
 
     /**Is also called directly by Game
      * sets {@link #numberOfFish} += {@link #numberOfMigratedFish}
-     *<p></p>
      * <p>
      * It is intentional that we do not check if the amount of Fish is above the Tiles capacity.
      * By doing it this way, we allow a tile to potentially be overfilled,
      * but the fish would die by way of decrease numbers in the next round.
      * </p>
-     * By this method we also depend on migrate to ensure that fish does not really want to migrate from an
+     * By doing it this way we also depend on migrate to ensure that fish does not really want to migrate from an
      * undercrowded tile to a more overcrowded tile
      *
      */
     public void completeMigration(){
         for(Fish fish : Fish.values()) {
-//            int currentFish = this.numberOfFish.get(fish);
-//            currentFish += this.numberOfMigratedFish.get(fish);
-//            this.numberOfFish.put(fish, currentFish);
             this.decreaseNumberOfFish(fish, -this.numberOfMigratedFish.get(fish));
-
             this.numberOfMigratedFish.put(fish,0);
         }
     }
@@ -218,7 +207,9 @@ class Tile
      * @param amount the amount to change quality by
      */
     public void updateQuality(double amount){
-        this.habitatQuality += amount;
+        if (this.habitatQuality < DomainSettings.MAXIMUMHABITATQUALITY){
+            this.habitatQuality += amount;
+        }
     }
 
     /** Protects the tile, so fishing can no longer be done
