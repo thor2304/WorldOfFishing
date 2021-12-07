@@ -30,13 +30,20 @@ class Game {
         this.boat = new Boat(4);
     }
 
-    public boolean protectTile(){
-        if (!currentTile.protectTile()) {
+    public boolean protecTiles(){
+
+        boolean out = currentTile.protectTile();
+
+        if (out == false) {
+
             return false;
+
+        } else {
+            boat.payForProtection();
+            return currentTile.protectTile();
         }
 
-        boat.payForProtection();
-        return true;
+
     }
 
     //world of zuul methods:
@@ -122,25 +129,25 @@ class Game {
      * <p>The last nested for loop takes the migrated fish number and adds it to the current fish number </p>
      */
     public void updateAllTiles() {
-        for (Tile[] tiles : this.tiles) {
-            for (Tile tile : tiles) {
-                tile.updateFishNumbers(); //this updates the number of fish in Tile x,y
-                tile.updateQuality(0.1);
+        for (int x = 0; x < tiles.length; x++) {
+            for (int y = 0; y < tiles[x].length; y++) {
+                tiles[x][y].updateFishNumbers(); //this updates the number of fish in Tile x,y
+                tiles[x][y].updateQuality(0.1);
             }
         }
 
         //migrate fish
-        for (Tile[] tiles : this.tiles) {
-            for (Tile tile : tiles) {
-                tile.migrateFishPopulation(); //this migrates fish from Tile x,y to the neighbouring tiles
+        for (int x = 0; x < tiles.length; x++) {
+            for (int y = 0; y < tiles[x].length; y++) {
+                tiles[x][y].migrateFishPopulation(); //this migrates fish from Tile x,y to the neighbouring tiles
                 //the fish are stored in a variable in each tile called migrated fish, and thus the migration is not yet complete
             }
         }
 
         //Complete migration
-        for (Tile[] tiles : this.tiles) {
-            for (Tile tile : tiles) {
-                tile.completeMigration(); //this adds the migrated fish to the amount of fish in the tile
+        for (int x = 0; x < tiles.length; x++) {
+            for (int y = 0; y < tiles[x].length; y++) {
+                tiles[x][y].completeMigration(); //this adds the migrated fish to the amount of fish in the tile
             }
         }
     }
@@ -156,7 +163,7 @@ class Game {
      * @return a reference to the currentTile
      */
     public Tile getCurrentTile() {
-        // normally we would use copy() or a self implemented safe copy, to ensure, that we don't mess with the actual current room
+        // normally we would use copy() or a self implemented safe copy, to ensure, that we dont mess with the actual current room
         // but in this case, we DO want to mess with the actual current room and data stored within
         return this.currentTile;
     }

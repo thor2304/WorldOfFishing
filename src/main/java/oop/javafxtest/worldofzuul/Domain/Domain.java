@@ -21,8 +21,9 @@ public class Domain implements BoatActionsInterface, CommandHandlingInterface , 
         return DomainSettings.BOARDSIZE;
     }
 
-    public boolean protectTile() {
-        return game.protectTile();
+    public boolean protecTile() {
+
+        return game.protecTiles();
     }
 
     public int getCurrentXCoordinate () {
