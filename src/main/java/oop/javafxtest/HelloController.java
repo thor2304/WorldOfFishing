@@ -192,7 +192,7 @@ public class HelloController {
 
     @FXML
     protected void tileProtection(){
-        Runner.gameLoop.protecTile();
+        Runner.gameLoop.protectTile();
         generalInfoLabel.setText("You have protected this tile.");
     }
 

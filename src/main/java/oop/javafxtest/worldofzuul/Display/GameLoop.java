@@ -3,7 +3,6 @@ package oop.javafxtest.worldofzuul.Display;
 import oop.javafxtest.worldofzuul.Domain.Domain;
 import oop.javafxtest.worldofzuul.Errors.OutOfBoundsError;
 import oop.javafxtest.worldofzuul.Errors.TileProtectedFromFishingError;
-import oop.javafxtest.worldofzuul.Errors.TooManyHoursToFishError;
 
 import java.util.Map;
 
@@ -114,8 +113,8 @@ public class GameLoop {
         }
     }
 
-    public void protecTile(){
-        domain.protecTile();
+    public boolean protectTile(){
+        return domain.protectTile();
     }
 
     private void goTile(Command command) {
