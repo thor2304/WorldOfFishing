@@ -31,7 +31,12 @@ abstract class DomainSettings {
     /** the board size of the tile.{@link Game}
      * the board size value can be found in the createTiles method
      */
-    public static final int BOARDSIZE = 10;
+    public static final int BOARDSIZE = 3;
+
+    /**
+     * Default time for fishing
+     */
+    public static final int DEFAULTHOURSTOFISH = 12;
 
     /** the amount of variance of the caught fish. {@link Tile#fishTile(int, double, double)}
      * click link to read what the method does.

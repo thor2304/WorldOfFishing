@@ -129,10 +129,10 @@ class Game {
      * <p>The last nested for loop takes the migrated fish number and adds it to the current fish number </p>
      */
     public void updateAllTiles() {
-        for (int x = 0; x < tiles.length; x++) {
-            for (int y = 0; y < tiles[x].length; y++) {
-                tiles[x][y].updateFishNumbers(); //this updates the number of fish in Tile x,y
-                tiles[x][y].updateQuality(0.1);
+        for (Tile[] tiles : this.tiles) {
+            for (Tile tile : tiles) {
+                tile.updateFishNumbers(); //this updates the number of fish in Tile x,y
+                tile.updateQuality(0.1);
             }
         }
 
