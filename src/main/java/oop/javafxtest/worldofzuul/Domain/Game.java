@@ -53,10 +53,9 @@ class Game {
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
                 tiles[i][j] = new Tile("coordinate: " + i + "," + j, i, j);
-
             }
-
         }
+
         for (int x = 0; x < tiles.length; x++) {
             for (int y = 0; y < tiles[x].length; y++) {
                 if (tiles.length > x + 1) {
@@ -71,9 +70,7 @@ class Game {
                 if (y - 1 >= 0) {
                     tiles[x][y].setExit("north", tiles[x][y - 1]);
                 }
-
             }
-
         }
 
         this.currentTile = tiles[1][1];
@@ -114,9 +111,7 @@ class Game {
         }
     }
 
-
-    /** TODO add error handling in the method which calls this
-     * @param hoursToFish a string containing only the number of hours to fish
+    /** Default fishing method. Calls {@link #fish(String)} with hourstofish from Boat
      */
     public Map<Fish, Integer> fish() throws TileProtectedFromFishingError {
         try {

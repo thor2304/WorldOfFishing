@@ -7,13 +7,11 @@ enum Fish {
     LAKS("Laks", 0.6, 1.035, 0.2, 1.0001),
     ÅL("Ål", 0.3, 1.05, 0.15, 1.0001);
 
-
-    private String name;
-    private double salesPrice;
-    private double reproductionRate;
-    private double deathRate;
-    private double migrationRate;
-
+    private final String name;
+    private final double salesPrice;
+    private final double reproductionRate;
+    private final double deathRate;
+    private final double migrationRate;
 
     //constructor:
     Fish(String name, double salesPrice, double reproductionRate, double deathRate, double migrationRate) {
@@ -23,7 +21,6 @@ enum Fish {
         this.deathRate = deathRate;
         this.migrationRate = migrationRate;
     }
-
 
     //Getters for all attributes
     public String getName() {
