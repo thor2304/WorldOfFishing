@@ -124,6 +124,7 @@ class Game {
     public void updateAllTiles() {
         for (Tile[] tiles : this.tiles) {
             for (Tile tile : tiles) {
+
                 tile.updateFishNumbers(); //this updates the number of fish in Tile x,y
                 tile.updateQuality(0.1);
             }
