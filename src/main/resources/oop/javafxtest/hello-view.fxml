@@ -55,12 +55,12 @@
       <menus>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#showHelp" text="About MyHelloApp" />
+            <MenuItem mnemonicParsing="false" onAction="#showHelp" text="Show help text" />
           </items>
         </Menu>
             <Menu mnemonicParsing="false" onAction="#restartGame" text="Restart">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#showHelp" text="About MyHelloApp" />
+                  <MenuItem mnemonicParsing="false" onAction="#restartGame" text="Restart the game" />
                </items>
             </Menu>
         <Menu mnemonicParsing="false" text="File" visible="false">

@@ -64,10 +64,10 @@ public class HelloController {
     @FXML
     private void initialize()
     {
-        initGoldLabel();
-        initFishLabel();
-        updateFishCountLabels();
-        updateDailyExpensesLabel();
+//        initGoldLabel();
+//        initFishLabel();
+//        updateFishCountLabels();
+//        updateDailyExpensesLabel();
         String pathBoat = "src/main/resources/oop/javafxtest/images/Boat.png";
         File boatFile = new File(pathBoat);
         String pathWaterTile = "src/main/resources/oop/javafxtest/images/WaterTile.jpg";
@@ -114,15 +114,16 @@ public class HelloController {
 
 
             baseGridPane.add(imageBoatView, 1,1,1,1);
-            move();
+//            move();
 
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
 
-
+        play();
 
     }
+
     @FXML
     protected void move(){
         baseGridPane.getChildren().remove(imageBoatView);
@@ -166,7 +167,18 @@ public class HelloController {
 
     @FXML
     protected void restartGame(){
+        System.out.println("restart");
+        play();
+    }
+
+    private void play(){
         Runner.run();
+        move();
+        initFishLabel();
+        initGoldLabel();
+        updateDailyExpensesLabel();
+        updateFishCountLabels();
+
     }
 
     @FXML

@@ -10,14 +10,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
 class Tile
 {
-    private String description;
+    private final String description;
     private HashMap<String, Tile> exits;
     private Map<Fish, Integer> numberOfFish;
     private Map<Fish, Integer> numberOfMigratedFish;
     private double habitatQuality;
     private boolean isProtectedFromFishing;
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
 
     //Tile constructors:
@@ -154,12 +154,17 @@ class Tile
                     multiplierValue = ( this.numberOfFish.get(currentFish) /
                             (double)this.exits.get(neighbour).numberOfFish.get(currentFish) )
                             * ( this.exits.get(neighbour).habitatQuality / this.habitatQuality);
-                    neighbourMultipliers.put(neighbour, multiplierValue );
                 }else{
-                    multiplierValue = this.numberOfFish.get(currentFish)
-                            * ( this.exits.get(neighbour).habitatQuality / this.habitatQuality);
-                    neighbourMultipliers.put(neighbour, multiplierValue );
+                    multiplierValue = this.exits.get(neighbour).habitatQuality / this.habitatQuality;
                 }
+
+                if(this.habitatQuality == 0){
+                    //we set the multiplier to be 2, the value doesnt really matter since every neighbour will get the
+                    // same, just that it is >1
+                    multiplierValue = 2;
+                }
+
+                neighbourMultipliers.put(neighbour, multiplierValue );
 
                 if(multiplierValue > 1){
                     sum += multiplierValue;
@@ -207,8 +212,14 @@ class Tile
      * @param amount the amount to change quality by
      */
     public void updateQuality(double amount){
-        if (this.habitatQuality < DomainSettings.MAXIMUMHABITATQUALITY){
-            this.habitatQuality += amount;
+        double bonusMultiplier = 1;
+        if (this.isProtectedFromFishing){
+            bonusMultiplier *= DomainSettings.PROTECTIONBONUS;
+        }
+        if (this.habitatQuality < DomainSettings.MAXIMUMHABITATQUALITY * bonusMultiplier && this.habitatQuality + amount > 0){
+            this.habitatQuality += amount * bonusMultiplier; //Perhaps it is excessive to add this line of extra protection bonus
+        }else if(this.habitatQuality + amount < 0){
+            this.habitatQuality = 0;
         }
     }
 

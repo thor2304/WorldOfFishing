@@ -14,7 +14,8 @@ class Game {
     public Boat boat;
     private Tile currentTile;
     private Tile[][] tiles;
-
+    private int dayCounter = 1;
+    private final int DAYTOMIGRATE = 7;
 
 
     //constructors
@@ -27,7 +28,7 @@ class Game {
      */
     public Game() {
         createTiles();
-        this.boat = new Boat(4);
+        this.boat = new Boat(DomainSettings.DEFAULTHOURSTOFISH);
     }
 
     public boolean protectTile(){
@@ -129,20 +130,24 @@ class Game {
             }
         }
 
-        //migrate fish
-        for (Tile[] tiles : this.tiles) {
-            for (Tile tile : tiles) {
-                tile.migrateFishPopulation(); //this migrates fish from Tile x,y to the neighbouring tiles
-                //the fish are stored in a variable in each tile called migrated fish, and thus the migration is not yet complete
+        //only migrate every dayToMigrate days 
+        if (dayCounter % DAYTOMIGRATE == 0) {
+            //migrate fish
+            for (Tile[] tiles : this.tiles) {
+                for (Tile tile : tiles) {
+                    tile.migrateFishPopulation(); //this migrates fish from Tile x,y to the neighbouring tiles
+                    //the fish are stored in a variable in each tile called migrated fish, and thus the migration is not yet complete
+                }
             }
-        }
 
-        //Complete migration
-        for (Tile[] tiles : this.tiles) {
-            for (Tile tile : tiles) {
-                tile.completeMigration(); //this adds the migrated fish to the amount of fish in the tile
+            //Complete migration
+            for (Tile[] tiles : this.tiles) {
+                for (Tile tile : tiles) {
+                    tile.completeMigration(); //this adds the migrated fish to the amount of fish in the tile
+                }
             }
         }
+        dayCounter++;
     }
 
 

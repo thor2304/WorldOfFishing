@@ -11,6 +11,8 @@ abstract class DomainSettings {
 
     public static final double MAXIMUMHABITATQUALITY  = 1.5;
 
+    public static final double PROTECTIONBONUS = 1.5;
+
     /** the default number of fish in {@link Tile#Tile(String, int, int) Tile}
      * click link to read what the method does.
      */
@@ -21,12 +23,12 @@ abstract class DomainSettings {
     /** the default number of the net destruction.{@link Tile#fishTile(int)}
      * click link to read what the method does.
      */
-    public static final double DEFAULTNETDESTRUCTION = 0.1;
+    public static final double DEFAULTNETDESTRUCTION = 0.5;
 
     /** the default catch rate.{@link Tile#fishTile(int)}
      * click link to read what the method does.
      */
-    public static final double DEFAULTCATCHRATE = 0.16;
+    public static final double DEFAULTCATCHRATE = 0.13;
 
     /** the board size of the tile.{@link Game}
      * the board size value can be found in the createTiles method
