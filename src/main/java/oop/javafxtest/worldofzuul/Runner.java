@@ -10,8 +10,6 @@ public class Runner {
 
     public static String run(){
         gameLoop = new GameLoop();
-        //we would love to have this as part of the Game constructor, but there were certain problems initially
-        //Cleaning this up is on the roadmap
 
         return gameLoop.showWelcome();
     }
