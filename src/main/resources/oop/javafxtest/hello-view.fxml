@@ -97,8 +97,8 @@
     </MenuBar>
     <AnchorPane focusTraversable="true" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #66b3ff;" VBox.vgrow="ALWAYS">
       <children>
-            <Label fx:id="generalInfoLabel" alignment="CENTER" layoutX="466.0" layoutY="147.0" prefHeight="114.0" prefWidth="173.0" text="General info" />
-            <GridPane alignment="BOTTOM_RIGHT" layoutX="453.0" layoutY="260.0" prefHeight="105.0" prefWidth="173.0">
+            <Label fx:id="generalInfoLabel" alignment="TOP_LEFT" layoutX="466.0" layoutY="147.0" prefHeight="227.0" prefWidth="173.0" text="General info" wrapText="true" />
+            <GridPane alignment="BOTTOM_RIGHT" layoutX="272.0" layoutY="254.0" prefHeight="105.0" prefWidth="173.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -115,13 +115,13 @@
                   <Button fx:id="downButton" focusTraversable="false" mnemonicParsing="false" onAction="#goDown" scaleX="2.0" scaleY="2.0" text="S" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                </children>
             </GridPane>
-            <Button fx:id="fishButton" layoutX="24.0" layoutY="256.0" mnemonicParsing="false" onAction="#fish" prefHeight="67.0" prefWidth="114.0" style="-fx-background-color: #5c72ff; -fx-border-color: #000000; -fx-border-radius: 10; -fx-background-radius: 11;" text="Fish">
+            <Button fx:id="fishButton" layoutX="14.0" layoutY="257.0" mnemonicParsing="false" onAction="#fish" prefHeight="67.0" prefWidth="114.0" style="-fx-background-color: #5c72ff; -fx-border-color: #000000; -fx-border-radius: 10; -fx-background-radius: 11;" text="Fish">
                <font>
                   <Font name="System Bold" size="33.0" />
                </font>
             </Button>
-            <Button fx:id="sellAllFishButton" layoutX="145.0" layoutY="302.0" mnemonicParsing="false" onAction="#sellAllFish" style="-fx-background-color: #faf207; -fx-border-color: #000000;" text="Sell all fish" />
-            <VBox layoutX="492.0" layoutY="14.0" prefHeight="121.0" prefWidth="134.0">
+            <Button fx:id="sellAllFishButton" layoutX="140.0" layoutY="293.0" mnemonicParsing="false" onAction="#sellAllFish" style="-fx-background-color: #faf207; -fx-border-color: #000000;" text="Sell all fish" />
+            <VBox layoutX="467.0" layoutY="14.0" prefHeight="121.0" prefWidth="159.0">
                <children>
                   <Label onMouseClicked="#showFishCaught" text="Amount of fish caught:" />
                   <GridPane fx:id="fishCaughtInfoBox" prefHeight="105.0" prefWidth="121.0" visible="false">
@@ -148,7 +148,7 @@
                   </GridPane>
                </children>
             </VBox>
-            <FlowPane layoutX="145.0" layoutY="337.0" prefHeight="17.0" prefWidth="159.0">
+            <FlowPane layoutX="140.0" layoutY="329.0" prefHeight="17.0" prefWidth="159.0">
                <children>
                   <Label text="You have " />
                   <Label fx:id="currentGoldLabel" text="0" />
@@ -157,13 +157,13 @@
             </FlowPane>
             <StackPane layoutX="24.0" layoutY="337.0" onMouseClicked="#hoursToFishChanging" prefHeight="25.0" prefWidth="107.0">
                <children>
+                  <Slider fx:id="fishingHoursSlider" blockIncrement="1.0" max="12.0" min="1.0" onMouseReleased="#sliderDone" prefHeight="14.0" prefWidth="107.0" showTickLabels="true" showTickMarks="true" value="4.0" visible="false" />
                   <FlowPane fx:id="fishingHoursDisplayPane" prefHeight="112.0" prefWidth="200.0">
                      <children>
                         <Label fx:id="currentHoursToFishLabel" text="x" />
                         <Label text=" hours" />
                      </children>
                   </FlowPane>
-                  <Slider fx:id="fishingHoursSlider" blockIncrement="1.0" max="12.0" min="1.0" onMouseReleased="#sliderDone" prefHeight="14.0" prefWidth="107.0" showTickLabels="true" showTickMarks="true" value="4.0" visible="false" />
                </children>
             </StackPane>
             <GridPane fx:id="baseGridPane" gridLinesVisible="true" layoutX="14.0" layoutY="10.0" prefHeight="239.0" prefWidth="434.0">
@@ -175,13 +175,13 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <FlowPane layoutX="304.0" layoutY="337.0" prefHeight="17.0" prefWidth="148.0">
+            <FlowPane layoutX="140.0" layoutY="348.0" prefHeight="17.0" prefWidth="148.0">
                <children>
                   <Label prefHeight="17.0" prefWidth="79.0" text="Daily Expense:" />
                   <Label fx:id="dailyExpensesLabel" prefHeight="17.0" prefWidth="60.0" text="0" />
                </children>
             </FlowPane>
-            <Button layoutX="145.0" layoutY="271.0" mnemonicParsing="false" onAction="#tileProtection" prefHeight="25.0" prefWidth="86.0" text="Protect" />
+            <Button layoutX="140.0" layoutY="262.0" mnemonicParsing="false" onAction="#tileProtection" prefHeight="25.0" prefWidth="86.0" text="Protect" />
             <Label fx:id="checkWinConditionLabel" layoutX="272.0" layoutY="256.0" prefHeight="37.0" prefWidth="173.0" text="YOU WIN!" textAlignment="CENTER" visible="false">
                <font>
                   <Font name="System Bold" size="18.0" />
