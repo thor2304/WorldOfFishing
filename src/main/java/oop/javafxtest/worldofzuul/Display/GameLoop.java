@@ -25,7 +25,7 @@ public class GameLoop {
         this.domain = new Domain();
     }
 
-    public String play() {
+    public String showWelcome() {
         return display.displayWelcome(domain.getCurrentTileDescription());
         //finished was true and therefore the game has ended
 //        display.displayGoodbye();
@@ -93,15 +93,12 @@ public class GameLoop {
         try{
             Map<String, Integer> fishingResult = domain.fishCurrentTile();
             display.displayFishingResult(fishingResult);
-        }catch (NumberFormatException e){
+        }catch (NumberFormatException | TileProtectedFromFishingError e){
             display.displaySimpleInfo(e.getMessage());
         }
 //        catch (TooManyHoursToFishError e){
 //            display.DisplayTooManyHours();
 //        }
-        catch (TileProtectedFromFishingError e){
-            display.displaySimpleInfo(e.getMessage());
-        }
     }
 
     public String fish() {
@@ -162,6 +159,10 @@ public class GameLoop {
 
     public boolean checkWinCondition(){
         return domain.checkWinCondition();
+    }
+
+    public double getGoldMissingToWin(){
+        return domain.getGoldMissingToWin();
     }
 
 

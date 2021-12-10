@@ -177,5 +177,9 @@ class Game {
     public boolean checkWinCondition(){
         return  boat.getGoldStorage() >= DomainSettings.REQUIREDGOLDTOWIN;
     }
+
+    public double getGoldMissingToWin(){
+        return DomainSettings.REQUIREDGOLDTOWIN - boat.getGoldStorage();
+    }
 }
 

@@ -172,13 +172,14 @@ public class HelloController {
     }
 
     private void play(){
-        Runner.run();
+        String welcomeText = Runner.run();
         move();
         initFishLabel();
         initGoldLabel();
         updateDailyExpensesLabel();
         updateFishCountLabels();
 
+        updateGeneralLabel(welcomeText);
     }
 
     @FXML
@@ -223,10 +224,15 @@ public class HelloController {
 
     @FXML
     protected void sellAllFish(){
-        updateGeneralLabel(Runner.gameLoop.sellAllFish());
+        String fishingResult = Runner.gameLoop.sellAllFish();
+        updateGeneralLabel(fishingResult);
         if (Runner.gameLoop.checkWinCondition()){
             checkWinConditionLabel.setVisible(true);
+            return;
         }
+        updateGeneralLabel(fishingResult + "\n"
+                + "You are only missing " + Runner.gameLoop.getGoldMissingToWin() +
+                " gold to win!");
     }
 
     @FXML

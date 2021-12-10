@@ -94,5 +94,9 @@ public class Domain implements BoatActionsInterface, CommandHandlingInterface , 
     public boolean checkWinCondition(){
         return game.checkWinCondition();
     }
+
+    public double getGoldMissingToWin(){
+        return game.getGoldMissingToWin();
+    }
 }
 

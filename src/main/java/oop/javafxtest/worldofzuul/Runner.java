@@ -13,6 +13,6 @@ public class Runner {
         //we would love to have this as part of the Game constructor, but there were certain problems initially
         //Cleaning this up is on the roadmap
 
-        return gameLoop.play();
+        return gameLoop.showWelcome();
     }
 }

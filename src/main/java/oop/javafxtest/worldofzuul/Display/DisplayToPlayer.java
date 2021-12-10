@@ -85,17 +85,17 @@ public class DisplayToPlayer implements DisplaySimpleInfo, DisplayEndAndWelcome,
         System.out.println(ASCIIArt.WelcomeScreen);
 
         System.out.println(ASCIIArt.Boat);
-        System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
-        System.out.println("You´re a fisherman, who needs to catch some fish, to earn money for your new started fish company. ");
-        System.out.println("I wish you the best of luck!");
-        System.out.println("Lets start the fishing now: \n");
-        System.out.println(descriptionOfCurrentTile);
-        String out = "\n\n" + ASCIIArt.WelcomeScreen + "\n" + ASCIIArt.Boat +
-                "Click help if you need help.\n" +
-                "You´re a fisherman, who needs to catch some fish, to earn money for your new started fish company.\n" +
+
+        String out =
+                "You´re a fisherman, who needs to catch some fish, to earn money for your newly started fish company.\n" +
+                "You need to earn a lot of money to win\n" +
+                "So take care of the fish in your ocean, or you wont succeed\n"+
                 "I wish you the best of luck!\n" +
                 "Lets start the fishing now: \n\n" +
                 descriptionOfCurrentTile;
+
+        System.out.println(out);
+
         return out;
     }
 
