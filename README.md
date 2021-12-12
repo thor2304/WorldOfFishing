@@ -2,11 +2,11 @@
 WorldOfFishing is based on a framework provided by SDU  
 In the bottom of the ReadME, you can read the original authors notes associated with the framework.  
 
-##Running the project
+## Running the project
 The project is dependent on JavaFX, which means you have to have a working runtime for JavaFX installed.  
 Alternatively run it through an IDE. We used IntelliJ nad loaded JavaFX through Maven.
 
-###Releases
+### Releases
 Your best chance of getting the project running is by downloading a release.  
 **V1** is textbased, per demands from the project structure, delivered by SDU.  
 **V2** has a graphical user interface, and is the version recommended by us.
@@ -18,10 +18,10 @@ Your best chance of getting the project running is by downloading a release.
 
 
 
-#Original author notes about the framework
+# Original author notes about the framework
 
-##Project: zuul-with-enums-v2
-###Authors: Michael Kolling and David J. Barnes
+## Project: zuul-with-enums-v2
+### Authors: Michael Kolling and David J. Barnes
 
 This project is part of the material for the book:
 
