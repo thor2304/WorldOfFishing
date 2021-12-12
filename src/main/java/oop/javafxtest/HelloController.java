@@ -190,12 +190,18 @@ public class HelloController {
     }
 
     @FXML
+    protected void tileProtection(){
+        Runner.gameLoop.protectTile();
+        generalInfoLabel.setText("You have protected this tile.");
+    }
+
+    @FXML
     protected void hoursToFishChanging(){
         // change the hours to fish
         for (Node node : fishingHoursDisplayPane.getChildren()){
             node.setVisible(false);
         }
-        fishingHoursSlider.setVisible(!fishingHoursSlider.isVisible());
+        fishingHoursSlider.setVisible(true);
 
 
         System.out.println("trying my best");
@@ -204,21 +210,17 @@ public class HelloController {
     }
 
     @FXML
-    protected void tileProtection(){
-        Runner.gameLoop.protectTile();
-        generalInfoLabel.setText("You have protected this tile.");
-    }
-
-    @FXML
     protected void sliderDone(){
-        fishingHoursSlider.setVisible(!fishingHoursSlider.isVisible());
+        fishingHoursSlider.setVisible(false);
 
         Runner.gameLoop.setBoatHoursToFish( (int) fishingHoursSlider.getValue());
 
         initFishLabel();
+        System.out.println("sliding");
 
         for (Node node : fishingHoursDisplayPane.getChildren()){
             node.setVisible(true);
+            System.out.println(node);
         }
     }
 
@@ -265,6 +267,7 @@ public class HelloController {
 
     private void initFishLabel(){
         currentHoursToFishLabel.setText("" + Runner.gameLoop.getHoursTofish());
+//        currentHoursToFishLabel.setVisible(true);
     }
 
     private void initGoldLabel(){

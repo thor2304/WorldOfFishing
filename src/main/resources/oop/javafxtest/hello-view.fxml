@@ -155,15 +155,15 @@
                   <Label text=" gold" />
                </children>
             </FlowPane>
-            <StackPane layoutX="24.0" layoutY="337.0" onMouseClicked="#hoursToFishChanging" prefHeight="25.0" prefWidth="107.0">
+            <StackPane layoutX="24.0" layoutY="337.0" prefHeight="25.0" prefWidth="107.0">
                <children>
-                  <Slider fx:id="fishingHoursSlider" blockIncrement="1.0" max="12.0" min="1.0" onMouseReleased="#sliderDone" prefHeight="14.0" prefWidth="107.0" showTickLabels="true" showTickMarks="true" value="4.0" visible="false" />
                   <FlowPane fx:id="fishingHoursDisplayPane" prefHeight="112.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="currentHoursToFishLabel" text="x" />
-                        <Label text=" hours" />
+                        <Label fx:id="currentHoursToFishLabel" onMouseClicked="#hoursToFishChanging" text="x" />
+                        <Label onMouseClicked="#hoursToFishChanging" text=" hours" />
                      </children>
                   </FlowPane>
+                  <Slider fx:id="fishingHoursSlider" blockIncrement="1.0" max="12.0" min="1.0" onMouseReleased="#sliderDone" prefHeight="14.0" prefWidth="107.0" showTickLabels="true" showTickMarks="true" value="4.0" visible="false" />
                </children>
             </StackPane>
             <GridPane fx:id="baseGridPane" gridLinesVisible="true" layoutX="14.0" layoutY="10.0" prefHeight="239.0" prefWidth="434.0">
